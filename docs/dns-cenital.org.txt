@@ -1,0 +1,19 @@
+;; Configuración DNS de cenital.org (Cloudflare) — 04/10/2026
+;; Web alojada en GitHub Pages (repositorio visorstl). Para reimportar:
+;; Cloudflare → DNS → Records → Import and Export → Import
+;; Ajustes SSL de Cloudflare: modo Full, Always Use HTTPS y Automatic HTTPS Rewrites activados.
+
+;; Dominio raíz → GitHub Pages (proxy de Cloudflare activado)
+cenital.org.	1	IN	A	185.199.108.153 ; cf_tags=cf-proxied:true
+cenital.org.	1	IN	A	185.199.109.153 ; cf_tags=cf-proxied:true
+cenital.org.	1	IN	A	185.199.110.153 ; cf_tags=cf-proxied:true
+cenital.org.	1	IN	A	185.199.111.153 ; cf_tags=cf-proxied:true
+
+;; www → GitHub Pages
+www.cenital.org.	1	IN	CNAME	robertogarciasanz.github.io. ; cf_tags=cf-proxied:false
+
+;; Correo (reenvío de email de Cloudflare)
+cenital.org.	1	IN	MX	6 route3.mx.cloudflare.net.
+cenital.org.	1	IN	MX	97 route2.mx.cloudflare.net.
+cenital.org.	1	IN	MX	52 route1.mx.cloudflare.net.
+cenital.org.	1	IN	TXT	"v=spf1 include:_spf.mx.cloudflare.net ~all"
