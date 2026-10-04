@@ -309,7 +309,9 @@ export default function App() {
   };
 
   const handleWebUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const list: File[] = (e.target.files ? Array.from(e.target.files) : []).filter(f => f.name.toLowerCase().endsWith('.stl'));
+    const list: File[] = [];
+    const fl = e.target.files;
+    if (fl) for (let i = 0; i < fl.length; i++) if (fl[i].name.toLowerCase().endsWith('.stl')) list.push(fl[i]);
     e.target.value = '';
     if (!list.length) { alert('Selecciona archivos con extensión .stl'); return; }
     Promise.all(list.map(f => f.arrayBuffer().then(data => ({ name: f.name, data }))))
