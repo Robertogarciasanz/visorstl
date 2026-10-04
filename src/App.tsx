@@ -30,7 +30,9 @@ import {
   ShieldCheck,
   Wrench,
   Download,
-  Wind
+  Wind,
+  Trash2,
+  RotateCcw
 } from 'lucide-react';
 
 // IndexedDB helpers for STL file persistence
@@ -85,6 +87,31 @@ async function deleteFileFromDB(id: string): Promise<void> {
   });
 }
 
+async function clearAllFilesFromDB(): Promise<void> {
+  const db = await openStlDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(DB_STORE, 'readwrite');
+    tx.objectStore(DB_STORE).clear();
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+// Diseños del catálogo que el usuario ha quitado (se recuerda en este navegador)
+const HIDDEN_KEY = 'stlviewer_hidden_designs';
+function loadHiddenDesigns(): string[] {
+  try {
+    return JSON.parse(localStorage.getItem(HIDDEN_KEY) || '[]');
+  } catch {
+    return [];
+  }
+}
+function saveHiddenDesigns(ids: string[]) {
+  try {
+    localStorage.setItem(HIDDEN_KEY, JSON.stringify(ids));
+  } catch {}
+}
+
 const PRESETS: PresetModel[] = [
   {
     id: 'torus_knot',
@@ -117,24 +144,15 @@ interface MyDesign {
 const MY_DESIGNS: MyDesign[] = [
   { id: 'esquina',          name: 'Esquina',              description: 'Pieza de esquina de perfil.',           category: 'Estructura',  file: 'models/esquina.stl' },
   { id: 'esquina2',         name: 'Esquina v2',           description: 'Esquina variante 2.',                   category: 'Estructura',  file: 'models/esquina2.stl' },
-  { id: 'pinza',            name: 'Pinza',                description: 'Herramienta de sujeción.',              category: 'Herramienta', file: 'models/pinza.stl' },
-  { id: 'pinza1',           name: 'Pinza v1',             description: 'Pinza variante 1.',                     category: 'Herramienta', file: 'models/pinza1.stl' },
-  { id: 'pinza2',           name: 'Pinza v2',             description: 'Pinza variante 2.',                     category: 'Herramienta', file: 'models/pinza2.stl' },
   { id: 'pinza3',           name: 'Pinza v3',             description: 'Pinza variante 3.',                     category: 'Herramienta', file: 'models/pinza3.stl' },
-  { id: 'pozo',             name: 'Tapa de Pozo',         description: 'Tapa para pozo o desagüe.',             category: 'Estructura',  file: 'models/pozo.stl' },
   { id: 'pozo3',            name: 'Tapa de Pozo v3',      description: 'Variante 3 de tapa de pozo.',           category: 'Estructura',  file: 'models/pozo3.stl' },
-  { id: 'soporte_mangera',  name: 'Soporte Manguera',     description: 'Soporte para manguera.',                category: 'Soporte',     file: 'models/soporte_mangera.stl' },
-  { id: 'soporte_mangera2', name: 'Soporte Manguera v2',  description: 'Soporte manguera variante 2.',          category: 'Soporte',     file: 'models/soporte_mangera2.stl' },
   { id: 'soporte_mangera3', name: 'Soporte Manguera v3',  description: 'Soporte manguera variante 3.',          category: 'Soporte',     file: 'models/soporte_mangera3.stl' },
   { id: 'soporte_movil',    name: 'Soporte Móvil',        description: 'Soporte de agarre móvil.',              category: 'Soporte',     file: 'models/soporte_movil.stl' },
-  { id: 'conector_mangera2',name: 'Conector Manguera v2', description: 'Conector para manguera variante 2.',   category: 'Conector',    file: 'models/conector_mangera2.stl' },
   { id: 'conector_mangera3',name: 'Conector Manguera v3', description: 'Conector para manguera variante 3.',   category: 'Conector',    file: 'models/conector_mangera3.stl' },
   { id: 'tapon20',          name: 'Tapón 20mm',           description: 'Tapón de cierre de 20 mm.',             category: 'Pieza',       file: 'models/tapon20.stl' },
-  { id: 'interminiete',     name: 'Intermedieto',         description: 'Pieza intermedia de ensamblaje.',       category: 'Pieza',       file: 'models/interminiete.stl' },
   { id: 'interminiete1',    name: 'Intermedieto v2',      description: 'Intermedieto variante 2.',              category: 'Pieza',       file: 'models/interminiete1.stl' },
   { id: 'giroide_50mm',     name: 'Giroide 50mm',         description: 'Estructura giroide de 50 mm de lado.', category: 'Especial',    file: 'models/giroide_50mm.stl' },
   { id: 'cuerpoPad',        name: 'Cuerpo Pad',           description: 'Cuerpo de pieza pad.',                  category: 'Pieza',       file: 'models/cuerpoPad.stl' },
-  { id: 'pruba2',           name: 'Prueba 2',             description: 'Pieza de prueba de diseño.',            category: 'Prueba',      file: 'models/pruba2.stl' },
 ];
 
 const FILAMENTS = [
@@ -175,6 +193,33 @@ export default function App() {
   const [isLoadingDesign, setIsLoadingDesign] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [savedFiles, setSavedFiles] = useState<StoredFile[]>([]);
+  const [hiddenDesigns, setHiddenDesigns] = useState<string[]>(() => loadHiddenDesigns());
+
+  const hideDesign = (d: MyDesign) => {
+    if (!confirm(`¿Quitar "${d.name}" de Mis Diseños?\n(Podrás restaurarlo después)`)) return;
+    const next = [...hiddenDesigns, d.id];
+    setHiddenDesigns(next);
+    saveHiddenDesigns(next);
+  };
+
+  const restoreDesigns = () => {
+    setHiddenDesigns([]);
+    saveHiddenDesigns([]);
+  };
+
+  const deleteSavedFile = (file: StoredFile) => {
+    if (!confirm(`¿Borrar "${file.name}" de los modelos guardados?`)) return;
+    deleteFileFromDB(file.id)
+      .then(() => setSavedFiles(prev => prev.filter(f => f.id !== file.id)))
+      .catch(() => alert('No se pudo borrar el archivo.'));
+  };
+
+  const deleteAllSavedFiles = () => {
+    if (!confirm(`¿Borrar los ${savedFiles.length} modelos guardados? Esta acción no se puede deshacer.`)) return;
+    clearAllFilesFromDB()
+      .then(() => setSavedFiles([]))
+      .catch(() => alert('No se pudieron borrar los archivos.'));
+  };
 
   // Display and rendering configuration
   const [settings, setSettings] = useState<DisplaySettings>({
@@ -568,10 +613,21 @@ export default function App() {
               <h2 className="text-xs font-bold uppercase tracking-widest text-muted flex items-center gap-2 font-mono">
                 <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> Mis Diseños
               </h2>
-              <span className="text-[8px] font-mono text-muted uppercase bg-surface2 px-1.5 py-0.5 border border-border/40">STL.LOCAL</span>
+              <div className="flex items-center gap-2">
+                {hiddenDesigns.length > 0 && (
+                  <button
+                    onClick={restoreDesigns}
+                    className="flex items-center gap-1 text-[8px] font-mono text-muted uppercase bg-surface2 px-1.5 py-0.5 border border-border/40 hover:text-emerald-500 hover:border-emerald-500 cursor-pointer transition-colors"
+                    title="Volver a mostrar los diseños quitados"
+                  >
+                    <RotateCcw className="w-2.5 h-2.5" /> Restaurar ({hiddenDesigns.length})
+                  </button>
+                )}
+                <span className="text-[8px] font-mono text-muted uppercase bg-surface2 px-1.5 py-0.5 border border-border/40">STL.LOCAL</span>
+              </div>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3.5">
-              {MY_DESIGNS.map((d) => (
+              {MY_DESIGNS.filter(d => !hiddenDesigns.includes(d.id)).map((d) => (
                 <div
                   key={d.id}
                   className={`group relative text-left rounded-none border transition-all duration-200 flex flex-col justify-between h-20 sm:h-28 overflow-hidden ${
@@ -606,6 +662,14 @@ export default function App() {
                   >
                     <Download className="w-3 h-3" />
                   </a>
+                  {/* Delete (hide) button */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); hideDesign(d); }}
+                    title="Quitar de Mis Diseños"
+                    className="absolute bottom-2 right-9 p-1 rounded-none bg-surface2 border border-border text-muted hover:text-red-600 hover:border-red-300 cursor-pointer transition-colors"
+                  >
+                    <Trash2 className="w-3 h-3" />
+                  </button>
                 </div>
               ))}
             </div>
@@ -664,7 +728,16 @@ export default function App() {
                 <h2 className="text-xs font-bold uppercase tracking-widest text-muted flex items-center gap-2 font-mono">
                   <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> Modelos Guardados
                 </h2>
-                <span className="text-[9px] font-mono text-muted uppercase">{savedFiles.length} archivo{savedFiles.length !== 1 ? 's' : ''}</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] font-mono text-muted uppercase">{savedFiles.length} archivo{savedFiles.length !== 1 ? 's' : ''}</span>
+                  <button
+                    onClick={deleteAllSavedFiles}
+                    className="flex items-center gap-1 text-[9px] font-mono uppercase px-1.5 py-0.5 border border-border text-muted hover:text-red-600 hover:border-red-300 cursor-pointer transition-colors"
+                    title="Borrar todos los modelos guardados"
+                  >
+                    <Trash2 className="w-3 h-3" /> Borrar todos
+                  </button>
+                </div>
               </div>
               <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1">
                 {[...savedFiles].sort((a, b) => b.savedAt - a.savedAt).map(file => (
@@ -689,15 +762,11 @@ export default function App() {
                         Cargar
                       </button>
                       <button
-                        onClick={() => {
-                          deleteFileFromDB(file.id)
-                            .then(() => setSavedFiles(prev => prev.filter(f => f.id !== file.id)))
-                            .catch(() => {});
-                        }}
-                        className="px-2 py-1.5 text-[11px] font-mono bg-surface border border-border text-muted hover:text-red-600 hover:border-red-300 cursor-pointer transition-colors"
-                        title="Eliminar archivo guardado"
+                        onClick={() => deleteSavedFile(file)}
+                        className="px-2 py-1.5 bg-surface border border-border text-muted hover:text-red-600 hover:border-red-300 cursor-pointer transition-colors flex items-center"
+                        title="Borrar archivo guardado"
                       >
-                        ×
+                        <Trash2 className="w-3 h-3" />
                       </button>
                     </div>
                   </div>
