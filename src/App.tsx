@@ -141,19 +141,7 @@ interface MyDesign {
   file: string;
 }
 
-const MY_DESIGNS: MyDesign[] = [
-  { id: 'esquina',          name: 'Esquina',              description: 'Pieza de esquina de perfil.',           category: 'Estructura',  file: 'models/esquina.stl' },
-  { id: 'esquina2',         name: 'Esquina v2',           description: 'Esquina variante 2.',                   category: 'Estructura',  file: 'models/esquina2.stl' },
-  { id: 'pinza3',           name: 'Pinza v3',             description: 'Pinza variante 3.',                     category: 'Herramienta', file: 'models/pinza3.stl' },
-  { id: 'pozo3',            name: 'Tapa de Pozo v3',      description: 'Variante 3 de tapa de pozo.',           category: 'Estructura',  file: 'models/pozo3.stl' },
-  { id: 'soporte_mangera3', name: 'Soporte Manguera v3',  description: 'Soporte manguera variante 3.',          category: 'Soporte',     file: 'models/soporte_mangera3.stl' },
-  { id: 'soporte_movil',    name: 'Soporte Móvil',        description: 'Soporte de agarre móvil.',              category: 'Soporte',     file: 'models/soporte_movil.stl' },
-  { id: 'conector_mangera3',name: 'Conector Manguera v3', description: 'Conector para manguera variante 3.',   category: 'Conector',    file: 'models/conector_mangera3.stl' },
-  { id: 'tapon20',          name: 'Tapón 20mm',           description: 'Tapón de cierre de 20 mm.',             category: 'Pieza',       file: 'models/tapon20.stl' },
-  { id: 'interminiete1',    name: 'Intermedieto v2',      description: 'Intermedieto variante 2.',              category: 'Pieza',       file: 'models/interminiete1.stl' },
-  { id: 'giroide_50mm',     name: 'Giroide 50mm',         description: 'Estructura giroide de 50 mm de lado.', category: 'Especial',    file: 'models/giroide_50mm.stl' },
-  { id: 'cuerpoPad',        name: 'Cuerpo Pad',           description: 'Cuerpo de pieza pad.',                  category: 'Pieza',       file: 'models/cuerpoPad.stl' },
-];
+const MY_DESIGNS: MyDesign[] = [];
 
 const FILAMENTS = [
   { name: 'PLA (Ácido Poliláctico)', value: 'PLA', density: 1.24, defaultPrice: 22.0 },
@@ -672,6 +660,9 @@ export default function App() {
                   </button>
                 </div>
               ))}
+              {MY_DESIGNS.filter(d => !hiddenDesigns.includes(d.id)).length === 0 && (
+                <p className="col-span-2 sm:col-span-3 text-[9px] text-muted font-mono py-3">No hay diseños en la galería. Usa «Subir STL» para cargar uno.</p>
+              )}
             </div>
           </div>
 
