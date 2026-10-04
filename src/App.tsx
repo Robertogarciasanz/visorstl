@@ -5,6 +5,7 @@ import {
   PresetModel 
 } from './types';
 import { STLViewer3D } from './components/STLViewer3D';
+import { PdfTo3D } from './components/PdfTo3D';
 import { 
   generateCalibrationCube, 
   generateFacetedDiamond, 
@@ -32,7 +33,8 @@ import {
   Download,
   Wind,
   Trash2,
-  RotateCcw
+  RotateCcw,
+  FileText
 } from 'lucide-react';
 
 // IndexedDB helpers for STL file persistence
@@ -253,6 +255,7 @@ export default function App() {
   const [isLoadingDesign, setIsLoadingDesign] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [savedFiles, setSavedFiles] = useState<StoredFile[]>([]);
+  const [showPdfTool, setShowPdfTool] = useState<boolean>(false);
   const [designs, setDesigns] = useState<MyDesign[]>([]);
   const [designsStatus, setDesignsStatus] = useState<'loading' | 'ok' | 'error'>('loading');
   const [ghToken, setGhToken] = useState<string>(() => loadGhToken());
@@ -328,6 +331,19 @@ export default function App() {
       alert('No se pudo borrar: ' + e.message);
       refreshDesigns();
     }
+  };
+
+  const handlePdfModel = (buffer: ArrayBuffer, name: string) => {
+    setModelBuffer(buffer);
+    setModelName(name);
+    setActivePreset('');
+    setModelScale(100);
+    setShowPdfTool(false);
+    saveFileToDB({ id: `${name}_${buffer.byteLength}_${Date.now()}`, name, data: buffer.slice(0), savedAt: Date.now() })
+      .then(() => getAllFilesFromDB())
+      .then(files => setSavedFiles(files))
+      .catch(() => {});
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const deleteSavedFile = (file: StoredFile) => {
@@ -602,6 +618,8 @@ export default function App() {
   return (
     <div id="app-root" className="relative min-h-screen bg-bg text-text flex flex-col font-sans selection:bg-orange/20 selection:text-orange overflow-x-hidden">
       
+      {showPdfTool && <PdfTo3D onClose={() => setShowPdfTool(false)} onGenerate={handlePdfModel} />}
+
       {/* Absolute decorative back lettering */}
       <div className="absolute top-[-10px] left-[-10px] sm:top-[-40px] sm:left-[-20px] text-[120px] sm:text-[320px] font-black text-border/30 leading-none select-none pointer-events-none uppercase italic overflow-hidden hidden sm:block">Mesh</div>
       
@@ -829,6 +847,21 @@ export default function App() {
               <span className="text-[8px] font-mono text-muted uppercase bg-surface2 px-1.5 py-0.5 border border-border/40">TOOLS.GEN</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5">
+              <button
+                onClick={() => setShowPdfTool(true)}
+                className="group relative text-left p-2.5 sm:p-3.5 rounded-none border border-orange/50 bg-surface hover:bg-surface2/50 hover:border-orange transition-all duration-200 flex flex-col justify-between h-20 sm:h-28 cursor-pointer sm:col-span-2"
+              >
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[8px] bg-surface2 text-muted px-1.5 py-0.5 rounded-none font-mono uppercase tracking-wider border border-border/40">Plano PDF</span>
+                    <ChevronRight className="w-3 h-3 text-muted group-hover:text-orange transition-colors" />
+                  </div>
+                  <h3 className="text-[10px] sm:text-xs font-bold text-text mt-1.5 group-hover:text-orange transition-colors uppercase font-mono line-clamp-1 flex items-center gap-1.5">
+                    <FileText className="w-3 h-3 shrink-0" /> Plano PDF → 3D
+                  </h3>
+                  <p className="text-[9px] text-muted line-clamp-1 sm:line-clamp-2 mt-0.5 font-mono leading-normal">Abre un plano en PDF, toma la escala de una cota, marca el contorno y los taladros y genera la pieza 3D con su espesor.</p>
+                </div>
+              </button>
               <a
                 href={import.meta.env.BASE_URL + 'abanico_generador.html'}
                 target="_blank"
