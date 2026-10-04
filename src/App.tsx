@@ -97,19 +97,92 @@ async function clearAllFilesFromDB(): Promise<void> {
   });
 }
 
-// Diseños del catálogo que el usuario ha quitado (se recuerda en este navegador)
-const HIDDEN_KEY = 'stlviewer_hidden_designs';
-function loadHiddenDesigns(): string[] {
-  try {
-    return JSON.parse(localStorage.getItem(HIDDEN_KEY) || '[]');
-  } catch {
-    return [];
+// ── Galería "Mis Diseños": los STL se guardan en el repositorio de GitHub (public/models) ──
+const GH_OWNER = 'Robertogarciasanz';
+const GH_REPO = 'visorstl';
+const GH_BRANCH = 'main';
+const GH_DIR = 'public/models';
+const GH_TOKEN_KEY = 'stlviewer_gh_token';
+const GH_API = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_DIR}`;
+
+function loadGhToken(): string {
+  try { return localStorage.getItem(GH_TOKEN_KEY) || ''; } catch { return ''; }
+}
+function saveGhToken(t: string) {
+  try { t ? localStorage.setItem(GH_TOKEN_KEY, t) : localStorage.removeItem(GH_TOKEN_KEY); } catch {}
+}
+
+function ghHeaders(token?: string): HeadersInit {
+  const h: Record<string, string> = { Accept: 'application/vnd.github+json' };
+  if (token) h.Authorization = `Bearer ${token}`;
+  return h;
+}
+
+function bufferToBase64(buf: ArrayBuffer): string {
+  const bytes = new Uint8Array(buf);
+  let bin = '';
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    bin += String.fromCharCode.apply(null, Array.from(bytes.subarray(i, i + chunk)));
+  }
+  return btoa(bin);
+}
+
+function cleanFileName(name: string): string {
+  const base = name.replace(/\.stl$/i, '')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zA-Z0-9_-]+/g, '_').replace(/^_+|_+$/g, '') || 'modelo';
+  return base + '.stl';
+}
+
+function prettyName(file: string): string {
+  return file.replace(/\.stl$/i, '').replace(/[_-]+/g, ' ');
+}
+
+async function ghListModels(token?: string): Promise<MyDesign[]> {
+  const res = await fetch(`${GH_API}?ref=${GH_BRANCH}&t=${Date.now()}`, { headers: ghHeaders(token), cache: 'no-store' });
+  if (res.status === 404) return [];
+  if (!res.ok) throw new Error(`GitHub ${res.status}`);
+  const items = await res.json();
+  return (Array.isArray(items) ? items : [])
+    .filter((it: any) => it.type === 'file' && /\.stl$/i.test(it.name))
+    .map((it: any) => ({
+      id: it.name,
+      name: prettyName(it.name),
+      fileName: it.name,
+      size: it.size,
+      sha: it.sha,
+      url: it.download_url,
+    }));
+}
+
+async function ghUploadModel(token: string, fileName: string, data: ArrayBuffer, existingSha?: string): Promise<void> {
+  const res = await fetch(`${GH_API}/${encodeURIComponent(fileName)}`, {
+    method: 'PUT',
+    headers: { ...ghHeaders(token), 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      message: `Subir ${fileName} desde el visor`,
+      content: bufferToBase64(data),
+      branch: GH_BRANCH,
+      ...(existingSha ? { sha: existingSha } : {}),
+    }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || `GitHub ${res.status}`);
   }
 }
-function saveHiddenDesigns(ids: string[]) {
-  try {
-    localStorage.setItem(HIDDEN_KEY, JSON.stringify(ids));
-  } catch {}
+
+async function ghDeleteModel(token: string, d: MyDesign): Promise<void> {
+  const res = await fetch(`${GH_API}/${encodeURIComponent(d.fileName)}`, {
+    method: 'DELETE',
+    headers: { ...ghHeaders(token), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: `Borrar ${d.fileName} desde el visor`, sha: d.sha, branch: GH_BRANCH }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || `GitHub ${res.status}`);
+  }
 }
 
 const PRESETS: PresetModel[] = [
@@ -136,12 +209,11 @@ const PRESETS: PresetModel[] = [
 interface MyDesign {
   id: string;
   name: string;
-  description: string;
-  category: string;
-  file: string;
+  fileName: string;
+  size: number;
+  sha: string;
+  url: string;
 }
-
-const MY_DESIGNS: MyDesign[] = [];
 
 const FILAMENTS = [
   { name: 'PLA (Ácido Poliláctico)', value: 'PLA', density: 1.24, defaultPrice: 22.0 },
@@ -181,18 +253,79 @@ export default function App() {
   const [isLoadingDesign, setIsLoadingDesign] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [savedFiles, setSavedFiles] = useState<StoredFile[]>([]);
-  const [hiddenDesigns, setHiddenDesigns] = useState<string[]>(() => loadHiddenDesigns());
+  const [designs, setDesigns] = useState<MyDesign[]>([]);
+  const [designsStatus, setDesignsStatus] = useState<'loading' | 'ok' | 'error'>('loading');
+  const [ghToken, setGhToken] = useState<string>(() => loadGhToken());
+  const [isUploadingWeb, setIsUploadingWeb] = useState<boolean>(false);
+  const webUploadRef = useRef<HTMLInputElement>(null);
 
-  const hideDesign = (d: MyDesign) => {
-    if (!confirm(`¿Quitar "${d.name}" de Mis Diseños?\n(Podrás restaurarlo después)`)) return;
-    const next = [...hiddenDesigns, d.id];
-    setHiddenDesigns(next);
-    saveHiddenDesigns(next);
+  const refreshDesigns = async () => {
+    setDesignsStatus('loading');
+    try {
+      setDesigns(await ghListModels(ghToken || undefined));
+      setDesignsStatus('ok');
+    } catch {
+      setDesignsStatus('error');
+    }
   };
 
-  const restoreDesigns = () => {
-    setHiddenDesigns([]);
-    saveHiddenDesigns([]);
+  const askToken = () => {
+    const t = prompt(
+      'Pega tu token de GitHub (fine-grained, solo para el repositorio visorstl, permiso "Contents: Read and write").\n' +
+      'Se guarda solo en este navegador.',
+      ghToken
+    );
+    if (t === null) return;
+    const clean = t.trim();
+    setGhToken(clean);
+    saveGhToken(clean);
+  };
+
+  const logoutToken = () => {
+    if (!confirm('¿Quitar el token de este navegador? Dejarás de poder subir o borrar en la web.')) return;
+    setGhToken('');
+    saveGhToken('');
+  };
+
+  const publishToWeb = async (files: { name: string; data: ArrayBuffer }[]) => {
+    if (!ghToken) { askToken(); return; }
+    setIsUploadingWeb(true);
+    const errors: string[] = [];
+    let current = designs;
+    try { current = await ghListModels(ghToken); } catch {}
+    for (const f of files) {
+      const fileName = cleanFileName(f.name);
+      const existing = current.find(d => d.fileName.toLowerCase() === fileName.toLowerCase());
+      if (existing && !confirm(`"${fileName}" ya existe en la web. ¿Reemplazarlo?`)) continue;
+      try {
+        await ghUploadModel(ghToken, existing ? existing.fileName : fileName, f.data, existing?.sha);
+      } catch (e: any) {
+        errors.push(`${fileName}: ${e.message}`);
+      }
+    }
+    setIsUploadingWeb(false);
+    await refreshDesigns();
+    if (errors.length) alert('No se pudieron subir:\n' + errors.join('\n') + '\n\nRevisa que el token sea válido y tenga permiso de escritura.');
+  };
+
+  const handleWebUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const list: File[] = (e.target.files ? Array.from(e.target.files) : []).filter(f => f.name.toLowerCase().endsWith('.stl'));
+    e.target.value = '';
+    if (!list.length) { alert('Selecciona archivos con extensión .stl'); return; }
+    Promise.all(list.map(f => f.arrayBuffer().then(data => ({ name: f.name, data }))))
+      .then(publishToWeb);
+  };
+
+  const deleteDesign = async (d: MyDesign) => {
+    if (!ghToken) { askToken(); return; }
+    if (!confirm(`¿Borrar "${d.fileName}" de la web? Se quitará para todos los visitantes.`)) return;
+    try {
+      await ghDeleteModel(ghToken, d);
+      setDesigns(prev => prev.filter(x => x.id !== d.id));
+    } catch (e: any) {
+      alert('No se pudo borrar: ' + e.message);
+      refreshDesigns();
+    }
   };
 
   const deleteSavedFile = (file: StoredFile) => {
@@ -245,6 +378,7 @@ export default function App() {
   useEffect(() => {
     loadPreset('torus_knot');
     getAllFilesFromDB().then(files => setSavedFiles(files)).catch(() => {});
+    refreshDesigns();
   }, []);
 
   // Update density and default price whenever filament type changes
@@ -311,10 +445,11 @@ export default function App() {
     setIsLoadingDesign(true);
     setActivePreset(design.id);
     try {
-      const res = await fetch(import.meta.env.BASE_URL + design.file);
+      const res = await fetch(design.url, { cache: 'no-store' });
+      if (!res.ok) throw new Error();
       const buffer = await res.arrayBuffer();
       setModelBuffer(buffer);
-      setModelName(design.name + '.stl');
+      setModelName(design.fileName);
       setModelScale(100);
     } catch {
       alert('No se pudo cargar el diseño.');
@@ -329,6 +464,7 @@ export default function App() {
     if (files && files.length > 0) {
       readSTLFile(files[0]);
     }
+    e.target.value = '';
   };
 
   const readSTLFile = (file: File) => {
@@ -595,27 +731,41 @@ export default function App() {
             </div>
           </div>
 
-          {/* My Designs */}
+          {/* My Designs (guardados en la web) */}
           <div className="bg-surface border border-border rounded-none p-4">
             <div className="flex items-center justify-between mb-3 border-b border-border/60 pb-2 flex-wrap gap-2">
               <h2 className="text-xs font-bold uppercase tracking-widest text-muted flex items-center gap-2 font-mono">
                 <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> Mis Diseños
+                <span className="text-[8px] font-mono text-muted normal-case tracking-normal">({designs.length})</span>
               </h2>
-              <div className="flex items-center gap-2">
-                {hiddenDesigns.length > 0 && (
-                  <button
-                    onClick={restoreDesigns}
-                    className="flex items-center gap-1 text-[8px] font-mono text-muted uppercase bg-surface2 px-1.5 py-0.5 border border-border/40 hover:text-emerald-500 hover:border-emerald-500 cursor-pointer transition-colors"
-                    title="Volver a mostrar los diseños quitados"
-                  >
-                    <RotateCcw className="w-2.5 h-2.5" /> Restaurar ({hiddenDesigns.length})
-                  </button>
-                )}
-                <span className="text-[8px] font-mono text-muted uppercase bg-surface2 px-1.5 py-0.5 border border-border/40">STL.LOCAL</span>
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <button
+                  onClick={() => (ghToken ? webUploadRef.current?.click() : askToken())}
+                  disabled={isUploadingWeb}
+                  className="flex items-center gap-1 text-[9px] font-mono font-bold uppercase px-2 py-1 bg-emerald-600 text-white hover:bg-emerald-500 cursor-pointer transition-colors disabled:opacity-60"
+                  title="Subir archivos STL a la web"
+                >
+                  <Upload className="w-3 h-3" /> {isUploadingWeb ? 'Subiendo...' : 'Subir a la web'}
+                </button>
+                <input ref={webUploadRef} type="file" accept=".stl" multiple onChange={handleWebUpload} className="hidden" />
+                <button
+                  onClick={refreshDesigns}
+                  className="p-1 border border-border text-muted hover:text-emerald-500 hover:border-emerald-500 cursor-pointer transition-colors"
+                  title="Actualizar lista"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                </button>
+                <button
+                  onClick={ghToken ? logoutToken : askToken}
+                  className={`flex items-center gap-1 text-[8px] font-mono uppercase px-1.5 py-1 border cursor-pointer transition-colors ${ghToken ? 'border-emerald-500/50 text-emerald-500' : 'border-border text-muted hover:text-text'}`}
+                  title={ghToken ? 'Modo gestión activo — pulsa para quitar el token' : 'Introducir token de GitHub para subir y borrar'}
+                >
+                  {ghToken ? <ShieldCheck className="w-3 h-3" /> : <ShieldAlert className="w-3 h-3" />} {ghToken ? 'Gestión' : 'Acceso'}
+                </button>
               </div>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3.5">
-              {MY_DESIGNS.filter(d => !hiddenDesigns.includes(d.id)).map((d) => (
+              {designs.map((d) => (
                 <div
                   key={d.id}
                   className={`group relative text-left rounded-none border transition-all duration-200 flex flex-col justify-between h-20 sm:h-28 overflow-hidden ${
@@ -624,44 +774,46 @@ export default function App() {
                       : 'bg-surface hover:bg-surface2/50 border-border'
                   } ${isLoadingDesign ? 'opacity-60' : ''}`}
                 >
-                  {/* Main click area — load model */}
                   <button
                     onClick={() => loadMyDesign(d)}
                     disabled={isLoadingDesign}
                     className="flex-1 text-left p-2.5 sm:p-3.5 flex flex-col gap-1 cursor-pointer w-full"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-[8px] bg-surface2 text-muted px-1.5 py-0.5 rounded-none font-mono uppercase tracking-wider border border-border/40">{d.category}</span>
+                      <span className="text-[8px] bg-surface2 text-muted px-1.5 py-0.5 rounded-none font-mono uppercase tracking-wider border border-border/40">{(d.size / 1024).toFixed(0)} KB</span>
                       <ChevronRight className={`w-3 h-3 transition-transform duration-200 ${activePreset === d.id ? 'text-emerald-500 translate-x-0.5' : 'text-muted group-hover:text-text'}`} />
                     </div>
-                    <h3 className="text-[10px] sm:text-xs font-bold text-text group-hover:text-emerald-500 transition-colors uppercase font-mono line-clamp-1">{d.name}</h3>
-                    <p className="text-[9px] text-muted line-clamp-1 sm:line-clamp-2 font-mono leading-normal">{d.description}</p>
+                    <h3 className="text-[10px] sm:text-xs font-bold text-text group-hover:text-emerald-500 transition-colors uppercase font-mono line-clamp-2 break-all">{d.name}</h3>
                     {isLoadingDesign && activePreset === d.id && (
                       <span className="text-[8px] font-mono text-emerald-500 animate-pulse">Cargando...</span>
                     )}
                   </button>
-                  {/* Download button */}
                   <a
-                    href={import.meta.env.BASE_URL + d.file}
-                    download={d.name + '.stl'}
+                    href={d.url}
+                    download={d.fileName}
                     onClick={(e) => e.stopPropagation()}
                     title="Descargar STL"
                     className="absolute bottom-2 right-2 p-1 rounded-none bg-surface2 border border-border text-muted hover:text-emerald-500 hover:border-emerald-500 transition-colors"
                   >
                     <Download className="w-3 h-3" />
                   </a>
-                  {/* Delete (hide) button */}
-                  <button
-                    onClick={(e) => { e.stopPropagation(); hideDesign(d); }}
-                    title="Quitar de Mis Diseños"
-                    className="absolute bottom-2 right-9 p-1 rounded-none bg-surface2 border border-border text-muted hover:text-red-600 hover:border-red-300 cursor-pointer transition-colors"
-                  >
-                    <Trash2 className="w-3 h-3" />
-                  </button>
+                  {ghToken && (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); deleteDesign(d); }}
+                      title="Borrar de la web"
+                      className="absolute bottom-2 right-9 p-1 rounded-none bg-surface2 border border-border text-muted hover:text-red-600 hover:border-red-300 cursor-pointer transition-colors"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                    </button>
+                  )}
                 </div>
               ))}
-              {MY_DESIGNS.filter(d => !hiddenDesigns.includes(d.id)).length === 0 && (
-                <p className="col-span-2 sm:col-span-3 text-[9px] text-muted font-mono py-3">No hay diseños en la galería. Usa «Subir STL» para cargar uno.</p>
+              {designs.length === 0 && (
+                <p className="col-span-2 sm:col-span-3 text-[9px] text-muted font-mono py-3">
+                  {designsStatus === 'loading' && 'Cargando diseños...'}
+                  {designsStatus === 'error' && 'No se pudo cargar la lista de diseños. Pulsa actualizar para reintentar.'}
+                  {designsStatus === 'ok' && 'No hay diseños en la galería. Pulsa «Subir a la web» para añadir uno.'}
+                </p>
               )}
             </div>
           </div>
@@ -752,6 +904,16 @@ export default function App() {
                       >
                         Cargar
                       </button>
+                      {ghToken && (
+                        <button
+                          onClick={() => publishToWeb([{ name: file.name, data: file.data.slice(0) }])}
+                          disabled={isUploadingWeb}
+                          className="px-2 py-1.5 bg-surface border border-border text-muted hover:text-emerald-500 hover:border-emerald-500 cursor-pointer transition-colors flex items-center disabled:opacity-60"
+                          title="Publicar en Mis Diseños (web)"
+                        >
+                          <Upload className="w-3 h-3" />
+                        </button>
+                      )}
                       <button
                         onClick={() => deleteSavedFile(file)}
                         className="px-2 py-1.5 bg-surface border border-border text-muted hover:text-red-600 hover:border-red-300 cursor-pointer transition-colors flex items-center"
