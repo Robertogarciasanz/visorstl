@@ -349,7 +349,10 @@ export const STLViewer3D: React.FC<STLViewer3DProps> = ({
         // Material construction
         // Create solid mesh
         const colorVal = new THREE.Color(settings.color);
+        // STL con color por cara (p. ej. un color por pieza): se muestran los colores del archivo
+        const hasVertexColors = !!(geometry as any).hasColors;
         const material = new THREE.MeshStandardMaterial({
+          vertexColors: hasVertexColors,
           color: colorVal,
           roughness: settings.roughness,
           metalness: settings.metalness,

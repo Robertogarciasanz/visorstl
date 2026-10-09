@@ -444,12 +444,12 @@ export default function App() {
     } else {
       buffer = generateRuedaGiratoria();
       name = 'RuedaGiratoria.stl';
-      // Acero pavonado claro para ver bien las piezas del conjunto
+      // Cada pieza lleva su color en el STL: sin tinte (blanco) y poco metálico para que se vean
       setSettings(prev => ({
         ...prev,
-        color: '#cbd5e1',
-        roughness: 0.32,
-        metalness: 0.85
+        color: '#ffffff',
+        roughness: 0.45,
+        metalness: 0.15
       }));
     }
 
