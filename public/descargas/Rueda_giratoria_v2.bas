@@ -1,12 +1,13 @@
 Attribute VB_Name = "RuedaGiratoria"
 Option Explicit
 '======================================================================
-' RUEDA GIRATORIA CON RODAMIENTO DE BOLAS - piezas sueltas + conjunto
+' RUEDA GIRATORIA CON RODAMIENTO DE BOLAS - piezas sueltas + conjunto  (v2, mas detalle)
 ' SolidWorks VBA (probado el patron en SW 2020 espanol; ESTA MACRO NO SE
 ' HA PODIDO EJECUTAR en SolidWorks al escribirla: revisar avisos finales)
 '
 ' Crea y guarda en  %USERPROFILE%\Documents\rueda_giratoria\  estas piezas:
-'   Horquilla, Rueda, Eje, Tornillo, Tuerca, PistaInferior,
+'   Horquilla, Rueda, Neumatico, RodamientoAgujas, CasquilloInterior, Eje,
+'   Tornillo (con dientes de rosca), Tuerca, PistaInferior (copa), Jaula,
 '   DiscoSuperior, Bola
 ' y despues el conjunto  Conjunto_rueda.SLDASM  (componentes fijos en su
 ' posicion; sin relaciones de posicion: anadelas luego si las quieres).
@@ -86,6 +87,23 @@ Const CAIDA_DISCO As Double = 5.9     ' [E] descenso del borde
 Const E_DISCO As Double = 2.5         ' [E] espesor de chapa
 Const R_HUECO_DISCO As Double = 9.5   ' [E] hueco central (holgura sobre la cana)
 Const ZC As Double = 22.75            ' [C] ANCHO_EXT / 2
+' Detalle v2: estimado a partir de las ilustraciones (NO medido en el plano)
+Const D_BORE_CUBO As Double = 16      ' [E] hueco del cubo para el rodamiento de agujas
+Const L_AGUJAS As Double = 20         ' [E] largo del rodamiento de agujas
+Const D_SEP As Double = 12.8          ' [E] diametro exterior del casquillo interior
+Const E_BISEL As Double = 1.5         ' [E] bisel del neumatico (en la macro, escalonado)
+Const D_JAULA_EXT As Double = 48.8    ' [E] jaula de las bolas
+Const D_JAULA_INT As Double = 34      ' [E]
+Const D_ALOJ As Double = 6            ' [E] alojamiento de cada bola
+Const E_JAULA As Double = 1           ' [E]
+Const E_LABIO As Double = 0.7         ' [E] borde levantado de la pista inferior
+Const H_LABIO As Double = 6.6         ' [E]
+Const D_COLLAR_PISTA As Double = 24   ' [E] collar central de la pista inferior
+Const H_COLLAR_PISTA As Double = 6.4  ' [E]
+Const PASO_ROSCA As Double = 1.75     ' [E] M12 grueso (probable)
+Const PROF_ROSCA As Double = 0.9      ' [E]
+Const H_CUELLO_DISCO As Double = 1.5  ' [E] cuello elevado del disco superior
+Const A_CUELLO_DISCO As Double = 1.2  ' [E]
 
 '======================================================================
 Sub main()
@@ -102,10 +120,14 @@ Sub main()
 
     CrearHorquilla
     CrearRueda
+    CrearNeumatico
+    CrearAgujas
+    CrearCasquillo
     CrearEje
     CrearTornillo
     CrearTuerca
     CrearPista
+    CrearJaula
     CrearDisco
     CrearBola
     CrearConjunto
@@ -193,38 +215,82 @@ Private Sub CrearHorquilla()
     GuardarPieza "Horquilla"
 End Sub
 
-' ---------- 2. RUEDA (eje Z; cubo en Z 0..L_CUBO; centro en el origen)
+' ---------- 2. RUEDA, nucleo (eje Z; cubo en Z 0..L_CUBO; centro en el origen)
 Private Sub CrearRueda()
     Dim sk As SldWorks.Feature, f As SldWorks.Feature
     NuevaPieza
-    Gv "D_RUEDA", D_RUEDA: Gv "E_BANDA", E_BANDA: Gv "ANCHO_RUEDA", ANCHO_RUEDA
-    Gv "E_NERVIO", E_NERVIO: Gv "D_CUBO", D_CUBO: Gv "L_CUBO", L_CUBO: Gv "D_EJE", D_EJE
+    Gv "D_RUEDA", D_RUEDA: Gv "E_BANDA", E_BANDA: Gv "E_NERVIO", E_NERVIO
+    Gv "D_CUBO", D_CUBO: Gv "L_CUBO", L_CUBO: Gv "D_BORE_CUBO", D_BORE_CUBO
 
+    ' Cubo: anillo con hueco para el rodamiento de agujas
     Begin plFront
     CircleF 0, 0, 0, D_CUBO / 2, False
+    CircleF 0, 0, 0, D_BORE_CUBO / 2, False
     Set sk = EndSk("Sk_Cubo")
-    Link sk, "23=""D_CUBO"""
+    Link sk, "23=""D_CUBO"";16=""D_BORE_CUBO"""
     Set f = Boss(sk, L_CUBO, 1, "Cubo")
+    Link f, "35=""L_CUBO"""
 
+    ' Nervio central: anillo desde el cubo (con 0,5 de solape) hasta el neumatico
     Begin plFront
     CircleF 0, 0, 0, (D_RUEDA - 2 * E_BANDA) / 2, False
+    CircleF 0, 0, 0, (D_CUBO - 1) / 2, False
     Set sk = EndSk("Sk_Nervio")
     Set f = BossOffZ(sk, (L_CUBO - E_NERVIO) / 2, E_NERVIO, "Nervio")
 
+    GuardarPieza "Rueda"
+End Sub
+
+' ---------- 2b. NEUMATICO (eje Z; mismo origen que la rueda). Biseles aproximados con dos escalones
+Private Sub CrearNeumatico()
+    Dim sk As SldWorks.Feature, f As SldWorks.Feature, z0 As Double
+    NuevaPieza
+    Gv "D_RUEDA", D_RUEDA: Gv "E_BANDA", E_BANDA: Gv "ANCHO_RUEDA", ANCHO_RUEDA
+    z0 = (L_CUBO - ANCHO_RUEDA) / 2
+    ' Anillo base (algo menor que el diametro exterior) en todo el ancho
+    Begin plFront
+    CircleF 0, 0, 0, (D_RUEDA - E_BISEL) / 2, False
+    CircleF 0, 0, 0, (D_RUEDA - 2 * E_BANDA) / 2, False
+    Set sk = EndSk("Sk_BandaBase")
+    Set f = BossOffZ(sk, z0, ANCHO_RUEDA, "Banda_base")
+    ' Anillo exterior, sin los bordes (deja el escalon del bisel)
     Begin plFront
     CircleF 0, 0, 0, D_RUEDA / 2, False
-    CircleF 0, 0, 0, (D_RUEDA - 2 * E_BANDA) / 2, False
-    Set sk = EndSk("Sk_Banda")
+    CircleF 0, 0, 0, (D_RUEDA - E_BISEL) / 2 - 0.5, False
+    Set sk = EndSk("Sk_BandaExt")
     Link sk, "57.4=""D_RUEDA"""
-    Set f = BossOffZ(sk, (L_CUBO - ANCHO_RUEDA) / 2, ANCHO_RUEDA, "Banda")
+    Set f = BossOffZ(sk, z0 + E_BISEL, ANCHO_RUEDA - 2 * E_BISEL, "Banda_exterior")
+    PropTexto "Nota", "Bisel aproximado con escalones; en la web es un chaflan real"
+    GuardarPieza "Neumatico"
+End Sub
 
+' ---------- 2c. RODAMIENTO DE AGUJAS en el hueco del cubo (eje Z; mismo origen que la rueda)
+Private Sub CrearAgujas()
+    Dim sk As SldWorks.Feature, f As SldWorks.Feature
+    NuevaPieza
+    Gv "D_BORE_CUBO", D_BORE_CUBO: Gv "D_SEP", D_SEP: Gv "L_AGUJAS", L_AGUJAS
     Begin plFront
-    CircleF 0, 0, 0, D_EJE / 2, False
-    Set sk = EndSk("Sk_Taladro")
-    Link sk, "9.6=""D_EJE"""
-    Set f = CutOff(sk, 0, L_CUBO, "Taladro_eje")
+    CircleF 0, 0, 0, D_BORE_CUBO / 2, False
+    CircleF 0, 0, 0, D_SEP / 2, False
+    Set sk = EndSk("Sk_Agujas")
+    Link sk, "16=""D_BORE_CUBO"";12.8=""D_SEP"""
+    Set f = BossOffZ(sk, (L_CUBO - L_AGUJAS) / 2, L_AGUJAS, "Agujas")
+    PropTexto "Nota", "Anillo del rodamiento; las agujas no se modelan. Medidas estimadas"
+    GuardarPieza "RodamientoAgujas"
+End Sub
 
-    GuardarPieza "Rueda"
+' ---------- 2d. CASQUILLO INTERIOR (eje Z; mismo origen que la rueda)
+Private Sub CrearCasquillo()
+    Dim sk As SldWorks.Feature, f As SldWorks.Feature
+    NuevaPieza
+    Gv "D_SEP", D_SEP: Gv "D_EJE", D_EJE: Gv "L_CUBO", L_CUBO
+    Begin plFront
+    CircleF 0, 0, 0, D_SEP / 2, False
+    CircleF 0, 0, 0, D_EJE / 2, False
+    Set sk = EndSk("Sk_Casquillo")
+    Link sk, "12.8=""D_SEP"";9.6=""D_EJE"""
+    Set f = Boss(sk, L_CUBO, 1, "Casquillo")
+    GuardarPieza "CasquilloInterior"
 End Sub
 
 ' ---------- 3. EJE DE LA RUEDA (eje Z; Z 0..L_EJE; cabeza en Z 0..E_CABEZA)
@@ -249,24 +315,51 @@ Private Sub CrearEje()
     GuardarPieza "Eje"
 End Sub
 
-' ---------- 4. TORNILLO / VASTAGO DE GIRO (eje Y; Y 0..L_VASTAGO; rosca arriba)
+' ---------- 4. TORNILLO / VASTAGO DE GIRO (eje Y; Y 0..L_VASTAGO; rosca arriba con dientes)
 Private Sub CrearTornillo()
     Dim sk As SldWorks.Feature, f As SldWorks.Feature, r As Variant
+    Dim pr(60) As Double, py(60) As Double, n As Integer, i As Integer
+    Dim rr As Double, yd As Double, yR0 As Double, yRan As Double
     NuevaPieza
     Gv "D_VASTAGO", D_VASTAGO: Gv "L_VASTAGO", L_VASTAGO: Gv "L_ROSCA", L_ROSCA
     Gv "D_ROSCA", D_ROSCA: Gv "ANCHO_RANURA", ANCHO_RANURA: Gv "PROF_RANURA", PROF_RANURA
+    yR0 = L_VASTAGO - L_ROSCA: yRan = L_VASTAGO - PROF_RANURA: rr = D_ROSCA / 2
 
-    Begin plTop
-    CircleF 0, 0, 0, D_VASTAGO / 2, False
-    Set sk = EndSk("Sk_Cana")
-    Link sk, "17.7=""D_VASTAGO"""
-    Set f = BossY(sk, 0, L_VASTAGO - L_ROSCA, "Cana")
-
-    Begin plTop
-    CircleF 0, 0, 0, D_ROSCA / 2, False
-    Set sk = EndSk("Sk_Rosca")
-    Link sk, "12.2=""D_ROSCA"""
-    Set f = BossY(sk, L_VASTAGO - L_ROSCA, L_ROSCA, "Tramo_roscado")
+    ' Perfil de revolucion con dientes de rosca (anillos; no es helice)
+    n = 0
+    AddP pr, py, n, 0, 0
+    AddP pr, py, n, D_VASTAGO / 2, 0
+    AddP pr, py, n, D_VASTAGO / 2, yR0
+    AddP pr, py, n, rr - PROF_ROSCA, yR0
+    yd = yR0 + 0.6
+    AddP pr, py, n, rr - PROF_ROSCA, yd
+    Do While yd + PASO_ROSCA <= yRan - 0.3
+        AddP pr, py, n, rr, yd + PASO_ROSCA / 2
+        AddP pr, py, n, rr - PROF_ROSCA, yd + PASO_ROSCA
+        yd = yd + PASO_ROSCA
+    Loop
+    AddP pr, py, n, rr, yd + 0.3
+    AddP pr, py, n, rr, yRan
+    AddP pr, py, n, 0, yRan
+    Begin plFront
+    For i = 0 To n - 1
+        LineF pr(i), py(i), pr((i + 1) Mod n), py((i + 1) Mod n)
+    Next
+    CenterF 0, 0, 0, yRan
+    Set sk = EndSk("Sk_PerfilTornillo")
+    Set f = RevolveSk(sk, "Revolucion_rosca")
+    If f Is Nothing Then
+        ' Alternativa si falla la revolucion: dos cilindros sin dientes (aviso en el registro)
+        gLog = gLog & "Tornillo: revolucion fallida, se usaron cilindros sin dientes de rosca" & vbCrLf
+        Begin plTop
+        CircleF 0, 0, 0, D_VASTAGO / 2, False
+        Set sk = EndSk("Sk_Cana")
+        Set f = BossY(sk, 0, L_VASTAGO - L_ROSCA, "Cana")
+        Begin plTop
+        CircleF 0, 0, 0, D_ROSCA / 2, False
+        Set sk = EndSk("Sk_Rosca")
+        Set f = BossY(sk, L_VASTAGO - L_ROSCA, L_ROSCA, "Tramo_roscado")
+    End If
 
     ' Ranura de destornillador en el extremo (croquis en Alzado, corte simetrico en Z)
     Begin plFront
@@ -275,7 +368,7 @@ Private Sub CrearTornillo()
     Set f = CutMid(sk, 20, "Ranura")
 
     PropTexto "Rosca", "M12 (paso probable 1,75 - grueso ISO; no medible en el plano)"
-    PropTexto "Nota", "Rosca no modelada: representar como rosca cosmetica M12"
+    PropTexto "Nota", "Dientes de rosca como anillos (aprox.); para rosca real usar rosca cosmetica M12"
     GuardarPieza "Tornillo"
 End Sub
 
@@ -312,20 +405,50 @@ Private Sub CrearTuerca()
     GuardarPieza "Tuerca"
 End Sub
 
-' ---------- 6. PISTA INFERIOR del rodamiento (eje Y; Y 0..E_PISTA)
+' ---------- 6. PISTA INFERIOR en copa (eje Y; Y 0..H_LABIO): base + borde levantado + collar central
 Private Sub CrearPista()
     Dim sk As SldWorks.Feature, f As SldWorks.Feature
     NuevaPieza
     Gv "D_PISTA", D_PISTA: Gv "E_PISTA", E_PISTA: Gv "D_VASTAGO", D_VASTAGO
-
     Begin plTop
     CircleF 0, 0, 0, D_PISTA / 2, False
     CircleF 0, 0, 0, D_VASTAGO / 2, False
-    Set sk = EndSk("Sk_Pista")
+    Set sk = EndSk("Sk_Base")
     Link sk, "50.1=""D_PISTA"";17.7=""D_VASTAGO"""
-    Set f = BossY(sk, 0, E_PISTA, "Pista")
-
+    Set f = BossY(sk, 0, E_PISTA, "Base")
+    ' Borde levantado en el exterior
+    Begin plTop
+    CircleF 0, 0, 0, D_PISTA / 2, False
+    CircleF 0, 0, 0, D_PISTA / 2 - E_LABIO, False
+    Set sk = EndSk("Sk_Labio")
+    Set f = BossY(sk, E_PISTA, H_LABIO - E_PISTA, "Labio")
+    ' Collar central alrededor del vastago
+    Begin plTop
+    CircleF 0, 0, 0, D_COLLAR_PISTA / 2, False
+    CircleF 0, 0, 0, D_VASTAGO / 2, False
+    Set sk = EndSk("Sk_Collar")
+    Set f = BossY(sk, E_PISTA, H_COLLAR_PISTA - E_PISTA, "Collar")
+    PropTexto "Nota", "Borde y collar ESTIMADOS a partir de las ilustraciones"
     GuardarPieza "PistaInferior"
+End Sub
+
+' ---------- 6b. JAULA de las bolas (eje Y; anillo con N_BOLAS alojamientos a la altura de los centros)
+Private Sub CrearJaula()
+    Dim sk As SldWorks.Feature, f As SldWorks.Feature, i As Integer, a As Double, rb As Double
+    NuevaPieza
+    Gv "D_JAULA_EXT", D_JAULA_EXT: Gv "D_JAULA_INT", D_JAULA_INT: Gv "D_ALOJ", D_ALOJ: Gv "E_JAULA", E_JAULA
+    rb = D_PASO / 2
+    Begin plTop
+    CircleF 0, 0, 0, D_JAULA_EXT / 2, False
+    CircleF 0, 0, 0, D_JAULA_INT / 2, False
+    For i = 0 To N_BOLAS - 1
+        a = 2 * PI * i / N_BOLAS
+        CircleF rb * Cos(a), 0, rb * Sin(a), D_ALOJ / 2, False
+    Next
+    Set sk = EndSk("Sk_Jaula")
+    Set f = BossY(sk, Y_BOLA - E_JAULA / 2, E_JAULA, "Jaula")
+    PropTexto "Nota", "Jaula ESTIMADA; numero de bolas supuesto (N_BOLAS)"
+    GuardarPieza "Jaula"
 End Sub
 
 ' ---------- 7. DISCO SUPERIOR en forma de plato (revolucion sobre el eje Y)
@@ -336,13 +459,15 @@ Private Sub CrearDisco()
     NuevaPieza
     rO = D_DISCO / 2: yT = Y_DISCO_TOP
     Begin plFront
-    LineF R_HUECO_DISCO, yT, R_DISCO_PLANO, yT
+    LineF R_HUECO_DISCO, yT + H_CUELLO_DISCO, R_HUECO_DISCO + A_CUELLO_DISCO, yT + H_CUELLO_DISCO
+    LineF R_HUECO_DISCO + A_CUELLO_DISCO, yT + H_CUELLO_DISCO, R_HUECO_DISCO + A_CUELLO_DISCO, yT
+    LineF R_HUECO_DISCO + A_CUELLO_DISCO, yT, R_DISCO_PLANO, yT
     LineF R_DISCO_PLANO, yT, rO, yT - CAIDA_DISCO
     LineF rO, yT - CAIDA_DISCO, rO, yT - CAIDA_DISCO - E_DISCO
     LineF rO, yT - CAIDA_DISCO - E_DISCO, R_DISCO_PLANO, yT - E_DISCO
     LineF R_DISCO_PLANO, yT - E_DISCO, R_HUECO_DISCO, yT - E_DISCO
-    LineF R_HUECO_DISCO, yT - E_DISCO, R_HUECO_DISCO, yT
-    CenterF 0, yT - CAIDA_DISCO - E_DISCO - 1, 0, yT + 1
+    LineF R_HUECO_DISCO, yT - E_DISCO, R_HUECO_DISCO, yT + H_CUELLO_DISCO
+    CenterF 0, yT - CAIDA_DISCO - E_DISCO - 1, 0, yT + H_CUELLO_DISCO + 1
     Set sk = EndSk("Sk_Perfil")
     Set f = RevolveSk(sk, "Revolucion")
     If f Is Nothing Then
@@ -392,10 +517,14 @@ Private Sub CrearConjunto()
     Set asm = asmDoc
     Colocar asm, "Horquilla", 0, 0, 0
     Colocar asm, "Rueda", OFF_EJE, -PROF_EJE, (ANCHO_EXT - L_CUBO) / 2
+    Colocar asm, "Neumatico", OFF_EJE, -PROF_EJE, (ANCHO_EXT - L_CUBO) / 2
+    Colocar asm, "RodamientoAgujas", OFF_EJE, -PROF_EJE, (ANCHO_EXT - L_CUBO) / 2
+    Colocar asm, "CasquilloInterior", OFF_EJE, -PROF_EJE, (ANCHO_EXT - L_CUBO) / 2
     Colocar asm, "Eje", OFF_EJE, -PROF_EJE, -E_CABEZA
     Colocar asm, "Tornillo", 0, Y_TORN, ZC
     Colocar asm, "Tuerca", 0, Y_TUERCA, ZC
     Colocar asm, "PistaInferior", 0, 0, ZC
+    Colocar asm, "Jaula", 0, 0, ZC
     Colocar asm, "DiscoSuperior", 0, 0, ZC
     rb = D_PASO / 2
     For i = 0 To N_BOLAS - 1
@@ -461,6 +590,10 @@ End Sub
 Private Sub Quad(ByVal x1 As Double, ByVal y1 As Double, ByVal x2 As Double, ByVal y2 As Double, _
                  ByVal x3 As Double, ByVal y3 As Double, ByVal x4 As Double, ByVal y4 As Double)
     LineF x1, y1, x2, y2: LineF x2, y2, x3, y3: LineF x3, y3, x4, y4: LineF x4, y4, x1, y1
+End Sub
+
+Private Sub AddP(pr() As Double, py() As Double, n As Integer, ByVal r As Double, ByVal y As Double)
+    pr(n) = r: py(n) = y: n = n + 1
 End Sub
 
 Private Sub LineF(ByVal x1 As Double, ByVal y1 As Double, ByVal x2 As Double, ByVal y2 As Double)
