@@ -324,6 +324,12 @@ export function generateRuedaGiratoria(): ArrayBuffer {
   const D_PISTA = 50.1, E_PISTA = 4.6, D_DISCO = 57.9, D_BOLA = 5.8, D_PASO = 41.6, Y_BOLA = 7.67, N_BOLAS = 14;
   const Y_DISCO_TOP = 13.9, R_DISCO_PLANO = 20.3, CAIDA_DISCO = 5.9, E_DISCO = 2.5, R_HUECO_DISCO = 9.5;
   const ZC = ANCHO_EXT / 2;
+  // Detalles estimados a partir de las ilustraciones (no medidos en el plano)
+  const R_BORE = 8, L_AGUJAS = 20, R_SEP = 6.4;           // rodamiento de agujas y casquillo interior en el cubo
+  const R_JAULA_EXT = 24.4, R_JAULA_INT = 17, R_ALOJ = 3;   // jaula de las bolas
+  const R_LABIO = D_PISTA / 2, E_LABIO = 0.7, H_LABIO = 6.6;      // borde levantado de la pista inferior
+  const R_COLLAR_PISTA = 12, H_COLLAR_PISTA = 6.4;          // collar central de la pista inferior
+  const PASO_ROSCA = 1.75, PROF_ROSCA = 0.9;                // dientes de rosca del vástago (M12 grueso)
 
   const tris: Triangle[] = [];
   // Un color por pieza (RGB 0-255)
@@ -335,7 +341,11 @@ export function generateRuedaGiratoria(): ArrayBuffer {
     tuerca: [34, 197, 94],
     pista: [139, 92, 246],
     disco: [6, 182, 212],
-    bola: [229, 231, 235]
+    bola: [229, 231, 235],
+    neumatico: [100, 116, 139],
+    agujas: [148, 163, 184],
+    casquillo: [20, 184, 166],
+    jaula: [217, 119, 6]
   };
   const add = (g: THREE.BufferGeometry, m: THREE.Matrix4, color: [number, number, number]) => {
     const t = geoToTriangles(g, m, color);
@@ -373,27 +383,43 @@ export function generateRuedaGiratoria(): ArrayBuffer {
   add(extrude(pared(), PARED), move(0, 0, 0), COLOR.horquilla);
   add(extrude(pared(), PARED), move(0, 0, ANCHO_EXT - PARED), COLOR.horquilla);
 
-  // 2. RUEDA (eje Z): cubo, nervio central y banda, en un solo perfil de revolución
+  // 2. RUEDA (eje Z): núcleo (cubo + nervio), neumático con biseles y ranura, rodamiento de agujas y casquillo
   const rBanda = D_RUEDA / 2, rInt = (D_RUEDA - 2 * E_BANDA) / 2, rCubo = D_CUBO / 2;
   const z0 = (L_CUBO - ANCHO_RUEDA) / 2, zN0 = (L_CUBO - E_NERVIO) / 2, zN1 = zN0 + E_NERVIO;
+  const zc = z0 + ANCHO_RUEDA / 2;
+  const posRueda = yToZ(OFF_EJE, -PROF_EJE, (ANCHO_EXT - L_CUBO) / 2);
   add(lathe([
-    [D_EJE / 2, 0], [rCubo, 0], [rCubo, zN0], [rInt, zN0], [rInt, z0], [rBanda, z0],
-    [rBanda, z0 + ANCHO_RUEDA], [rInt, z0 + ANCHO_RUEDA], [rInt, zN1], [rCubo, zN1],
-    [rCubo, L_CUBO], [D_EJE / 2, L_CUBO]
-  ]), yToZ(OFF_EJE, -PROF_EJE, (ANCHO_EXT - L_CUBO) / 2), COLOR.rueda);
+    [R_BORE, 0], [rCubo, 0], [rCubo, zN0], [rInt, zN0], [rInt, zN1], [rCubo, zN1], [rCubo, L_CUBO], [R_BORE, L_CUBO]
+  ]), posRueda, COLOR.rueda);
+  add(lathe([
+    [rInt, z0], [rBanda - 1.5, z0], [rBanda, z0 + 1.5], [rBanda, zc - 1], [rBanda - 0.6, zc], [rBanda, zc + 1],
+    [rBanda, z0 + ANCHO_RUEDA - 1.5], [rBanda - 1.5, z0 + ANCHO_RUEDA], [rInt, z0 + ANCHO_RUEDA]
+  ]), posRueda, COLOR.neumatico);
+  const zA0 = (L_CUBO - L_AGUJAS) / 2;
+  add(lathe([[R_SEP, zA0], [R_BORE, zA0], [R_BORE, zA0 + L_AGUJAS], [R_SEP, zA0 + L_AGUJAS]]), posRueda, COLOR.agujas);
+  add(lathe([[D_EJE / 2, 0], [R_SEP, 0], [R_SEP, L_CUBO], [D_EJE / 2, L_CUBO]]), posRueda, COLOR.casquillo);
 
   // 3. EJE de la rueda con collar en el extremo derecho
   add(lathe([
-    [0, 0], [D_EJE / 2, 0], [D_EJE / 2, L_EJE - E_COLLAR], [D_COLLAR / 2, L_EJE - E_COLLAR],
-    [D_COLLAR / 2, L_EJE], [0, L_EJE]
+    [0, 0], [D_EJE / 2 - 0.5, 0], [D_EJE / 2, 0.5], [D_EJE / 2, L_EJE - E_COLLAR], [D_COLLAR / 2, L_EJE - E_COLLAR],
+    [D_COLLAR / 2, L_EJE - 0.4], [D_COLLAR / 2 - 0.4, L_EJE], [0, L_EJE]
   ]), yToZ(OFF_EJE, -PROF_EJE, -E_CABEZA), COLOR.eje);
 
   // 4. TORNILLO de giro: caña Ø17,7, tramo roscado Ø12,2 y ranura en el extremo
   const rRosca = D_ROSCA / 2, yRanura = L_VASTAGO - PROF_RANURA;
-  add(lathe([
-    [0, 0], [D_VASTAGO / 2, 0], [D_VASTAGO / 2, L_VASTAGO - L_ROSCA], [rRosca, L_VASTAGO - L_ROSCA],
-    [rRosca, yRanura], [0, yRanura]
-  ]), move(0, Y_TORN, ZC), COLOR.tornillo);
+  const yRosca0 = L_VASTAGO - L_ROSCA;
+  const perfilTornillo: [number, number][] = [
+    [0, 0], [D_VASTAGO / 2, 0], [D_VASTAGO / 2, yRosca0], [rRosca - PROF_ROSCA, yRosca0]
+  ];
+  let yd = yRosca0 + 0.6;
+  perfilTornillo.push([rRosca - PROF_ROSCA, yd]);
+  while (yd + PASO_ROSCA <= yRanura - 0.3) {
+    perfilTornillo.push([rRosca, yd + PASO_ROSCA / 2]);
+    perfilTornillo.push([rRosca - PROF_ROSCA, yd + PASO_ROSCA]);
+    yd += PASO_ROSCA;
+  }
+  perfilTornillo.push([rRosca, yd + 0.3], [rRosca, yRanura], [0, yRanura]);
+  add(lathe(perfilTornillo), move(0, Y_TORN, ZC), COLOR.tornillo);
   const xs = ANCHO_RANURA / 2, gam = Math.acos(-xs / rRosca);
   for (const lado of [-1, 1]) {
     // dos mitades del extremo del vástago, separadas por la ranura (lado -1: x <= -xs; lado 1: x >= xs)
@@ -420,13 +446,26 @@ export function generateRuedaGiratoria(): ArrayBuffer {
   add(extrude(hex, H_TUERCA - E_BRIDA), zToY(0, Y_TUERCA + E_BRIDA, ZC), COLOR.tuerca);
 
   // 6. PISTA INFERIOR del rodamiento
-  add(lathe([[D_VASTAGO / 2, 0], [D_PISTA / 2, 0], [D_PISTA / 2, E_PISTA], [D_VASTAGO / 2, E_PISTA]]), move(0, 0, ZC), COLOR.pista);
+  add(lathe([
+    [D_VASTAGO / 2, 0], [R_LABIO, 0], [R_LABIO, H_LABIO], [R_LABIO - E_LABIO, H_LABIO], [R_LABIO - E_LABIO, E_PISTA],
+    [R_COLLAR_PISTA, E_PISTA], [R_COLLAR_PISTA, H_COLLAR_PISTA], [D_VASTAGO / 2, H_COLLAR_PISTA]
+  ]), move(0, 0, ZC), COLOR.pista);
+
+  // 6b. JAULA de las bolas: anillo con 14 alojamientos, a la altura de los centros
+  const jaula = new THREE.Shape();
+  jaula.absarc(0, 0, R_JAULA_EXT, 0, Math.PI * 2, false);
+  jaula.holes.push(circleHole(0, 0, R_JAULA_INT));
+  for (let i = 0; i < N_BOLAS; i++) {
+    const a = (2 * Math.PI * i) / N_BOLAS;
+    jaula.holes.push(circleHole((D_PASO / 2) * Math.cos(a), -(D_PASO / 2) * Math.sin(a), R_ALOJ));
+  }
+  add(extrude(jaula, 1), zToY(0, Y_BOLA - 0.5, ZC), COLOR.jaula);
 
   // 7. DISCO SUPERIOR en forma de plato
   const rO = D_DISCO / 2, yT = Y_DISCO_TOP;
   add(lathe([
-    [R_HUECO_DISCO, yT], [R_DISCO_PLANO, yT], [rO, yT - CAIDA_DISCO], [rO, yT - CAIDA_DISCO - E_DISCO],
-    [R_DISCO_PLANO, yT - E_DISCO], [R_HUECO_DISCO, yT - E_DISCO]
+    [R_HUECO_DISCO, yT + 1.5], [R_HUECO_DISCO + 1.2, yT + 1.5], [R_HUECO_DISCO + 1.2, yT], [R_DISCO_PLANO, yT],
+    [rO, yT - CAIDA_DISCO], [rO, yT - CAIDA_DISCO - E_DISCO], [R_DISCO_PLANO, yT - E_DISCO], [R_HUECO_DISCO, yT - E_DISCO]
   ]), move(0, 0, ZC), COLOR.disco);
 
   // 8. BOLAS
