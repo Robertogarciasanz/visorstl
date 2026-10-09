@@ -10,6 +10,8 @@
 //   - Attribute byte count: 2 bytes (usually 0)
 // Total size = 80 + 4 + (n * 50) bytes
 
+import * as THREE from 'three';
+
 interface Vertex {
   x: number;
   y: number;
@@ -240,116 +242,172 @@ export function generateFacetedDiamond(): ArrayBuffer {
   return serializeBinarySTL(triangles, "FacetedDiamond_25mm");
 }
 
-// 3. MATHEMATICAL TORUS KNOT (Nudo Toroidal 3D - Sculptural)
-// Spun from p=2, q=3 torus knot topology
-export function generateTorusKnot(): ArrayBuffer {
-  const pParam = 2;
-  const qParam = 3;
-  const majorRadius = 15;
-  const minorRadius = 4;
-  const tubeSegments = 64;
-  const radialSegments = 12;
-  
-  const knotPoints: Vertex[] = [];
-  
-  // Generate curve points
-  for (let i = 0; i <= tubeSegments; i++) {
-    const phi = (i / tubeSegments) * Math.PI * 2;
-    const r = majorRadius + minorRadius * Math.cos(qParam * phi);
-    const x = r * Math.cos(pParam * phi);
-    const y = r * Math.sin(pParam * phi);
-    const z = minorRadius * Math.sin(qParam * phi);
-    knotPoints.push({ x, y, z });
+// 3. RUEDA GIRATORIA CON RODAMIENTO DE BOLAS (conjunto completo)
+// Medidas (mm) del plano acotado; mismas que la macro de SolidWorks.
+// Ejes del conjunto: Y arriba, X = sentido de rodadura, Z = eje de la rueda,
+// cara superior exterior de la horquilla en Y = 0, giro en X = 0.
+
+// Convierte una geometría de three en triángulos STL (con la matriz dada).
+// Orienta cada sólido hacia fuera según su volumen con signo y descarta triángulos degenerados.
+function geoToTriangles(src: THREE.BufferGeometry, m: THREE.Matrix4): Triangle[] {
+  const g = src.index ? src.toNonIndexed() : src.clone();
+  g.applyMatrix4(m);
+  const pos = g.getAttribute('position');
+  const a = new THREE.Vector3();
+  const b = new THREE.Vector3();
+  const c = new THREE.Vector3();
+  const cr = new THREE.Vector3();
+  let vol = 0;
+  for (let i = 0; i < pos.count; i += 3) {
+    a.fromBufferAttribute(pos, i);
+    b.fromBufferAttribute(pos, i + 1);
+    c.fromBufferAttribute(pos, i + 2);
+    vol += a.dot(cr.crossVectors(b, c));
   }
-  
-  const triangles: Triangle[] = [];
-  const tubeVertices: Vertex[][] = []; // grid tubeSegments x radialSegments
-  
-  // Generate Frenet-Serret-like frame for each curve point
-  for (let i = 0; i < tubeSegments; i++) {
-    const curr = knotPoints[i];
-    const next = knotPoints[i + 1];
-    
-    // Tangent
-    const tx = next.x - curr.x;
-    const ty = next.y - curr.y;
-    const tz = next.z - curr.z;
-    const tLen = Math.sqrt(tx * tx + ty * ty + tz * tz);
-    const T = { x: tx / tLen, y: ty / tLen, z: tz / tLen };
-    
-    // Normal (use curve direction relative to origin for a stable coordinate system)
-    const nx = curr.x;
-    const ny = curr.y;
-    const nz = 0; // lock to horizontal plane for safety
-    const nLen = Math.sqrt(nx * nx + ny * ny + nz * nz);
-    const N = { x: nx / nLen, y: ny / nLen, z: nz / nLen };
-    
-    // Binormal (Cross product T x N)
-    const B = {
-      x: T.y * N.z - T.z * N.y,
-      y: T.z * N.x - T.x * N.z,
-      z: T.x * N.y - T.y * N.x
-    };
-    const bLen = Math.sqrt(B.x * B.x + B.y * B.y + B.z * B.z);
-    B.x /= bLen;
-    B.y /= bLen;
-    B.z /= bLen;
-    
-    // Re-adjust normal N to make sure it's strictly perpendicular to T and B
-    N.x = B.y * T.z - B.z * T.y;
-    N.y = B.z * T.x - B.x * T.z;
-    N.z = B.x * T.y - B.y * T.x;
-    
-    // Generate rings around the curve point
-    const ring: Vertex[] = [];
-    const radius = 3.5; // thickness of knot tube
-    for (let rIdx = 0; rIdx < radialSegments; rIdx++) {
-      const theta = (rIdx / radialSegments) * Math.PI * 2;
-      const cosT = Math.cos(theta);
-      const sinT = Math.sin(theta);
-      
-      ring.push({
-        x: curr.x + radius * (cosT * N.x + sinT * B.x),
-        y: curr.y + radius * (cosT * N.y + sinT * B.y),
-        z: curr.z + radius * (cosT * N.z + sinT * B.z)
-      });
+  const flip = vol < 0;
+  const tris: Triangle[] = [];
+  const e1 = new THREE.Vector3();
+  const e2 = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i += 3) {
+    a.fromBufferAttribute(pos, i);
+    b.fromBufferAttribute(pos, i + 1);
+    c.fromBufferAttribute(pos, i + 2);
+    e1.subVectors(b, a);
+    e2.subVectors(c, a);
+    if (cr.crossVectors(e1, e2).length() < 1e-9) continue;
+    const v1: [number, number, number] = [a.x, a.y, a.z];
+    let v2: [number, number, number] = [b.x, b.y, b.z];
+    let v3: [number, number, number] = [c.x, c.y, c.z];
+    if (flip) { const t = v2; v2 = v3; v3 = t; }
+    tris.push({ normal: calculateNormal(v1, v2, v3), v1, v2, v3 });
+  }
+  g.dispose();
+  return tris;
+}
+
+// Sólido de revolución sobre el eje Y a partir de un perfil cerrado [radio, y]
+function lathe(profile: [number, number][], segments = 72): THREE.BufferGeometry {
+  const pts = profile.map(([r, y]) => new THREE.Vector2(r, y));
+  pts.push(pts[0].clone());
+  return new THREE.LatheGeometry(pts, segments);
+}
+
+export function generateRuedaGiratoria(): ArrayBuffer {
+  // Horquilla
+  const ANCHO_EXT = 45.5, PARED = 4.8, ANCHO_SUP = 39.7, E_PUENTE = 5;
+  const R_PUNTA = 15.9, PROF_EJE = 41.3, OFF_EJE = 8.7;
+  // Eje, rueda
+  const D_EJE = 9.6, L_EJE = 52.4, E_CABEZA = 4.8, D_COLLAR = 16.1, E_COLLAR = 2;
+  const D_RUEDA = 57.4, E_BANDA = 4.9, ANCHO_RUEDA = 30.2, E_NERVIO = 6.5, D_CUBO = 23, L_CUBO = 35;
+  // Tornillo y tuerca
+  const D_VASTAGO = 17.7, L_VASTAGO = 41.9, L_ROSCA = 18.8, D_ROSCA = 12.2;
+  const ANCHO_RANURA = 1.8, PROF_RANURA = 2.3;
+  const AC_TUERCA = 21.7, H_TUERCA = 12.2, D_BRIDA = 24, E_BRIDA = 1.2;
+  const Y_TORN = -7.2, Y_TUERCA = 19;
+  // Rodamiento de bolas
+  const D_PISTA = 50.1, E_PISTA = 4.6, D_DISCO = 57.9, D_BOLA = 5.8, D_PASO = 41.6, Y_BOLA = 7.67, N_BOLAS = 14;
+  const Y_DISCO_TOP = 13.9, R_DISCO_PLANO = 20.3, CAIDA_DISCO = 5.9, E_DISCO = 2.5, R_HUECO_DISCO = 9.5;
+  const ZC = ANCHO_EXT / 2;
+
+  const tris: Triangle[] = [];
+  const add = (g: THREE.BufferGeometry, m: THREE.Matrix4) => {
+    const t = geoToTriangles(g, m);
+    for (let i = 0; i < t.length; i++) tris.push(t[i]);
+    g.dispose();
+  };
+  const move = (x: number, y: number, z: number) => new THREE.Matrix4().makeTranslation(x, y, z);
+  // extrusión (a lo largo de +Z local) -> eje Y del conjunto; revolución (eje Y) -> eje Z del conjunto
+  const zToY = (x: number, y: number, z: number) => move(x, y, z).multiply(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
+  const yToZ = (x: number, y: number, z: number) => move(x, y, z).multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2));
+  const extrude = (shape: THREE.Shape, depth: number) =>
+    new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: false, curveSegments: 48 });
+  const circleHole = (cx: number, cy: number, r: number) => {
+    const h = new THREE.Path();
+    h.absarc(cx, cy, r, 0, Math.PI * 2, false);
+    return h;
+  };
+
+  // 1. HORQUILLA: puente superior + dos paredes con punta redonda y taladro del eje
+  const hs = ANCHO_SUP / 2;
+  const puente = new THREE.Shape();
+  puente.moveTo(-hs, 0); puente.lineTo(hs, 0); puente.lineTo(hs, -ANCHO_EXT); puente.lineTo(-hs, -ANCHO_EXT);
+  puente.holes.push(circleHole(0, -ZC, D_VASTAGO / 2));
+  add(extrude(puente, E_PUENTE), zToY(0, -E_PUENTE, 0));
+
+  const pared = () => {
+    const cx = OFF_EJE, cy = -PROF_EJE;
+    const s = new THREE.Shape();
+    s.moveTo(-hs, 0); s.lineTo(hs, 0); s.lineTo(cx + R_PUNTA, cy);
+    s.absarc(cx, cy, R_PUNTA, 0, -Math.PI, true);
+    s.lineTo(-hs, 0);
+    s.holes.push(circleHole(cx, cy, D_EJE / 2));
+    return s;
+  };
+  add(extrude(pared(), PARED), move(0, 0, 0));
+  add(extrude(pared(), PARED), move(0, 0, ANCHO_EXT - PARED));
+
+  // 2. RUEDA (eje Z): cubo, nervio central y banda, en un solo perfil de revolución
+  const rBanda = D_RUEDA / 2, rInt = (D_RUEDA - 2 * E_BANDA) / 2, rCubo = D_CUBO / 2;
+  const z0 = (L_CUBO - ANCHO_RUEDA) / 2, zN0 = (L_CUBO - E_NERVIO) / 2, zN1 = zN0 + E_NERVIO;
+  add(lathe([
+    [D_EJE / 2, 0], [rCubo, 0], [rCubo, zN0], [rInt, zN0], [rInt, z0], [rBanda, z0],
+    [rBanda, z0 + ANCHO_RUEDA], [rInt, z0 + ANCHO_RUEDA], [rInt, zN1], [rCubo, zN1],
+    [rCubo, L_CUBO], [D_EJE / 2, L_CUBO]
+  ]), yToZ(OFF_EJE, -PROF_EJE, (ANCHO_EXT - L_CUBO) / 2));
+
+  // 3. EJE de la rueda con collar en el extremo derecho
+  add(lathe([
+    [0, 0], [D_EJE / 2, 0], [D_EJE / 2, L_EJE - E_COLLAR], [D_COLLAR / 2, L_EJE - E_COLLAR],
+    [D_COLLAR / 2, L_EJE], [0, L_EJE]
+  ]), yToZ(OFF_EJE, -PROF_EJE, -E_CABEZA));
+
+  // 4. TORNILLO de giro: caña Ø17,7, tramo roscado Ø12,2 y ranura en el extremo
+  const rRosca = D_ROSCA / 2, yRanura = L_VASTAGO - PROF_RANURA;
+  add(lathe([
+    [0, 0], [D_VASTAGO / 2, 0], [D_VASTAGO / 2, L_VASTAGO - L_ROSCA], [rRosca, L_VASTAGO - L_ROSCA],
+    [rRosca, yRanura], [0, yRanura]
+  ]), move(0, Y_TORN, ZC));
+  const xs = ANCHO_RANURA / 2, gam = Math.acos(-xs / rRosca);
+  for (const lado of [-1, 1]) {
+    // dos mitades del extremo del vástago, separadas por la ranura (lado -1: x <= -xs; lado 1: x >= xs)
+    const mitad = new THREE.Shape();
+    const n = 24;
+    for (let i = 0; i <= n; i++) {
+      const th = gam + ((2 * Math.PI - 2 * gam) * i) / n;
+      const x = lado === -1 ? rRosca * Math.cos(th) : -rRosca * Math.cos(th);
+      const y = rRosca * Math.sin(th);
+      if (i === 0) mitad.moveTo(x, y); else mitad.lineTo(x, y);
     }
-    tubeVertices.push(ring);
+    add(extrude(mitad, PROF_RANURA), zToY(0, Y_TORN + yRanura, ZC));
   }
-  
-  // Close the tube loop by adding the 0th ring as the last ring
-  tubeVertices.push(tubeVertices[0]);
-  
-  // Construct faces
-  for (let i = 0; i < tubeSegments; i++) {
-    const ring1 = tubeVertices[i];
-    const ring2 = tubeVertices[i + 1];
-    
-    for (let r = 0; r < radialSegments; r++) {
-      const nextR = (r + 1) % radialSegments;
-      
-      const v00 = ring1[r];
-      const v10 = ring2[r];
-      const v01 = ring1[nextR];
-      const v11 = ring2[nextR];
-      
-      // Triangle 1: (v00, v10, v11)
-      {
-        const p1: [number, number, number] = [v00.x, v00.y, v00.z];
-        const p2: [number, number, number] = [v10.x, v10.y, v10.z];
-        const p3: [number, number, number] = [v11.x, v11.y, v11.z];
-        triangles.push({ normal: calculateNormal(p1, p2, p3), v1: p1, v2: p2, v3: p3 });
-      }
-      
-      // Triangle 2: (v00, v11, v01)
-      {
-        const p1: [number, number, number] = [v00.x, v00.y, v00.z];
-        const p2: [number, number, number] = [v11.x, v11.y, v11.z];
-        const p3: [number, number, number] = [v01.x, v01.y, v01.z];
-        triangles.push({ normal: calculateNormal(p1, p2, p3), v1: p1, v2: p2, v3: p3 });
-      }
-    }
+
+  // 5. TUERCA hexagonal con brida
+  add(lathe([[rRosca, 0], [D_BRIDA / 2, 0], [D_BRIDA / 2, E_BRIDA], [rRosca, E_BRIDA]]), move(0, Y_TUERCA, ZC));
+  const hex = new THREE.Shape();
+  for (let k = 0; k < 6; k++) {
+    const th = (k * Math.PI) / 3;
+    const x = (AC_TUERCA / 2) * Math.cos(th), y = (AC_TUERCA / 2) * Math.sin(th);
+    if (k === 0) hex.moveTo(x, y); else hex.lineTo(x, y);
   }
-  
-  return serializeBinarySTL(triangles, "TorusKnot_2x3");
+  hex.holes.push(circleHole(0, 0, rRosca));
+  add(extrude(hex, H_TUERCA - E_BRIDA), zToY(0, Y_TUERCA + E_BRIDA, ZC));
+
+  // 6. PISTA INFERIOR del rodamiento
+  add(lathe([[D_VASTAGO / 2, 0], [D_PISTA / 2, 0], [D_PISTA / 2, E_PISTA], [D_VASTAGO / 2, E_PISTA]]), move(0, 0, ZC));
+
+  // 7. DISCO SUPERIOR en forma de plato
+  const rO = D_DISCO / 2, yT = Y_DISCO_TOP;
+  add(lathe([
+    [R_HUECO_DISCO, yT], [R_DISCO_PLANO, yT], [rO, yT - CAIDA_DISCO], [rO, yT - CAIDA_DISCO - E_DISCO],
+    [R_DISCO_PLANO, yT - E_DISCO], [R_HUECO_DISCO, yT - E_DISCO]
+  ]), move(0, 0, ZC));
+
+  // 8. BOLAS
+  const rb = D_PASO / 2;
+  for (let i = 0; i < N_BOLAS; i++) {
+    const ang = (2 * Math.PI * i) / N_BOLAS;
+    add(new THREE.SphereGeometry(D_BOLA / 2, 28, 18), move(rb * Math.cos(ang), Y_BOLA, ZC + rb * Math.sin(ang)));
+  }
+
+  return serializeBinarySTL(tris, 'RuedaGiratoria');
 }

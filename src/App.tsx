@@ -9,7 +9,7 @@ import { PdfTo3D } from './components/PdfTo3D';
 import { 
   generateCalibrationCube, 
   generateFacetedDiamond, 
-  generateTorusKnot 
+  generateRuedaGiratoria 
 } from './utils/stlGenerator';
 import {
   Upload,
@@ -189,10 +189,10 @@ async function ghDeleteModel(token: string, d: MyDesign): Promise<void> {
 
 const PRESETS: PresetModel[] = [
   {
-    id: 'torus_knot',
-    name: 'Nudo Toroidal 3D',
-    description: 'Una escultura matemática continua de geometría compleja con 1,536 polígonos.',
-    category: 'Escultura'
+    id: 'rueda_giratoria',
+    name: 'Rueda Giratoria con Rodamiento',
+    description: 'Rueda de soporte giratorio con horquilla, tornillo, tuerca y rodamiento de bolas, hecha a partir del plano acotado.',
+    category: 'Ingeniería'
   },
   {
     id: 'diamond',
@@ -249,8 +249,8 @@ const COLOR_PRESETS = [
 export default function App() {
   // Current loaded model data as ArrayBuffer
   const [modelBuffer, setModelBuffer] = useState<ArrayBuffer | null>(null);
-  const [activePreset, setActivePreset] = useState<string>('torus_knot');
-  const [modelName, setModelName] = useState<string>('TorusKnot_2x3.stl');
+  const [activePreset, setActivePreset] = useState<string>('rueda_giratoria');
+  const [modelName, setModelName] = useState<string>('RuedaGiratoria.stl');
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const [isLoadingDesign, setIsLoadingDesign] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -392,9 +392,9 @@ export default function App() {
   // Custom sidebar active tab
   const [activeTab, setActiveTab] = useState<'material' | 'helpers' | 'slicer' | 'elegoo'>('material');
 
-  // Load procedural Torus Knot as default initial geometry on mounting
+  // Load the caster wheel assembly as default initial geometry on mounting
   useEffect(() => {
-    loadPreset('torus_knot');
+    loadPreset('rueda_giratoria');
     getAllFilesFromDB().then(files => setSavedFiles(files)).catch(() => {});
     refreshDesigns();
   }, []);
@@ -442,14 +442,14 @@ export default function App() {
         metalness: 0.40
       }));
     } else {
-      buffer = generateTorusKnot();
-      name = 'TorusKnot_2x3.stl';
-      // Adjust to default silk gold
+      buffer = generateRuedaGiratoria();
+      name = 'RuedaGiratoria.stl';
+      // Acero pavonado claro para ver bien las piezas del conjunto
       setSettings(prev => ({
         ...prev,
-        color: '#d4af37',
-        roughness: 0.18,
-        metalness: 0.90
+        color: '#cbd5e1',
+        roughness: 0.32,
+        metalness: 0.85
       }));
     }
 
