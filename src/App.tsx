@@ -6,6 +6,7 @@ import {
 } from './types';
 import { STLViewer3D } from './components/STLViewer3D';
 import { PdfTo3D } from './components/PdfTo3D';
+import { stlToOBJ, stlTo3MF } from './utils/meshExport';
 import { 
   generateCalibrationCube, 
   generateFacetedDiamond, 
@@ -444,12 +445,12 @@ export default function App() {
     } else {
       buffer = generateRuedaGiratoria();
       name = 'RuedaGiratoria.stl';
-      // Acero pavonado claro para ver bien las piezas del conjunto
+      // Cada pieza lleva su color en el STL: sin tinte (blanco) y poco metálico para que se vean
       setSettings(prev => ({
         ...prev,
-        color: '#cbd5e1',
-        roughness: 0.32,
-        metalness: 0.85
+        color: '#ffffff',
+        roughness: 0.45,
+        metalness: 0.15
       }));
     }
 
@@ -615,6 +616,44 @@ export default function App() {
     URL.revokeObjectURL(url);
   };
 
+  // Otros formatos de descarga: OBJ y 3MF (mallas; SolidWorks las abre como malla, no editables)
+  const saveBlob = (blob: Blob, fileName: string) => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+  const exportBaseName = () => modelName.replace(/\.(stl|obj|3mf)$/i, '');
+  const downloadOBJ = () => {
+    if (!modelBuffer) return;
+    saveBlob(new Blob([stlToOBJ(modelBuffer, modelName)], { type: 'text/plain' }), exportBaseName() + '.obj');
+  };
+  const download3MF = () => {
+    if (!modelBuffer) return;
+    saveBlob(new Blob([stlTo3MF(modelBuffer, modelName) as BlobPart], { type: 'model/3mf' }), exportBaseName() + '.3mf');
+  };
+
+  // Macro VBA de SolidWorks (solo para la rueda giratoria): descarga y copiar el código
+  const VBA_URL = import.meta.env.BASE_URL + 'descargas/Rueda_giratoria_v2.bas';
+  const [vbaCopied, setVbaCopied] = useState(false);
+  const copyVBA = async () => {
+    try {
+      const res = await fetch(VBA_URL, { cache: 'no-store' });
+      if (!res.ok) throw new Error();
+      // se quita la línea "Attribute VB_Name", que solo vale al importar el archivo
+      const code = (await res.text()).replace(/^Attribute VB_Name[^\n]*\r?\n/, '');
+      await navigator.clipboard.writeText(code);
+      setVbaCopied(true);
+      setTimeout(() => setVbaCopied(false), 2500);
+    } catch {
+      alert('No se pudo copiar el código VBA. Usa el botón VBA para descargar el archivo.');
+    }
+  };
+
   return (
     <div id="app-root" className="relative min-h-screen bg-bg text-text flex flex-col font-sans selection:bg-orange/20 selection:text-orange overflow-x-hidden">
       
@@ -654,13 +693,48 @@ export default function App() {
             className="hidden"
           />
           {modelBuffer && (
-            <button
-              onClick={downloadSTL}
-              className="flex items-center justify-center gap-1.5 px-2 py-1.5 sm:px-3 sm:py-2 bg-surface border border-border hover:bg-surface2 text-text text-[9.5px] sm:text-xs font-bold uppercase tracking-wider rounded-none transition-all cursor-pointer font-semibold shrink-0"
-              title="Exportar archivo STL activo"
-            >
-              Exportar
-            </button>
+            <>
+              <button
+                onClick={downloadSTL}
+                className="flex items-center justify-center gap-1.5 px-2 py-1.5 sm:px-3 sm:py-2 bg-surface border border-border hover:bg-surface2 text-text text-[9.5px] sm:text-xs font-bold uppercase tracking-wider rounded-none transition-all cursor-pointer font-semibold shrink-0"
+                title="Exportar archivo STL activo"
+              >
+                Exportar
+              </button>
+              <button
+                onClick={downloadOBJ}
+                className="flex items-center justify-center gap-1.5 px-2 py-1.5 sm:px-3 sm:py-2 bg-surface border border-border hover:bg-surface2 text-text text-[9.5px] sm:text-xs font-bold uppercase tracking-wider rounded-none transition-all cursor-pointer font-semibold shrink-0"
+                title="Descargar como OBJ (malla; SolidWorks la abre como malla)"
+              >
+                OBJ
+              </button>
+              <button
+                onClick={download3MF}
+                className="flex items-center justify-center gap-1.5 px-2 py-1.5 sm:px-3 sm:py-2 bg-surface border border-border hover:bg-surface2 text-text text-[9.5px] sm:text-xs font-bold uppercase tracking-wider rounded-none transition-all cursor-pointer font-semibold shrink-0"
+                title="Descargar como 3MF (una pieza por color)"
+              >
+                3MF
+              </button>
+            </>
+          )}
+          {activePreset === 'rueda_giratoria' && (
+            <>
+              <a
+                href={VBA_URL}
+                download="Rueda_giratoria_v2.bas"
+                className="flex items-center justify-center gap-1.5 px-2 py-1.5 sm:px-3 sm:py-2 bg-surface border border-border hover:bg-surface2 text-text text-[9.5px] sm:text-xs font-bold uppercase tracking-wider rounded-none transition-all cursor-pointer font-semibold shrink-0 no-underline"
+                title="Descargar la macro VBA de SolidWorks (.bas)"
+              >
+                VBA
+              </a>
+              <button
+                onClick={copyVBA}
+                className="flex items-center justify-center gap-1.5 px-2 py-1.5 sm:px-3 sm:py-2 bg-surface border border-border hover:bg-surface2 text-text text-[9.5px] sm:text-xs font-bold uppercase tracking-wider rounded-none transition-all cursor-pointer font-semibold shrink-0"
+                title="Copiar el código VBA para pegarlo en el editor de macros de SolidWorks"
+              >
+                {vbaCopied ? '¡Copiado!' : 'Copiar VBA'}
+              </button>
+            </>
           )}
         </div>
       </header>
@@ -897,8 +971,8 @@ export default function App() {
                 </div>
               </a>
               <a
-                href={import.meta.env.BASE_URL + 'descargas/Rueda_giratoria_v1.bas'}
-                download="Rueda_giratoria_v1.bas"
+                href={import.meta.env.BASE_URL + 'descargas/Rueda_giratoria_v2.bas'}
+                download="Rueda_giratoria_v2.bas"
                 className="group relative text-left p-2.5 sm:p-3.5 rounded-none border border-border bg-surface hover:bg-surface2/50 hover:border-orange transition-all duration-200 flex flex-col justify-between h-20 sm:h-28 no-underline"
               >
                 <div>
@@ -909,7 +983,7 @@ export default function App() {
                   <h3 className="text-[10px] sm:text-xs font-bold text-text mt-1.5 group-hover:text-orange transition-colors uppercase font-mono line-clamp-1 flex items-center gap-1.5">
                     <Wrench className="w-3 h-3 shrink-0" /> Rueda giratoria
                   </h3>
-                  <p className="text-[9px] text-muted line-clamp-1 sm:line-clamp-2 mt-0.5 font-mono leading-normal">Macro de SolidWorks (.bas): crea 8 piezas sueltas y el conjunto de la rueda con rodamiento de bolas.</p>
+                  <p className="text-[9px] text-muted line-clamp-1 sm:line-clamp-2 mt-0.5 font-mono leading-normal">Macro de SolidWorks (.bas): crea 12 piezas editables (con cotas y ecuaciones) y el conjunto de la rueda con rodamiento de bolas.</p>
                 </div>
               </a>
             </div>
