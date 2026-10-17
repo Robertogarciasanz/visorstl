@@ -863,40 +863,6 @@ export default function App() {
                 </div>
               </button>
               <a
-                href={import.meta.env.BASE_URL + 'abanico_generador.html'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative text-left p-2.5 sm:p-3.5 rounded-none border border-border bg-surface hover:bg-surface2/50 hover:border-[#7a5cff] transition-all duration-200 flex flex-col justify-between h-20 sm:h-28 no-underline"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[8px] bg-surface2 text-muted px-1.5 py-0.5 rounded-none font-mono uppercase tracking-wider border border-border/40">Calado PETG</span>
-                    <ExternalLink className="w-3 h-3 text-muted group-hover:text-[#7a5cff] transition-colors" />
-                  </div>
-                  <h3 className="text-[10px] sm:text-xs font-bold text-text mt-1.5 group-hover:text-[#7a5cff] transition-colors uppercase font-mono line-clamp-1 flex items-center gap-1.5">
-                    <Wind className="w-3 h-3 shrink-0" /> Abanico Calado
-                  </h3>
-                  <p className="text-[9px] text-muted line-clamp-1 sm:line-clamp-2 mt-0.5 font-mono leading-normal">Sube una foto, ajusta umbral y genera palas STL caladas en ZIP listas para imprimir.</p>
-                </div>
-              </a>
-              <a
-                href={import.meta.env.BASE_URL + 'abanico_marqueteria.html'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative text-left p-2.5 sm:p-3.5 rounded-none border border-border bg-surface hover:bg-surface2/50 hover:border-[#7a5cff] transition-all duration-200 flex flex-col justify-between h-20 sm:h-28 no-underline"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[8px] bg-surface2 text-muted px-1.5 py-0.5 rounded-none font-mono uppercase tracking-wider border border-border/40">Marquetería</span>
-                    <ExternalLink className="w-3 h-3 text-muted group-hover:text-[#7a5cff] transition-colors" />
-                  </div>
-                  <h3 className="text-[10px] sm:text-xs font-bold text-text mt-1.5 group-hover:text-[#7a5cff] transition-colors uppercase font-mono line-clamp-1 flex items-center gap-1.5">
-                    <Wind className="w-3 h-3 shrink-0" /> Abanico Marquetería
-                  </h3>
-                  <p className="text-[9px] text-muted line-clamp-1 sm:line-clamp-2 mt-0.5 font-mono leading-normal">Retrato tallado en medallón ovalado con líneas de marquetería. Guardas macizas a los lados.</p>
-                </div>
-              </a>
-              <a
                 href={import.meta.env.BASE_URL + 'descargas/Rueda_giratoria_v1.bas'}
                 download="Rueda_giratoria_v1.bas"
                 className="group relative text-left p-2.5 sm:p-3.5 rounded-none border border-border bg-surface hover:bg-surface2/50 hover:border-orange transition-all duration-200 flex flex-col justify-between h-20 sm:h-28 no-underline"
