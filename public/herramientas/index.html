@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Herramientas disponibles</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f5f7fb; --panel: #ffffff; --panel-2: #f8f9fc; --text: #1b2130; --muted: #566073;
+    --border: #dde2ea; --accent: #2f6fde; --accent-strong: #1d4fb3; --accent-soft: #e8effc;
+    --on-accent: #ffffff; --warn: #8a5300; --ring: #2f6fde;
+    --shadow-sm: 0 1px 2px rgba(16, 24, 40, .06);
+    --shadow-md: 0 4px 14px rgba(16, 24, 40, .09);
+    --shadow-lg: 0 16px 40px rgba(16, 24, 40, .22);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #12151b; --panel: #1b2029; --panel-2: #161a22; --text: #e8ebf1; --muted: #a0a9b8;
+      --border: #2d3441; --accent: #7aa6f5; --accent-strong: #b9cffb; --accent-soft: #223050;
+      --on-accent: #0f1629; --warn: #e6b05a; --ring: #7aa6f5;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+      --shadow-md: 0 4px 14px rgba(0, 0, 0, .35);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, .5);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #12151b; --panel: #1b2029; --panel-2: #161a22; --text: #e8ebf1; --muted: #a0a9b8;
+    --border: #2d3441; --accent: #7aa6f5; --accent-strong: #b9cffb; --accent-soft: #223050;
+    --on-accent: #0f1629; --warn: #e6b05a; --ring: #7aa6f5;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, .35);
+    --shadow-lg: 0 16px 40px rgba(0, 0, 0, .5);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); text-align: left;
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Cabecera */
+  header {
+    padding: 32px 24px 24px; color: #fff;
+    background: radial-gradient(circle at 90% 10%, rgba(255, 255, 255, .18), transparent 40%), linear-gradient(135deg, #1d4ed8 0%, #7e22ce 100%);
+    box-shadow: 0 6px 20px rgba(30, 64, 175, .25);
+  }
+  h1 { font-size: 30px; line-height: 1.2; font-weight: 750; letter-spacing: -0.02em; margin: 0 0 8px; color: #fff; }
+  .sub { color: rgba(255, 255, 255, .95); margin: 0 0 18px; max-width: 760px; font-size: 15px; line-height: 1.6; }
+  .sub b { color: #fff; font-weight: 650; }
+  .search {
+    display: block; width: 100%; max-width: 560px; min-height: 44px; padding: 10px 14px; font: inherit; font-size: 15px; color: var(--text);
+    background: var(--panel); border: 1px solid transparent; border-radius: 12px; box-shadow: var(--shadow-md);
+  }
+  .search::placeholder { color: var(--muted); opacity: 1; }
+  .search:focus-visible, header .tool:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .toolbar .tool { background: #fff; color: #1b2130; border-color: transparent; font-weight: 600; box-shadow: var(--shadow-md); }
+  .toolbar .tool:hover { background: #f1f4fb; border-color: transparent; }
+
+  /* Lista de categorías */
+  main {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: 16px; align-items: start; padding: 24px 24px 260px;
+  }
+  details {
+    background: var(--panel); border: 1px solid var(--border); border-top: 4px solid var(--grupo, var(--accent));
+    border-radius: 16px; margin: 0; overflow: hidden; box-shadow: var(--shadow-sm);
+    transition: box-shadow .2s, transform .2s;
+  }
+  details[open] { box-shadow: var(--shadow-md); }
+  @media (hover: hover) {
+    details:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  }
+  summary {
+    cursor: pointer; list-style: none; display: flex; align-items: center; gap: 12px;
+    min-height: 56px; padding: 12px 16px; font-size: 16px; font-weight: 650; line-height: 1.3; color: var(--text);
+  }
+  summary:hover { background: var(--panel-2); }
+  summary:focus-visible { outline: 3px solid var(--ring); outline-offset: -3px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: ""; flex: none; width: 8px; height: 8px; margin: -4px 4px 0 auto;
+    border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted);
+    transform: rotate(45deg); transition: transform .2s;
+  }
+  details[open] > summary::after { transform: rotate(225deg); }
+  .group-icon {
+    flex: none; display: inline-grid; place-items: center; width: 38px; height: 38px; border-radius: 12px;
+    font-size: 20px; line-height: 1;
+    background: color-mix(in srgb, var(--grupo, var(--accent)) 16%, var(--panel-2));
+  }
+  .group-icon + span { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+  .count {
+    flex: none; min-width: 28px; padding: 1px 9px; border-radius: 999px; text-align: center;
+    background: var(--grupo, var(--accent)); color: #fff; font-size: 12px; font-weight: 700; line-height: 20px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .buttons { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 16px 16px; }
+  button.tool {
+    display: inline-flex; align-items: center; max-width: 100%; min-height: 40px; padding: 8px 14px;
+    font: inherit; font-size: 14px; font-weight: 500; line-height: 1.25; text-align: left; color: var(--text);
+    background: color-mix(in srgb, var(--grupo, var(--accent)) 10%, var(--panel));
+    border: 1px solid color-mix(in srgb, var(--grupo, var(--accent)) 32%, var(--border));
+    border-radius: 999px; cursor: pointer; box-shadow: var(--shadow-sm);
+    transition: transform .12s, box-shadow .12s, background-color .12s, border-color .12s;
+  }
+  button.tool:hover {
+    background: color-mix(in srgb, var(--grupo, var(--accent)) 18%, var(--panel));
+    border-color: color-mix(in srgb, var(--grupo, var(--accent)) 60%, var(--border));
+    transform: translateY(-1px); box-shadow: var(--shadow-md);
+  }
+  button.tool:active { transform: translateY(0); }
+  button.tool:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
+  button.tool.active {
+    background: var(--grupo, var(--accent)); color: #fff; border-color: var(--grupo, var(--accent));
+  }
+  button.tool.active::before { content: "✓ "; font-weight: 700; }
+
+  .note {
+    margin: 0 16px 16px; padding: 12px 14px; color: var(--text); font-size: 14px;
+    background: color-mix(in srgb, var(--warn) 12%, var(--panel)); border-left: 4px solid var(--warn); border-radius: 10px;
+  }
+  .status { padding: 0 16px 16px; font-size: 14px; min-height: 1.5em; color: var(--text); }
+  .vacio { margin: 0; padding: 16px 24px; color: var(--muted); }
+  .hidden { display: none !important; }
+
+  /* Panel de detalle */
+  .detail {
+    position: fixed; left: 24px; right: 24px; bottom: 16px; z-index: 10; max-width: 880px; margin: 0 auto;
+    max-height: 42vh; overflow: auto; overscroll-behavior: contain;
+    background: var(--panel); color: var(--text);
+    border: 1px solid var(--border); border-left: 5px solid var(--accent); border-radius: 16px;
+    padding: 18px 56px 18px 20px; box-shadow: var(--shadow-lg);
+    animation: subir .18s ease-out;
+  }
+  @keyframes subir { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .detail strong { font-size: 17px; line-height: 1.4; }
+  .detail code {
+    display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 6px;
+    background: var(--accent-soft); color: var(--accent-strong);
+    font: 600 13px/1.6 ui-monospace, Consolas, "Cascadia Mono", monospace;
+  }
+  .detail > div:not(.hint) { margin-top: 2px; }
+  .detail > div + div { margin-top: 6px; }
+  .detail .hint { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .detail .cerrar {
+    position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; padding: 0;
+    border: none; border-radius: 50%; background: transparent; color: var(--muted);
+    font-size: 18px; line-height: 1; cursor: pointer;
+  }
+  .detail .cerrar:hover { background: var(--accent-soft); color: var(--text); }
+  .detail .cerrar:focus-visible { outline: 3px solid var(--ring); outline-offset: 1px; }
+  .detail button.tool {
+    margin-top: 12px; background: var(--accent); color: var(--on-accent); border-color: var(--accent);
+    font-weight: 600; justify-content: center; text-align: center;
+  }
+  .detail button.tool:hover { background: var(--accent); color: var(--on-accent); filter: brightness(1.06); border-color: var(--accent); }
+  .detail textarea.copia {
+    display: block; width: 100%; min-height: 56px; margin-top: 12px; padding: 10px 12px; resize: vertical;
+    font: inherit; font-size: 13px; line-height: 1.5; color: var(--text);
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px;
+  }
+  .detail textarea.copia:focus-visible { outline: 3px solid var(--ring); outline-offset: 1px; }
+
+  @media (max-width: 480px) {
+    header { padding: 22px 16px 18px; }
+    h1 { font-size: 24px; }
+    .sub { font-size: 14px; }
+    .toolbar { display: grid; grid-template-columns: 1fr 1fr; }
+    .toolbar .tool { width: 100%; justify-content: center; }
+    main { grid-template-columns: 1fr; gap: 12px; padding: 16px 16px 280px; }
+    .buttons { padding: 4px 12px 14px; }
+    .note { margin: 0 12px 14px; }
+    .status { padding: 0 12px 14px; }
+    .vacio { padding: 16px; }
+    .detail { left: 8px; right: 8px; bottom: 8px; max-height: 50vh; padding: 16px 50px 16px 16px; border-radius: 14px; }
+    .detail .cerrar { top: 6px; right: 6px; }
+    .search, .detail textarea.copia { font-size: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+  .seccion { grid-column: 1 / -1; margin: 22px 0 2px; }
+  .seccion h2 { font-size: 18px; margin: 0; }
+  .seccion p { color: var(--muted); margin: 2px 0 0; font-size: 14px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Herramientas disponibles</h1>
+  <p class="sub"><b>Cómo se usa:</b> 1) Abre una categoría. 2) Pulsa un botón para ver para qué sirve. 3) Si quieres que Claude lo haga, pulsa "Copiar para Claude" y pégalo en el chat. Los botones de "Acciones en mi PC" solo funcionan con el servidor abierto.</p>
+  <input class="search" id="q" type="search" placeholder="Buscar herramienta…" aria-label="Buscar herramienta">
+  <div class="toolbar">
+    <button class="tool" id="abrir-todas" type="button">Abrir todas</button>
+    <button class="tool" id="cerrar-todas" type="button">Cerrar todas</button>
+  </div>
+</header>
+<main id="root"></main>
+<p class="vacio hidden" id="vacio">No hay herramientas con ese texto.</p>
+<div class="detail hidden" id="detail" role="status" aria-live="polite"></div>
+
+<script>
+// Cada grupo: icono, nombre y herramientas.
+// Cada herramienta: [nombre técnico, icono, texto del botón, para qué sirve]
+const GROUPS = [
+  { name: "Archivos y comandos", icon: "📁", tools: [
+    ["Read", "📖", "Leer archivo", "Lee archivos locales (texto, imágenes, PDF, notebooks)."],
+    ["Write", "✍️", "Crear o reemplazar archivo", "Crea un archivo o sobrescribe uno existente."],
+    ["Edit", "✏️", "Editar texto de archivo", "Cambia un fragmento de texto exacto dentro de un archivo."],
+    ["Glob", "🗂️", "Buscar archivos por nombre", "Encuentra archivos que coinciden con un patrón (p. ej. **/*.js)."],
+    ["Grep", "🔎", "Buscar texto en archivos", "Busca una palabra o expresión dentro del contenido de los archivos."],
+    ["Bash", "⌨️", "Ejecutar comando (Bash)", "Ejecuta comandos en Git Bash."],
+    ["PowerShell", "💻", "Ejecutar comando (PowerShell)", "Ejecuta comandos en PowerShell 5.1."],
+    ["NotebookEdit", "📓", "Editar notebook Jupyter", "Modifica celdas de un notebook de Jupyter."]
+  ]},
+  { name: "Agentes y flujo de trabajo", icon: "🤖", tools: [
+    ["Agent", "🤖", "Lanzar subagente", "Delega una tarea compleja en un agente que trabaja solo."],
+    ["Workflow", "🧩", "Orquestar varios agentes", "Coordina muchos agentes; solo si lo pides expresamente."],
+    ["EnterPlanMode", "🗺️", "Entrar en modo plan", "Pasa a planificar sin hacer cambios todavía."],
+    ["ExitPlanMode", "📋", "Presentar plan", "Sale del modo plan y te enseña el plan para aprobarlo."],
+    ["AskUserQuestion", "❓", "Preguntarte con opciones", "Te hace preguntas con botones de respuesta antes de seguir."],
+    ["ListAgents", "👥", "Listar agentes", "Muestra los agentes y sesiones con los que puedo hablar."],
+    ["SendMessage", "💬", "Enviar mensaje a agente", "Manda un mensaje a otro agente o sesión."],
+    ["TaskStop", "⏹️", "Detener tarea", "Para una tarea que se ejecuta en segundo plano."],
+    ["EnterWorktree", "🌿", "Entrar en copia aislada (worktree)", "Trabaja en una copia separada del repositorio."],
+    ["ExitWorktree", "🏠", "Salir de copia aislada", "Vuelve del worktree actual a la carpeta principal."]
+  ]},
+  { name: "Programación y avisos", icon: "⏱️", tools: [
+    ["ScheduleWakeup", "⏰", "Programar retomar bucle", "Decide cuándo volver a revisar una tarea repetida."],
+    ["Monitor", "👁️", "Vigilar proceso", "Observa un proceso o una condición hasta que cambie."],
+    ["CronCreate", "📅", "Crear tarea recurrente", "Crea una tarea que se repite según un horario cron."],
+    ["CronDelete", "🗑️", "Borrar tarea recurrente", "Elimina una tarea cron."],
+    ["CronList", "📆", "Ver tareas recurrentes", "Lista las tareas cron programadas."],
+    ["RemoteTrigger", "📡", "Gestionar disparador remoto", "Crea o controla disparadores remotos programados."],
+    ["PushNotification", "🔔", "Enviar notificación", "Manda una notificación push al usuario."],
+    ["FetchInboxMessage", "📥", "Recuperar mensaje entrante", "Trae un mensaje pendiente de la bandeja."]
+  ]},
+  { name: "Búsqueda web", icon: "🌐", tools: [
+    ["WebSearch", "🌐", "Buscar en internet", "Busca información en la web."],
+    ["WebFetch", "🔗", "Leer página web", "Abre una página concreta y extrae su contenido."]
+  ]},
+  { name: "Habilidades y plugins", icon: "🧩", tools: [
+    ["Skill", "🛠️", "Usar habilidad", "Ejecuta una habilidad instalada."],
+    ["ListSkills", "📚", "Listar habilidades", "Muestra las habilidades disponibles."],
+    ["SearchSkills", "🔍", "Buscar habilidad", "Busca habilidades por palabras clave."],
+    ["ListPlugins", "🔌", "Listar plugins activos", "Muestra los plugins ya activados."],
+    ["SearchPlugins", "🧲", "Buscar plugin", "Busca plugins en el catálogo de la organización."],
+    ["SuggestSkills", "💡", "Sugerir habilidades", "Propone habilidades útiles para la tarea actual."],
+    ["SuggestPluginInstall", "📦", "Sugerir instalar plugin", "Muestra una tarjeta para instalar un plugin."]
+  ]},
+  { name: "Artefactos y archivos para ti", icon: "🖼️", tools: [
+    ["Artifact", "🖼️", "Publicar página o dashboard", "Publica una página, dashboard o documento con enlace privado."],
+    ["ArtifactComments", "💭", "Ver o responder comentarios", "Lee y contesta los comentarios de un artefacto publicado."],
+    ["ArtifactData", "🗄️", "Base de datos del artefacto", "Lee o escribe datos compartidos de un artefacto."],
+    ["SendUserFile", "📎", "Enviarte un archivo", "Te manda un archivo para verlo o descargarlo."]
+  ]},
+  { name: "Navegadores y escritorio", icon: "🧭", tools: [
+    ["Browser: navigate", "🧭", "Ir a una web (navegador integrado)", "Abre una dirección o avanza y retrocede en el historial."],
+    ["Browser: read_page", "📄", "Leer página (navegador integrado)", "Lee la estructura de la página con sus elementos."],
+    ["Browser: get_page_text", "📝", "Copiar texto de página (navegador integrado)", "Saca el texto visible de la página."],
+    ["Browser: computer", "🖱️", "Clic, escribir o captura (navegador integrado)", "Hace clics, escribe, desplaza la página y toma capturas."],
+    ["Browser: find", "🔍", "Buscar elemento (navegador integrado)", "Encuentra un botón, campo o enlace en la página."],
+    ["Browser: form_input", "🧾", "Rellenar formulario (navegador integrado)", "Escribe valores en campos de un formulario."],
+    ["Browser: javascript_tool", "🧪", "Ejecutar JavaScript (navegador integrado)", "Corre código JS en la página, para depurar."],
+    ["Browser: preview_start", "👀", "Abrir vista previa", "Arranca un servidor de desarrollo o abre una URL."],
+    ["Chrome: navigate", "🌍", "Ir a una web (Chrome)", "Navega en tu Chrome con tus sesiones iniciadas."],
+    ["Chrome: computer", "🖱️", "Clic, escribir o captura (Chrome)", "Actúa en tu Chrome: clics, escritura y capturas."],
+    ["Chrome: read_page", "📄", "Leer página (Chrome)", "Lee la estructura de la página en tu Chrome."],
+    ["Chrome: find", "🔍", "Buscar elemento (Chrome)", "Encuentra elementos en tu Chrome."],
+    ["Chrome: form_input", "🧾", "Rellenar formulario (Chrome)", "Escribe valores en formularios de tu Chrome."],
+    ["Chrome: gif_creator", "🎞️", "Grabar GIF", "Graba la sesión de Chrome como GIF."],
+    ["Chrome: read_console_messages", "🖥️", "Ver consola", "Lee los mensajes de la consola del navegador."],
+    ["Chrome: read_network_requests", "📶", "Ver peticiones de red", "Lee las peticiones de red que hace la página."],
+    ["Escritorio: screenshot", "📸", "Captura de pantalla", "Hace una foto de lo que se ve en el escritorio."],
+    ["Escritorio: left_click", "👆", "Clic en app nativa", "Hace clic en una aplicación de escritorio."],
+    ["Escritorio: type", "⌨️", "Escribir en app nativa", "Escribe texto en una aplicación de escritorio."],
+    ["Escritorio: open_application", "🪟", "Abrir o traer app", "Abre una aplicación o la pone al frente."],
+    ["Terminal: run_in_terminal", "▶️", "Ejecutar en terminal", "Lanza un comando en una pestaña del terminal de la app."],
+    ["Terminal: read_terminal", "📟", "Leer terminal", "Lee lo que hay escrito en el terminal."],
+    ["Terminal: list_terminal_tabs", "🗂️", "Listar pestañas del terminal", "Muestra las pestañas de terminal abiertas."],
+    ["Terminal: open_terminal_tab", "➕", "Abrir pestaña de terminal", "Crea una nueva pestaña de terminal."],
+    ["Terminal: stop_terminal_tab", "⏹️", "Cerrar pestaña de terminal", "Detiene una pestaña de terminal."]
+  ]},
+  { name: "Conectores: Docs", icon: "📝", tools: [
+    ["Docs: batch", "🧱", "Crear o editar documento", "Crea un documento o aplica varios cambios de una vez."],
+    ["Docs: guide", "📘", "Ver guías de Docs", "Consulta las instrucciones del servicio de documentos."],
+    ["Docs: update", "✏️", "Cambiar contenido de documento", "Edita el contenido, cambia el nombre o modifica un valor."]
+  ]},
+  { name: "Conectores: Correo", icon: "✉️", tools: [
+    ["Correo: search_threads", "🔍", "Buscar correos", "Busca conversaciones de correo."],
+    ["Correo: get_thread", "🧵", "Leer conversación", "Lee una conversación de correo completa."],
+    ["Correo: get_message", "✉️", "Leer mensaje", "Lee un correo concreto."],
+    ["Correo: create_draft", "📝", "Crear borrador", "Redacta un borrador. No se envía."],
+    ["Correo: update_draft", "✏️", "Cambiar borrador", "Modifica un borrador existente."],
+    ["Correo: get_draft", "👀", "Ver borrador", "Lee un borrador."],
+    ["Correo: list_drafts", "📋", "Listar borradores", "Muestra los borradores guardados."],
+    ["Correo: delete_draft", "🗑️", "Borrar borrador", "Elimina un borrador."],
+    ["Correo: send_message", "📤", "Enviar correo", "Envía un correo. Requiere tu confirmación."],
+    ["Correo: reply", "↩️", "Responder correo", "Contesta a un mensaje. Requiere tu confirmación."],
+    ["Correo: forward", "➡️", "Reenviar correo", "Reenvía un mensaje. Requiere tu confirmación."],
+    ["Correo: label_message", "🏷️", "Etiquetar mensaje", "Añade etiquetas a un correo."],
+    ["Correo: label_thread", "🏷️", "Etiquetar conversación", "Añade etiquetas a una conversación."],
+    ["Correo: unlabel_message", "🏷️", "Quitar etiqueta de mensaje", "Quita etiquetas de un correo."],
+    ["Correo: unlabel_thread", "🏷️", "Quitar etiqueta de conversación", "Quita etiquetas de una conversación."],
+    ["Correo: update_message_labels", "🏷️", "Cambiar etiquetas de mensaje", "Cambia varias etiquetas de un correo a la vez."],
+    ["Correo: list_labels", "🏷️", "Listar etiquetas", "Muestra todas las etiquetas."],
+    ["Correo: create_label", "🏷️", "Crear etiqueta", "Crea una etiqueta nueva."],
+    ["Correo: update_label", "🏷️", "Renombrar etiqueta", "Cambia el nombre o la forma de una etiqueta."],
+    ["Correo: delete_label", "🗑️", "Borrar etiqueta", "Elimina una etiqueta."],
+    ["Correo: trash_message", "🗑️", "Mandar correo a papelera", "Envía un correo a la papelera."],
+    ["Correo: untrash_message", "♻️", "Sacar correo de papelera", "Recupera un correo de la papelera."],
+    ["Correo: trash_thread", "🗑️", "Mandar conversación a papelera", "Envía una conversación entera a la papelera."],
+    ["Correo: untrash_thread", "♻️", "Sacar conversación de papelera", "Recupera una conversación de la papelera."],
+    ["Correo: mark_message_spam", "🚫", "Marcar correo como spam", "Marca un correo como spam."],
+    ["Correo: unmark_message_spam", "✅", "Quitar spam de correo", "Quita la marca de spam de un correo."],
+    ["Correo: mark_thread_spam", "🚫", "Marcar conversación como spam", "Marca una conversación como spam."],
+    ["Correo: unmark_thread_spam", "✅", "Quitar spam de conversación", "Quita la marca de spam de una conversación."],
+    ["Correo: apply_sensitive_message_label", "🔒", "Marcar correo sensible", "Aplica una etiqueta de sensibilidad a un correo."],
+    ["Correo: apply_sensitive_thread_label", "🔒", "Marcar conversación sensible", "Aplica una etiqueta de sensibilidad a una conversación."]
+  ]},
+  { name: "Conectores: Google Drive", icon: "☁️", tools: [
+    ["Drive: search_files", "🔍", "Buscar archivos en Drive", "Busca archivos en tu Drive."],
+    ["Drive: list_recent_files", "🕘", "Ver archivos recientes", "Muestra los archivos abiertos o editados hace poco."],
+    ["Drive: read_file_content", "📖", "Leer archivo de Drive", "Lee el contenido de un archivo de Drive."],
+    ["Drive: download_file_content", "⬇️", "Descargar contenido", "Descarga el contenido de un archivo."],
+    ["Drive: get_file_metadata", "ℹ️", "Ver datos del archivo", "Muestra nombre, fechas y otros datos de un archivo."],
+    ["Drive: get_file_permissions", "🔐", "Ver quién tiene acceso", "Muestra quién puede ver o editar un archivo."],
+    ["Drive: create_file", "🆕", "Crear archivo en Drive", "Crea un archivo nuevo en Drive."],
+    ["Drive: update_file", "✏️", "Modificar archivo de Drive", "Cambia un archivo existente."],
+    ["Drive: copy_file", "📑", "Copiar archivo", "Hace una copia de un archivo."],
+    ["Drive: share_file", "🤝", "Compartir archivo", "Da acceso a otra persona. Requiere tu confirmación."],
+    ["Drive: trash_file", "🗑️", "Mandar archivo a papelera", "Envía un archivo a la papelera."]
+  ]},
+  { name: "Conectores: Calendario", icon: "📅", tools: [
+    ["Calendario: list_calendars", "🗓️", "Listar calendarios", "Muestra tus calendarios."],
+    ["Calendario: list_events", "📅", "Ver eventos", "Muestra los eventos de un período."],
+    ["Calendario: search_events", "🔍", "Buscar evento", "Busca eventos por texto."],
+    ["Calendario: get_event", "👀", "Ver evento", "Muestra los detalles de un evento."],
+    ["Calendario: suggest_time", "⏱️", "Sugerir hueco libre", "Propone horas libres para una reunión."],
+    ["Calendario: create_event", "➕", "Crear evento", "Añade un evento al calendario."],
+    ["Calendario: update_event", "✏️", "Cambiar evento", "Modifica un evento existente."],
+    ["Calendario: respond_to_event", "✅", "Responder invitación", "Acepta, rechaza o contesta a una invitación."],
+    ["Calendario: delete_event", "🗑️", "Borrar evento", "Elimina un evento."]
+  ]},
+  { name: "Registro de conectores", icon: "🔌", tools: [
+    ["mcp-registry: search_mcp_registry", "🔍", "Buscar conector nuevo", "Busca conectores nuevos en el registro."],
+    ["mcp-registry: list_connectors", "📋", "Listar conectores", "Muestra los conectores disponibles."],
+    ["mcp-registry: suggest_connectors", "💡", "Sugerir conectores", "Propone conectores útiles para la tarea."]
+  ]},
+  { name: "SolidWorks (Taller)", icon: "🛠️", tools: [
+    ["estado", "🟢", "Ver estado de SolidWorks", "Indica si SolidWorks está abierto y qué pieza hay."],
+    ["abrir", "📂", "Abrir SolidWorks o pieza", "Abre SolidWorks o una pieza concreta."],
+    ["traer_al_frente", "🪟", "Traer SolidWorks al frente", "Pone la ventana de SolidWorks delante."],
+    ["medir", "📏", "Medir pieza", "Comprueba sólidos, volumen y tamaño de la pieza."],
+    ["captura", "📸", "Captura de SolidWorks", "Hace una captura de la pantalla de SolidWorks."],
+    ["ejecutar_macro", "📜", "Ejecutar macro", "Corre una macro VBA dentro de SolidWorks."],
+    ["plano_a_pieza", "🧱", "Modelar pieza desde plano", "Crea una pieza a partir de un plano PDF o una foto acotada."],
+    ["generar_plano", "📐", "Generar plano A4", "Saca el plano A4 en PDF de una pieza."],
+    ["cerrar_sin_guardar", "❌", "Cerrar sin guardar", "Cierra la pieza sin guardar los cambios. Úsala con cuidado."]
+  ]},
+  { name: "GitHub", icon: "🐙", tools: [
+    ["get_file_contents", "📄", "Leer archivo del repositorio", "Lee un archivo o una carpeta de un repositorio."],
+    ["create_or_update_file", "✏️", "Crear o cambiar archivo", "Crea o actualiza un archivo en el repositorio."],
+    ["push_files", "🚀", "Subir varios archivos", "Sube varios archivos en un mismo commit."],
+    ["create_branch", "🌿", "Crear rama", "Crea una rama nueva."],
+    ["list_commits", "🕰️", "Listar commits", "Muestra el historial de commits."],
+    ["search_code", "🔎", "Buscar código", "Busca texto o código en GitHub."],
+    ["search_repositories", "📦", "Buscar repositorios", "Busca repositorios en GitHub."],
+    ["search_users", "👤", "Buscar usuarios", "Busca usuarios de GitHub."],
+    ["create_repository", "📦", "Crear repositorio", "Crea un repositorio nuevo."],
+    ["fork_repository", "🍴", "Hacer copia (fork)", "Copia un repositorio ajeno en tu cuenta."],
+    ["list_issues", "🐞", "Listar issues", "Muestra las incidencias o tareas del repositorio."],
+    ["get_issue", "🐞", "Ver issue", "Muestra una incidencia concreta."],
+    ["create_issue", "🐞", "Crear issue", "Abre una incidencia nueva."],
+    ["update_issue", "🐞", "Cambiar issue", "Modifica una incidencia."],
+    ["add_issue_comment", "💬", "Comentar issue", "Añade un comentario a una incidencia."],
+    ["search_issues", "🔎", "Buscar issues y PRs", "Busca incidencias y pull requests."],
+    ["list_pull_requests", "🔀", "Listar pull requests", "Muestra los pull requests."],
+    ["get_pull_request", "🔀", "Ver pull request", "Muestra un pull request concreto."],
+    ["get_pull_request_files", "📁", "Ver archivos cambiados del PR", "Lista los archivos que cambia un pull request."],
+    ["get_pull_request_comments", "💬", "Ver comentarios del PR", "Lee los comentarios de un pull request."],
+    ["get_pull_request_reviews", "👀", "Ver revisiones del PR", "Lee las revisiones de un pull request."],
+    ["get_pull_request_status", "✅", "Ver estado de checks del PR", "Muestra si pasan los tests y comprobaciones."],
+    ["create_pull_request", "🔀", "Abrir pull request", "Propone unir una rama en la principal."],
+    ["create_pull_request_review", "📝", "Revisar PR", "Envía una revisión a un pull request."],
+    ["update_pull_request_branch", "🔄", "Actualizar rama del PR", "Pone la rama del PR al día con su base."],
+    ["merge_pull_request", "🔗", "Fusionar PR", "Une un pull request en su rama base. Requiere tu confirmación."]
+  ]},
+  { name: "Sesiones y ajustes de la app", icon: "⚙️", tools: [
+    ["ccd_session: start_session", "🚀", "Proponer nueva sesión", "Propone o inicia una sesión separada para otra tarea."],
+    ["ccd_session: hand_off_to_session", "➡️", "Pasar tarea a otra sesión", "Mueve la tarea actual a una sesión nueva."],
+    ["ccd_session: move_to_cloud", "☁️", "Mover sesión a la nube", "Lleva la sesión a ejecutarse en la nube."],
+    ["ccd_session: list_start_targets", "🎯", "Ver dónde iniciar sesiones", "Lista los destinos disponibles para nuevas sesiones."],
+    ["ccd_session_mgmt: list_sessions", "📋", "Listar sesiones", "Muestra tus sesiones."],
+    ["ccd_session_mgmt: get_session", "👀", "Ver sesión", "Muestra los datos de una sesión."],
+    ["ccd_session_mgmt: stop_session", "⏹️", "Parar sesión", "Detiene una sesión en curso."],
+    ["ccd_session_mgmt: archive_session", "🗄️", "Archivar sesión", "Guarda una sesión fuera de la lista activa."],
+    ["ccd_session_mgmt: unarchive_session", "📤", "Desarchivar sesión", "Devuelve una sesión archivada a la lista."],
+    ["ccd_session_mgmt: delete_session", "🗑️", "Borrar sesión", "Elimina una sesión para siempre."],
+    ["ccd_session_mgmt: search_session_transcripts", "🔎", "Buscar en conversaciones", "Busca texto en las transcripciones de sesiones."],
+    ["ccd_session_mgmt: export_transcript", "💾", "Exportar transcripción", "Guarda la conversación de una sesión en un archivo."],
+    ["ccd_session_mgmt: get_usage", "📊", "Ver consumo", "Muestra cuántos tokens se han gastado."],
+    ["ccd_session_mgmt: set_session_model", "🧠", "Cambiar modelo de la sesión", "Elige qué modelo usa la sesión."],
+    ["ccd_session_mgmt: set_session_effort", "🎚️", "Cambiar esfuerzo de razonamiento", "Decide cuánto piensa el modelo antes de responder."],
+    ["ccd_session_mgmt: set_session_permission_mode", "🔐", "Cambiar modo de permisos", "Decide cuánto puedo hacer sin preguntarte."],
+    ["ccd_pr: get_status", "🔀", "Ver estado del PR", "Muestra el estado del pull request vinculado."],
+    ["ccd_pr: bind_pr", "🔗", "Vincular PR", "Asocia un pull request a esta sesión."],
+    ["ccd_pr: unbind_pr", "✂️", "Desvincular PR", "Quita la asociación con el pull request."],
+    ["ccd_pr: set_monitor", "👁️", "Vigilar PR", "Activa o desactiva el seguimiento del pull request."],
+    ["ccd_pr: set_auto_merge", "⚙️", "Fusión automática", "Activa la fusión automática del PR. Solo si lo pides."],
+    ["ccd_settings: get_settings", "⚙️", "Ver ajustes", "Lee tus preferencias de la pestaña Code."],
+    ["ccd_settings: set_setting", "🎛️", "Cambiar ajuste", "Modifica una preferencia. Requiere tu aprobación."],
+    ["ccd_sidebar: list_groups", "📑", "Ver grupos de la barra lateral", "Muestra los grupos de la barra lateral."],
+    ["ccd_sidebar: set_pinned", "📌", "Fijar o soltar sesión", "Pone o quita una sesión fijada arriba."],
+    ["ccd_sidebar: move_sessions", "🔀", "Mover sesiones", "Cambia sesiones de sección en la barra lateral."],
+    ["ccd_view: show_pane", "🪟", "Abrir panel", "Muestra un panel: diff, terminal, PR, plan…"],
+    ["ccd_view: get_layout", "🧩", "Ver disposición de paneles", "Muestra cómo están colocados los paneles."],
+    ["ccd_window: open_session_in", "🪟", "Abrir sesión en vista dividida", "Pone una sesión al lado de otra."],
+    ["ccd_window: get_window_layout", "🧩", "Ver disposición de ventanas", "Muestra cómo están organizadas las ventanas."],
+    ["ccd_host: open_in_editor", "🖊️", "Abrir en el editor", "Abre una carpeta o archivo en el editor."],
+    ["ccd_host: reveal_path", "📂", "Mostrar en el explorador", "Abre el explorador de archivos en una ruta."],
+    ["ccd_host: sync_with_base_branch", "🔄", "Sincronizar con rama base", "Trae a un worktree los cambios de su rama base."],
+    ["ccd_host: request_keep_awake", "☕", "Evitar que el equipo se duerma", "Pide que el ordenador no entre en reposo."],
+    ["ccd_host: get_storage_usage", "💽", "Ver espacio usado", "Muestra cuánto espacio ocupan los worktrees."],
+    ["ccd_host: clean_up_worktrees", "🧹", "Limpiar copias aisladas", "Borra worktrees que ya no se usan."],
+    ["ccd_directory: request_directory", "📁", "Pedir acceso a carpeta", "Solicita acceso a otra carpeta."],
+    ["ccd_directory: change_directory", "📁", "Cambiar carpeta de trabajo", "Cambia la carpeta en la que trabajo."]
+  ]},
+  { name: "Programar tareas", icon: "⏰", tools: [
+    ["scheduled-tasks: create_scheduled_task", "⏰", "Crear tarea programada", "Crea una tarea que se ejecuta sola en un horario."],
+    ["scheduled-tasks: list_scheduled_tasks", "📋", "Listar tareas programadas", "Muestra las tareas programadas."],
+    ["scheduled-tasks: update_scheduled_task", "✏️", "Cambiar tarea programada", "Modifica una tarea programada."],
+    ["scheduled-tasks: run_scheduled_task", "▶️", "Ejecutar tarea ahora", "Lanza una tarea programada en este momento."],
+    ["scheduled-tasks: list_task_runs", "📜", "Ver ejecuciones", "Muestra el historial de ejecuciones de una tarea."],
+    ["scheduled-tasks: delete_scheduled_task", "🗑️", "Borrar tarea programada", "Elimina una tarea programada."]
+  ]},
+  { name: "Memoria y Cloudflare", icon: "🧠", tools: [
+    ["claude-mem: search", "🔍", "Buscar en memoria", "Busca en lo que se trabajó en sesiones anteriores."],
+    ["claude-mem: smart_search", "🧠", "Búsqueda inteligente en memoria", "Busca en la memoria de forma más precisa."],
+    ["claude-mem: timeline", "🕰️", "Ver cronología", "Muestra qué pasó y cuándo."],
+    ["claude-mem: save_memory", "💾", "Guardar recuerdo", "Guarda un dato para recordarlo en otras sesiones."],
+    ["Cloudflare: search_cloudflare_documentation", "📘", "Buscar documentación de Cloudflare", "Busca en la documentación oficial de Cloudflare."],
+    ["Cloudflare: workers_list", "☁️", "Listar Workers (Cloudflare)", "Muestra tus Workers. Requiere autorización."],
+    ["Cloudflare: query_worker_observability", "📜", "Ver logs de Workers", "Consulta los registros de tus Workers. Requiere autorización."]
+  ]}
+];
+
+// Colores de cada grupo (se reparten en orden)
+const PALETTE = ["#1d4ed8", "#15803d", "#b45309", "#7e22ce", "#be185d", "#0e7490", "#b91c1c", "#4338ca", "#4d7c0f", "#c2410c"];
+
+const SERVER = "http://127.0.0.1:8765/api/accion";
+
+// Acciones en tu PC; las ejecuta servidor_herramientas.py
+const PC_ACTIONS = [
+  { accion: "abrir_carpeta", icon: "📂", label: "Abrir carpeta del proyecto" },
+  { accion: "powershell_aqui", icon: "💻", label: "Abrir PowerShell aquí" },
+  { accion: "abrir_herramientas", icon: "🌐", label: "Abrir esta página" },
+  { accion: "listar_archivos", icon: "🗂️", label: "Listar archivos del proyecto" }
+];
+
+async function ejecutarAccion(accion, statusEl) {
+  statusEl.textContent = "Ejecutando…";
+  try {
+    const r = await fetch(SERVER, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ accion })
+    });
+    const data = await r.json();
+    statusEl.textContent = (data.ok ? "✅ " : "⚠️ ") + data.mensaje;
+  } catch (e) {
+    statusEl.textContent = "⚠️ No hay servidor. Abre servidor_herramientas.py en tu PC y vuelve a probar.";
+  }
+}
+
+const NEEDS_AUTH = [
+  "plugin:cloudflare (API, bindings, builds)", "Figma", "Intercom", "Asana", "Atlassian",
+  "Datadog", "GitHub (plugin)", "Linear", "Notion", "PagerDuty", "Slack", "BigQuery"
+];
+
+const root = document.getElementById("root");
+const detail = document.getElementById("detail");
+const q = document.getElementById("q");
+const groupEls = [];
+
+function cerrarDetalle() {
+  detail.classList.add("hidden");
+  document.querySelectorAll("button.tool.active").forEach(x => x.classList.remove("active"));
+}
+document.addEventListener("keydown", e => { if (e.key === "Escape") cerrarDetalle(); });
+
+function showDetail(icon, name, label, desc) {
+  detail.innerHTML = "";
+  const cerrar = document.createElement("button");
+  cerrar.type = "button";
+  cerrar.className = "cerrar";
+  cerrar.setAttribute("aria-label", "Cerrar");
+  cerrar.textContent = "✕";
+  cerrar.addEventListener("click", cerrarDetalle);
+  const title = document.createElement("div");
+  const etiqueta = document.createElement("strong");
+  etiqueta.textContent = icon + " " + label;
+  const tecnico = document.createElement("code");
+  tecnico.textContent = "  " + name;
+  title.append(etiqueta, tecnico);
+  const p = document.createElement("div");
+  p.textContent = desc;
+  const hint = document.createElement("div");
+  hint.className = "hint";
+  hint.textContent = "Pulsa 📋 para copiar la instrucción y pégala en el chat.";
+  const copiar = document.createElement("button");
+  copiar.className = "tool";
+  copiar.type = "button";
+  copiar.textContent = "📋 Copiar para Claude";
+  const texto = "Usa la herramienta " + name + " (" + label + "): " + desc;
+  const caja = document.createElement("textarea");
+  caja.readOnly = true;
+  caja.rows = 2;
+  caja.className = "copia";
+  caja.value = texto;
+  copiar.addEventListener("click", async () => {
+    caja.focus();
+    caja.select();
+    // execCommand copia la selección y funciona también desde un archivo local
+    let ok = document.execCommand("copy");
+    if (!ok) {
+      try {
+        await navigator.clipboard.writeText(texto);
+        ok = true;
+      } catch (e) {
+        ok = false;
+      }
+    }
+    copiar.textContent = ok ? "✅ Copiado, pégalo en el chat" : "Selecciona el texto y pulsa Ctrl+C";
+  });
+  detail.append(cerrar, title, p, hint, caja, copiar);
+  detail.classList.remove("hidden");
+}
+
+const pcDet = document.createElement("details");
+pcDet.open = true;
+const pcSum = document.createElement("summary");
+pcSum.textContent = "🖥️ Acciones en mi PC";
+pcDet.appendChild(pcSum);
+const pcWrap = document.createElement("div");
+pcWrap.className = "buttons";
+const pcStatus = document.createElement("div");
+pcStatus.className = "status";
+PC_ACTIONS.forEach(a => {
+  const b = document.createElement("button");
+  b.className = "tool";
+  b.type = "button";
+  b.textContent = a.icon + " " + a.label;
+  b.addEventListener("click", () => ejecutarAccion(a.accion, pcStatus));
+  pcWrap.appendChild(b);
+});
+pcDet.append(pcWrap, pcStatus);
+root.appendChild(pcDet);
+
+GROUPS.forEach((group, i) => {
+  const color = PALETTE[i % PALETTE.length];
+  const det = document.createElement("details");
+  det.style.setProperty("--grupo", color);
+  det.open = i === 0; // la primera categoría empieza abierta
+  const sum = document.createElement("summary");
+  const gicon = document.createElement("span");
+  gicon.className = "group-icon";
+  gicon.textContent = group.icon;
+  const gname = document.createElement("span");
+  gname.textContent = group.name;
+  const count = document.createElement("span");
+  count.className = "count";
+  count.textContent = group.tools.length;
+  sum.append(gicon, gname, count);
+  det.appendChild(sum);
+
+  const wrap = document.createElement("div");
+  wrap.className = "buttons";
+  const btns = group.tools.map(([name, icon, label, desc]) => {
+    const b = document.createElement("button");
+    b.className = "tool";
+    b.type = "button";
+    b.textContent = icon + " " + label;
+    b.title = name;
+    b.dataset.search = (name + " " + label + " " + desc).toLowerCase();
+    b.addEventListener("click", () => {
+      document.querySelectorAll("button.tool.active").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      showDetail(icon, name, label, desc);
+    });
+    wrap.appendChild(b);
+    return b;
+  });
+  det.appendChild(wrap);
+  root.appendChild(det);
+  groupEls.push({ det, btns, count });
+});
+
+document.getElementById("abrir-todas").addEventListener("click", () => {
+  document.querySelectorAll("#root details").forEach(d => { d.open = true; });
+});
+document.getElementById("cerrar-todas").addEventListener("click", () => {
+  document.querySelectorAll("#root details").forEach(d => { d.open = false; });
+});
+
+const authDet = document.createElement("details");
+const authSum = document.createElement("summary");
+authSum.textContent = "🔒 Pendientes de autorización (/mcp)";
+authDet.appendChild(authSum);
+const authNote = document.createElement("div");
+authNote.className = "note";
+authNote.textContent = "Estos servicios no funcionan hasta autorizarlos con /mcp: " + NEEDS_AUTH.join(", ") + ".";
+authDet.appendChild(authNote);
+root.appendChild(authDet);
+
+// Tres secciones: lo que está siempre cargado, lo que se carga bajo demanda y los conectores
+const SECCIONES = [
+  { titulo: "Siempre disponibles", texto: "Vienen cargadas desde el inicio de la sesión.",
+    grupos: ["Archivos y comandos", "Agentes y flujo de trabajo", "Habilidades y plugins", "Artefactos y archivos para ti"] },
+  { titulo: "Bajo demanda", texto: "Se cargan con ToolSearch solo cuando se necesitan.",
+    grupos: ["Programación y avisos", "Búsqueda web"] },
+  { titulo: "Conectores", texto: "Dependen de cada servicio y algunos necesitan autorizarse con /mcp.",
+    grupos: ["Navegadores y escritorio", "Conectores: Docs", "Conectores: Correo", "Conectores: Google Drive",
+             "Conectores: Calendario", "Registro de conectores", "SolidWorks (Taller)", "GitHub",
+             "Sesiones y ajustes de la app", "Programar tareas", "Memoria y Cloudflare"] }
+];
+const detPorNombre = {};
+groupEls.forEach((g, i) => { detPorNombre[GROUPS[i].name] = g.det; });
+SECCIONES.forEach(sec => {
+  const cabecera = document.createElement("div");
+  cabecera.className = "seccion";
+  const h = document.createElement("h2");
+  h.textContent = sec.titulo;
+  const p = document.createElement("p");
+  p.textContent = sec.texto;
+  cabecera.append(h, p);
+  root.appendChild(cabecera);
+  sec.grupos.forEach(nombre => root.appendChild(detPorNombre[nombre]));
+  if (sec.titulo === "Conectores") root.append(pcDet, authDet);
+});
+
+q.addEventListener("input", () => {
+  const term = q.value.trim().toLowerCase();
+  let total = 0;
+  groupEls.forEach(({ det, btns, count }) => {
+    let visible = 0;
+    btns.forEach(b => {
+      const show = !term || b.dataset.search.includes(term);
+      b.classList.toggle("hidden", !show);
+      if (show) visible++;
+    });
+    det.classList.toggle("hidden", visible === 0);
+    if (term && visible) det.open = true;
+    count.textContent = visible;
+    total += visible;
+  });
+  document.getElementById("vacio").classList.toggle("hidden", total > 0 || !term);
+});
+</script>
+</body>
+</html>
