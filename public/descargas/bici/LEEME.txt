@@ -1,0 +1,9 @@
+Bicicleta completa en 3D - descargas
+Autor: Roberto García Sánchez - obratudela.com
+Licencia libre: cualquiera puede descargar, usar, copiar y modificar estos archivos,
+con la condición de mantener el nombre del autor y su web.
+
+Bici_STL_completa.zip   bici completa en un solo STL
+Bici_STL_movil.zip      6 grupos STL + bici_movil.json (ejes de giro)
+Bici_STL_piezas.zip     una pieza por STL (80)
+Bici_SolidWorks.zip     piezas y ensamblajes de SolidWorks 2020
