@@ -46,6 +46,11 @@
   #ficha .bt{display:flex;gap:8px;flex-wrap:wrap}
   #cesta{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;padding:8px 14px;border-top:1px solid var(--line);background:var(--acc2);font-size:13px}
   #cesta[hidden]{display:none}#cesta label{display:flex;gap:4px;align-items:center}
+  #aviso{position:fixed;inset:0;background:rgba(20,24,32,.55);display:flex;align-items:center;justify-content:center;z-index:20}
+  #aviso[hidden]{display:none}
+  #aviso .caja{background:#fff;border-radius:14px;padding:20px 22px;max-width:480px;margin:16px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  #aviso h2{margin:0 0 8px;font-size:19px}#aviso p{margin:8px 0}#aviso .peq{font-size:12px;color:var(--mut)}
+  #aviso .bt{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
   #carga{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--bg);z-index:5;color:var(--mut)}
   #carga .b{width:260px;height:6px;background:var(--line);border-radius:6px;overflow:hidden}
   #carga .b i{display:block;height:100%;width:0;background:var(--acc)}
@@ -61,6 +66,7 @@
 <header>
   <h1>Bicicleta en 3D</h1><span class="sub">Descarga, imprime y modifica las 80 piezas · STL, planos PDF y archivos de SolidWorks · licencia libre</span>
   <span class="sp"></span>
+  <a class="btn p dl" href="../descargas/bici/Bici_SolidWorks.zip" download>⬇ Descargar la bici completa (SolidWorks)</a>
   <a href="../">Visor de STL</a>
 </header>
 <main>
@@ -93,6 +99,15 @@
 </main>
 <footer id="pie"></footer>
 </div>
+<div id="aviso" hidden><div class="caja">
+  <h2>Descarga libre</h2>
+  <p>Puedes usar, imprimir y modificar estos archivos. Solo te pido mantener el nombre del autor, <b>Roberto Garcia Sanz</b>, y su web, <b>obratudela.com</b>.</p>
+  <p><b>¿Quieres mejorarla?</b> Si sabes cómo, descárgala, mejórala y vuélvela a subir para que otros también la tengan.</p>
+  <div class="bt"><button class="btn p" id="avOk">Descargar</button>
+    <a class="btn" id="avMejora" target="_blank" rel="noopener" href="https://github.com/Robertogarciasanz/visorstl/issues/new?title=Mejora%20de%20la%20bici&body=Describe%20tu%20mejora%20y%20adjunta%20tus%20archivos%20en%20un%20.zip%20(arrastrando%20el%20archivo%20aqu%C3%AD).">Quiero subir una mejora</a>
+    <button id="avNo">Cancelar</button></div>
+  <p class="peq">Subir una mejora usa una incidencia pública de GitHub: necesitas una cuenta gratuita de GitHub y adjuntar tus archivos en un zip.</p>
+</div></div>
 <script type="importmap">{"imports":{"three":"./lib/three.module.js"}}</script>
 <script type="module" src="app.js"></script>
 </body>

@@ -134,7 +134,7 @@ function elegir(id, enfocar) {
   ficha.querySelector('#esc').onchange = (e) => { escala = +e.target.value; elegir(id, false); };
   const bt = ficha.querySelector('.bt');
   const btnSTL = Object.assign(document.createElement('button'), { className: 'btn p', textContent: escala === 1 ? 'Descargar STL' : 'Descargar STL 1:' + escala });
-  btnSTL.onclick = () => descargaSTL(p, escala);
+  btnSTL.onclick = () => conAviso(() => descargaSTL(p, escala));
   const a2 = Object.assign(document.createElement('a'), { className: 'btn' + (p.pdf ? '' : ' off'), textContent: p.pdf ? 'Plano PDF' : 'Sin plano', href: p.pdf || '#', target: '_blank', rel: 'noopener' });
   const a3 = Object.assign(document.createElement('a'), { className: 'btn' + (p.sw ? '' : ' off'), textContent: 'SolidWorks (.SLDPRT)', href: p.sw || '#', download: '' });
   const b4 = Object.assign(document.createElement('button'), { textContent: cesta.has(id) ? '✓ En mi descarga' : '+ A mi descarga' });
@@ -158,6 +158,19 @@ async function descargaSTL(p, e) {
   }
   guarda(new Blob([buf], { type: 'model/stl' }), p.id + (e === 1 ? '' : '_1a' + e) + '.stl');
 }
+let avisoCont = null;
+function conAviso(accion) {                      // muestra el aviso una vez por sesion y luego descarga
+  if (sessionStorage.getItem('avisado')) return accion();
+  avisoCont = accion; $('#aviso').hidden = false;
+}
+$('#avOk').onclick = () => { sessionStorage.setItem('avisado', '1'); $('#aviso').hidden = true; const a = avisoCont; avisoCont = null; a && a(); };
+$('#avNo').onclick = () => { $('#aviso').hidden = true; avisoCont = null; };
+$('#avMejora').onclick = () => { sessionStorage.setItem('avisado', '1'); };
+document.addEventListener('click', (e) => {         // enlaces de descarga (zip, SolidWorks, bici completa)
+  const a = e.target.closest('a[download], a.dl, a[href$=".zip"], a[href$=".SLDPRT"]');
+  if (!a || sessionStorage.getItem('avisado')) return;
+  e.preventDefault(); conAviso(() => { const b = Object.assign(document.createElement('a'), { href: a.href, download: a.getAttribute('download') ?? '' }); document.body.append(b); b.click(); b.remove(); });
+});
 function guarda(blob, nombre) {
   const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: nombre });
   document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
@@ -186,8 +199,9 @@ function pintaCesta() {
   c.hidden = cesta.size === 0;
   c.querySelector('span').textContent = `Mi descarga: ${cesta.size} pieza${cesta.size === 1 ? '' : 's'}`;
 }
-$('#cestaZip').onclick = async (ev) => {
-  const b = ev.currentTarget; b.disabled = true; b.textContent = 'Preparando…';
+$('#cestaZip').onclick = (ev) => conAviso(() => bajaCesta(ev.currentTarget));
+async function bajaCesta(b) {
+  b.disabled = true; b.textContent = 'Preparando…';
   const quiere = { stl: $('#cStl').checked, pdf: $('#cPdf').checked, sw: $('#cSw').checked }, files = [], vistos = new Set();
   const trae = async (url, nombre) => { if (vistos.has(nombre)) return; vistos.add(nombre); files.push({ nombre, datos: new Uint8Array(await (await fetch(url)).arrayBuffer()) }); };
   for (const id of cesta) {
@@ -200,7 +214,7 @@ $('#cestaZip').onclick = async (ev) => {
   files.push({ nombre: 'LEEME.txt', datos: new TextEncoder().encode(txt) });
   guarda(zip(files), 'piezas_bici.zip');
   b.disabled = false; b.textContent = 'Descargar ZIP';
-};
+}
 $('#cestaVaciar').onclick = () => { cesta.clear(); pintaCesta(); if (sel) elegir(sel, false); };
 
 const ray = new THREE.Raycaster(), pt = new THREE.Vector2();
