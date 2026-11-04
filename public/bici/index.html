@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bicicleta en 3D · catálogo de piezas, STL y planos</title>
+<meta name="description" content="Bicicleta completa en 3D con las 80 piezas: busca una pieza, mira sus medidas y descarga su STL y su plano PDF. Licencia libre.">
+<style>
+  :root{--bg:#f4f5f7;--card:#fff;--ink:#1d2430;--mut:#667085;--line:#e3e6eb;--acc:#d9480f;--acc2:#fff1ea}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font:15px/1.45 system-ui,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+  header{display:flex;align-items:center;gap:16px;padding:10px 18px;background:var(--card);border-bottom:1px solid var(--line)}
+  header h1{font-size:18px;margin:0;font-weight:650}
+  header .sub{color:var(--mut);font-size:13px}
+  header .sp{flex:1}
+  header a{color:var(--acc);text-decoration:none;font-weight:600;font-size:14px}
+  main{display:grid;grid-template-columns:1fr 360px;height:calc(100% - 55px - 0px)}
+  #vista{position:relative;min-height:0}
+  #lienzo{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+  .barra{position:absolute;left:12px;right:12px;bottom:12px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13px}
+  .barra label{display:flex;align-items:center;gap:8px;color:var(--mut)}
+  .barra input[type=range]{width:130px;accent-color:var(--acc)}
+  button,.btn{font:inherit;border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 11px;cursor:pointer;color:var(--ink);text-decoration:none;display:inline-block}
+  button:hover,.btn:hover{border-color:var(--acc);color:var(--acc)}
+  button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+  .btn.p{background:var(--acc);border-color:var(--acc);color:#fff}
+  .btn.p:hover{filter:brightness(1.08);color:#fff}
+  .btn.off{opacity:.45;pointer-events:none}
+  aside{display:flex;flex-direction:column;min-height:0;background:var(--card);border-left:1px solid var(--line)}
+  #buscar{margin:12px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font:inherit}
+  #lista{overflow:auto;flex:1;padding:0 6px 6px}
+  .fila{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 12px 8px;font-size:13px;color:var(--mut)}
+  .fila select{font:inherit;border:1px solid var(--line);border-radius:7px;padding:4px 6px;background:#fff;max-width:150px}
+  #datos{margin:0 12px 8px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#fafbfc;font-size:13px}
+  #datos table{width:100%;border-collapse:collapse}#datos td{padding:2px 0}#datos td:last-child{text-align:right;font-weight:600}
+  #medida{position:absolute;top:12px;left:12px;background:#1d2430;color:#fff;border-radius:10px;padding:8px 12px;font-size:13px;z-index:3;max-width:70%}
+  .barra select{font:inherit;border:1px solid var(--line);border-radius:7px;padding:3px 5px;background:#fff}
+  #lista h3{margin:12px 8px 4px;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut)}
+  .it{display:flex;justify-content:space-between;gap:8px;padding:6px 10px;border-radius:7px;cursor:pointer;font-size:14px}
+  .it small{color:var(--mut);font-size:12px;white-space:nowrap}
+  .it:hover{background:var(--bg)}
+  .it.sel{background:var(--acc2);color:var(--acc);font-weight:600}
+  #ficha{border-top:1px solid var(--line);padding:12px 14px;background:#fafbfc;min-height:132px}
+  #ficha h2{font-size:16px;margin:0 0 2px}
+  #ficha .m{color:var(--mut);font-size:13px;margin-bottom:8px}
+  #ficha .bt{display:flex;gap:8px;flex-wrap:wrap}
+  #cesta{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;padding:8px 14px;border-top:1px solid var(--line);background:var(--acc2);font-size:13px}
+  #cesta[hidden]{display:none}#cesta label{display:flex;gap:4px;align-items:center}
+  #carga{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--bg);z-index:5;color:var(--mut)}
+  #carga .b{width:260px;height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+  #carga .b i{display:block;height:100%;width:0;background:var(--acc)}
+  footer{padding:8px 18px;font-size:12.5px;color:var(--mut);background:var(--card);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}
+  footer a{color:var(--acc)}
+  #app{display:flex;flex-direction:column;height:100%}
+  #app main{flex:1}
+  @media(max-width:860px){main{grid-template-columns:1fr;grid-template-rows:55% 45%}aside{border-left:0;border-top:1px solid var(--line)}.barra input[type=range]{width:90px}}
+</style>
+</head>
+<body>
+<div id="app">
+<header>
+  <h1>Bicicleta en 3D</h1><span class="sub">Descarga, imprime y modifica las 80 piezas · STL, planos PDF y archivos de SolidWorks · licencia libre</span>
+  <span class="sp"></span>
+  <a href="../">Visor de STL</a>
+</header>
+<main>
+  <section id="vista">
+    <div id="carga"><div>Cargando piezas…</div><div class="b"><i id="prog"></i></div><div id="cargaTxt" style="font-size:12px"></div></div>
+    <canvas id="lienzo"></canvas>
+    <div id="medida" hidden></div>
+    <div class="barra">
+      <button id="medir" title="Pulsa dos puntos de la bici para medir la distancia">📏 Medir</button>
+      <label>Corte <select id="corteEje"><option value="">sin corte</option><option value="x">longitudinal (X)</option><option value="y">horizontal (Y)</option><option value="z">transversal (Z)</option></select>
+        <input id="corte" type="range" min="0" max="100" value="50" disabled></label>
+      <label>Despiece <input id="explo" type="range" min="0" max="100" value="0"></label>
+      <label>Dirección <input id="dir" type="range" min="-35" max="35" value="0"></label>
+      <button id="pedal">▶ Pedalear</button>
+      <span style="flex:1"></span>
+      <button data-v="lat">Lateral</button><button data-v="fre">Frontal</button><button data-v="pla">Planta</button><button data-v="iso">3D</button>
+    </div>
+  </section>
+  <aside>
+    <input id="buscar" type="search" placeholder="Buscar pieza (cuadro, freno, pedal…)" autocomplete="off">
+    <div class="fila"><label>Material <select id="mat"><option value="7.85">Acero (7,85 g/cm³)</option><option value="2.70">Aluminio (2,70)</option><option value="4.51">Titanio (4,51)</option><option value="1.60">Fibra de carbono (1,60)</option><option value="1.24">PLA impreso (1,24)</option></select></label>
+      <button id="datosBtn">Datos de la bici</button></div>
+    <div id="datos" hidden></div>
+    <div id="lista"></div>
+    <div id="cesta" hidden><span></span>
+      <label><input type="checkbox" id="cStl" checked> STL</label><label><input type="checkbox" id="cPdf" checked> Plano</label><label><input type="checkbox" id="cSw" checked> SolidWorks</label>
+      <button class="btn p" id="cestaZip">Descargar ZIP</button><button id="cestaVaciar">Vaciar</button></div>
+    <div id="ficha"><div class="m">Pulsa una pieza de la lista, o en la bici, para ver sus medidas y descargar su STL y su plano.</div></div>
+  </aside>
+</main>
+<footer id="pie"></footer>
+</div>
+<script type="importmap">{"imports":{"three":"./lib/three.module.js"}}</script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

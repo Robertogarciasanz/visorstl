@@ -1,0 +1,1837 @@
+{
+ "autor": "Roberto Garcia Sanz",
+ "web": "obratudela.com",
+ "licencia": "libre; mantener el nombre del autor y su web",
+ "grupos": {
+  "fijo": {
+   "archivo": "bici_fijo.stl",
+   "movil": false,
+   "contenido": [
+    "Bici_completa - Conjunto_rueda_trasera-1 Eje_trasero-1.STL",
+    "Bici_completa - Conjunto_rueda_trasera-1 Rodamiento_dcho-1.STL",
+    "Bici_completa - Conjunto_rueda_trasera-1 Rodamiento_izq-1.STL",
+    "Bici_completa - Conjunto_rueda_trasera-1 Tapa_dcha-1.STL",
+    "Bici_completa - Conjunto_rueda_trasera-1 Tapa_izq-1.STL",
+    "Bici_completa - Cuadro_conjunto-1 Cuadro-1.STL",
+    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Brazo_dcho-1.STL",
+    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Brazo_izq-1.STL",
+    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Cable-1.STL",
+    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Muelles-2.STL",
+    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Puente-1.STL",
+    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Tornillo-1.STL",
+    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Yugo-1.STL",
+    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Zapata_dcha-1.STL",
+    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Zapata_izq-1.STL",
+    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Puente_tirantes-1.STL",
+    "Bici_completa - Cuadro_conjunto-1 Sillin-1.STL",
+    "Bici_completa - Cuadro_conjunto-1 Tija-1.STL",
+    "Bici_completa - Direccion-1 Cazoleta_inferior_dir-1.STL",
+    "Bici_completa - Direccion-1 Cazoleta_superior_dir-1.STL",
+    "Bici_completa - Direccion-1 Cono_superior_dir-1.STL",
+    "Bici_completa - Direccion-1 Rodamiento_inf_dir-1.STL",
+    "Bici_completa - Direccion-1 Rodamiento_sup_dir-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Biela_exterior-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Biela_interior-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Casquillo-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Cuerpo_inferior-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Cuerpo_superior-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Muelle_B-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Muelle_jaula-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Pasador-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Pasador-2.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Pasador-3.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Pasador-4.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Patilla-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Placa_jaula_exterior-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Placa_jaula_interior-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Placa_tope-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Roldana_11T-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Roldana_11T-2.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Tensor_cable-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Tornillo_B-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Tornillo_jaula-1.STL",
+    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Tornillo_roldana-1.STL",
+    "Bici_completa - Transmision-1 Desviador-1.STL"
+   ]
+  },
+  "pedalier": {
+   "archivo": "bici_pedalier.stl",
+   "eje": {
+    "punto": [
+     883.8,
+     388.8,
+     229.0
+    ],
+    "direccion": [
+     0,
+     0,
+     1
+    ]
+   },
+   "contenido": "bielas, platos y pedales"
+  },
+  "rueda_trasera": {
+   "archivo": "bici_rueda_trasera.stl",
+   "eje": {
+    "punto": [
+     458.7,
+     453.8,
+     229.0
+    ],
+    "direccion": [
+     0,
+     0,
+     1
+    ]
+   },
+   "relacion_con_pedalier": "giro_rueda = giro_pedalier * 52/19 (mismo sentido)",
+   "contenido": "rueda, buje y cassette"
+  },
+  "direccion": {
+   "archivo": "bici_direccion.stl",
+   "eje": {
+    "punto": [
+     1254.91,
+     903.63,
+     229.0
+    ],
+    "direccion": [
+     0.3007,
+     -0.9537,
+     0
+    ]
+   },
+   "contenido": "horquilla, manillar, potencia y freno delantero",
+   "hijos": [
+    "rueda_delantera"
+   ]
+  },
+  "rueda_delantera": {
+   "archivo": "bici_rueda_delantera.stl",
+   "eje": {
+    "punto": [
+     1443.9,
+     448.8,
+     229.0
+    ],
+    "direccion": [
+     0,
+     0,
+     1
+    ]
+   },
+   "padre": "direccion",
+   "nota": "el punto del eje esta en reposo; gira con la direccion",
+   "contenido": "rueda delantera"
+  },
+  "cadena": {
+   "archivo": "bici_cadena.stl",
+   "movil": false,
+   "nota": "Cadena rigida: no se modelan los eslabones moviles."
+  }
+ },
+ "piezas": [
+  {
+   "id": "Rueda_delantera_1",
+   "nombre": "Rueda delantera",
+   "conjunto": "Rueda delantera",
+   "subconjunto": "",
+   "grupo": "rueda_delantera",
+   "stl": "modelo/Rueda_delantera_1.stl",
+   "pdf": "planos/Rueda_delantera.pdf",
+   "caja": [
+    667.8,
+    667.9,
+    112.0
+   ],
+   "centro": [
+    1443.9,
+    448.9,
+    229.0
+   ],
+   "triangulos": 16276,
+   "sw": "solidworks/Rueda_delantera.SLDPRT"
+  },
+  {
+   "id": "Buje_cuerpo_1",
+   "nombre": "Buje cuerpo",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "",
+   "grupo": "rueda_trasera",
+   "stl": "modelo/Buje_cuerpo_1.stl",
+   "pdf": "planos/Buje_cuerpo.pdf",
+   "caja": [
+    50.0,
+    50.0,
+    75.5
+   ],
+   "centro": [
+    458.8,
+    453.9,
+    216.8
+   ],
+   "triangulos": 1020,
+   "sw": "solidworks/Buje_cuerpo.SLDPRT"
+  },
+  {
+   "id": "Eje_HG_1",
+   "nombre": "Eje HG",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "Cassette 8v",
+   "grupo": "rueda_trasera",
+   "stl": "modelo/Eje_HG_1.stl",
+   "pdf": "planos/Eje_HG_y_Rodamiento_sup_dir.pdf",
+   "caja": [
+    34.8,
+    34.8,
+    38.8
+   ],
+   "centro": [
+    458.8,
+    453.8,
+    273.9
+   ],
+   "triangulos": 512,
+   "sw": "solidworks/Eje_HG.SLDPRT"
+  },
+  {
+   "id": "Pinon_Z11_1",
+   "nombre": "Pinon Z11",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "Cassette 8v",
+   "grupo": "rueda_trasera",
+   "stl": "modelo/Pinon_Z11_1.stl",
+   "pdf": "planos/Patilla_y_Pinon_Z11.pdf",
+   "caja": [
+    50.6,
+    50.5,
+    1.8
+   ],
+   "centro": [
+    458.9,
+    454.1,
+    291.7
+   ],
+   "triangulos": 1332,
+   "sw": "solidworks/Pinon_Z11.SLDPRT"
+  },
+  {
+   "id": "Pinon_Z13_1",
+   "nombre": "Pinon Z13",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "Cassette 8v",
+   "grupo": "rueda_trasera",
+   "stl": "modelo/Pinon_Z13_1.stl",
+   "pdf": "planos/Puente_tirantes_y_Pinon_Z13.pdf",
+   "caja": [
+    58.6,
+    59.0,
+    1.8
+   ],
+   "centro": [
+    459.0,
+    453.9,
+    286.9
+   ],
+   "triangulos": 1540,
+   "sw": "solidworks/Pinon_Z13.SLDPRT"
+  },
+  {
+   "id": "Pinon_Z15_1",
+   "nombre": "Pinon Z15",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "Cassette 8v",
+   "grupo": "rueda_trasera",
+   "stl": "modelo/Pinon_Z15_1.stl",
+   "pdf": "planos/Pinon_Z15_y_Freno_del_Muelles.pdf",
+   "caja": [
+    67.2,
+    67.1,
+    1.8
+   ],
+   "centro": [
+    458.9,
+    453.8,
+    282.1
+   ],
+   "triangulos": 1672,
+   "sw": "solidworks/Pinon_Z15.SLDPRT"
+  },
+  {
+   "id": "Pinon_Z17_1",
+   "nombre": "Pinon Z17",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "Cassette 8v",
+   "grupo": "rueda_trasera",
+   "stl": "modelo/Pinon_Z17_1.stl",
+   "pdf": "planos/Pinon_Z17_y_Eje_pedal_Campagnolo_izq.pdf",
+   "caja": [
+    75.4,
+    75.2,
+    1.8
+   ],
+   "centro": [
+    458.7,
+    454.0,
+    277.3
+   ],
+   "triangulos": 1848,
+   "sw": "solidworks/Pinon_Z17.SLDPRT"
+  },
+  {
+   "id": "Pinon_Z19_1",
+   "nombre": "Pinon Z19",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "Cassette 8v",
+   "grupo": "rueda_trasera",
+   "stl": "modelo/Pinon_Z19_1.stl",
+   "pdf": "planos/Pinon_Z19.pdf",
+   "caja": [
+    83.5,
+    83.6,
+    1.8
+   ],
+   "centro": [
+    458.6,
+    453.8,
+    272.5
+   ],
+   "triangulos": 2104,
+   "sw": "solidworks/Pinon_Z19.SLDPRT"
+  },
+  {
+   "id": "Pinon_Z21_1",
+   "nombre": "Pinon Z21",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "Cassette 8v",
+   "grupo": "rueda_trasera",
+   "stl": "modelo/Pinon_Z21_1.stl",
+   "pdf": "planos/Pinon_Z21.pdf",
+   "caja": [
+    91.7,
+    91.8,
+    1.8
+   ],
+   "centro": [
+    458.7,
+    453.8,
+    267.7
+   ],
+   "triangulos": 2268,
+   "sw": "solidworks/Pinon_Z21.SLDPRT"
+  },
+  {
+   "id": "Pinon_Z24_1",
+   "nombre": "Pinon Z24",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "Cassette 8v",
+   "grupo": "rueda_trasera",
+   "stl": "modelo/Pinon_Z24_1.stl",
+   "pdf": "planos/Pinon_Z24.pdf",
+   "caja": [
+    103.9,
+    103.9,
+    1.8
+   ],
+   "centro": [
+    458.8,
+    453.9,
+    262.9
+   ],
+   "triangulos": 2556,
+   "sw": "solidworks/Pinon_Z24.SLDPRT"
+  },
+  {
+   "id": "Pinon_Z28_1",
+   "nombre": "Pinon Z28",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "Cassette 8v",
+   "grupo": "rueda_trasera",
+   "stl": "modelo/Pinon_Z28_1.stl",
+   "pdf": "planos/Pinon_Z28.pdf",
+   "caja": [
+    120.1,
+    120.1,
+    1.8
+   ],
+   "centro": [
+    458.8,
+    453.9,
+    258.1
+   ],
+   "triangulos": 2940,
+   "sw": "solidworks/Pinon_Z28.SLDPRT"
+  },
+  {
+   "id": "Eje_trasero_1",
+   "nombre": "Eje trasero",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Eje_trasero_1.stl",
+   "pdf": "planos/Eje_trasero.pdf",
+   "caja": [
+    17.0,
+    17.0,
+    130.0
+   ],
+   "centro": [
+    458.8,
+    453.9,
+    229.0
+   ],
+   "triangulos": 432,
+   "sw": "solidworks/Eje_trasero.SLDPRT"
+  },
+  {
+   "id": "Rodamiento_dcho_1",
+   "nombre": "Rodamiento dcho",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Rodamiento_dcho_1.stl",
+   "pdf": "planos/Tapa_izq_y_Rodamiento_dcho.pdf",
+   "caja": [
+    26.0,
+    26.0,
+    8.0
+   ],
+   "centro": [
+    458.8,
+    453.9,
+    283.0
+   ],
+   "triangulos": 396,
+   "sw": "solidworks/Rodamiento_dcho.SLDPRT"
+  },
+  {
+   "id": "Rodamiento_izq_1",
+   "nombre": "Rodamiento izq",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Rodamiento_izq_1.stl",
+   "pdf": "planos/Rodamiento_izq_y_Tornillo_B.pdf",
+   "caja": [
+    26.0,
+    26.0,
+    8.0
+   ],
+   "centro": [
+    458.8,
+    453.9,
+    183.0
+   ],
+   "triangulos": 396,
+   "sw": "solidworks/Rodamiento_izq.SLDPRT"
+  },
+  {
+   "id": "Rueda_trasera_1",
+   "nombre": "Rueda trasera",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "",
+   "grupo": "rueda_trasera",
+   "stl": "modelo/Rueda_trasera_1.stl",
+   "pdf": "planos/Rueda_trasera.pdf",
+   "caja": [
+    667.9,
+    667.9,
+    130.0
+   ],
+   "centro": [
+    458.7,
+    453.8,
+    229.0
+   ],
+   "triangulos": 23988,
+   "sw": "solidworks/Rueda_trasera.SLDPRT"
+  },
+  {
+   "id": "Tapa_dcha_1",
+   "nombre": "Tapa dcha",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Tapa_dcha_1.stl",
+   "pdf": "planos/Placa_tope_y_Tapa_dcha.pdf",
+   "caja": [
+    24.0,
+    24.0,
+    2.0
+   ],
+   "centro": [
+    458.8,
+    453.9,
+    288.0
+   ],
+   "triangulos": 408,
+   "sw": "solidworks/Tapa_dcha.SLDPRT"
+  },
+  {
+   "id": "Tapa_izq_1",
+   "nombre": "Tapa izq",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Tapa_izq_1.stl",
+   "pdf": "planos/Tapa_izq_y_Rodamiento_dcho.pdf",
+   "caja": [
+    24.0,
+    24.0,
+    4.0
+   ],
+   "centro": [
+    458.8,
+    453.9,
+    177.0
+   ],
+   "triangulos": 408,
+   "sw": "solidworks/Tapa_izq.SLDPRT"
+  },
+  {
+   "id": "Cuadro_1",
+   "nombre": "Cuadro",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Cuadro_1.stl",
+   "pdf": "planos/Cuadro.pdf",
+   "caja": [
+    866.0,
+    552.0,
+    174.0
+   ],
+   "centro": [
+    876.7,
+    644.9,
+    229.0
+   ],
+   "triangulos": 21964,
+   "sw": "solidworks/Cuadro.SLDPRT"
+  },
+  {
+   "id": "Freno_tras_Brazo_dcho_1",
+   "nombre": "Freno tras Brazo dcho",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_tras_Brazo_dcho_1.stl",
+   "pdf": "planos/Freno_tras_Brazo_dcho.pdf",
+   "caja": [
+    53.1,
+    68.6,
+    20.5
+   ],
+   "centro": [
+    641.9,
+    733.9,
+    256.3
+   ],
+   "triangulos": 2144,
+   "sw": "solidworks/Freno_tras_Brazo_dcho.SLDPRT"
+  },
+  {
+   "id": "Freno_tras_Brazo_izq_1",
+   "nombre": "Freno tras Brazo izq",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_tras_Brazo_izq_1.stl",
+   "pdf": "planos/Freno_tras_Brazo_izq.pdf",
+   "caja": [
+    53.1,
+    68.6,
+    20.5
+   ],
+   "centro": [
+    641.9,
+    733.9,
+    201.8
+   ],
+   "triangulos": 2140,
+   "sw": "solidworks/Freno_tras_Brazo_izq.SLDPRT"
+  },
+  {
+   "id": "Freno_tras_Cable_1",
+   "nombre": "Freno tras Cable",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_tras_Cable_1.stl",
+   "pdf": "planos/Freno_tras_Cable.pdf",
+   "caja": [
+    50.5,
+    66.7,
+    67.4
+   ],
+   "centro": [
+    689.0,
+    796.6,
+    229.0
+   ],
+   "triangulos": 576,
+   "sw": "solidworks/Freno_tras_Cable.SLDPRT"
+  },
+  {
+   "id": "Freno_tras_Muelles_2",
+   "nombre": "Freno tras Muelles",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_tras_Muelles_2.stl",
+   "pdf": "planos/Freno_tras_Muelles_y_Freno_del_Yugo.pdf",
+   "caja": [
+    14.0,
+    16.2,
+    68.6
+   ],
+   "centro": [
+    647.3,
+    741.2,
+    229.0
+   ],
+   "triangulos": 38880,
+   "sw": "solidworks/Freno_tras_Muelles.SLDPRT"
+  },
+  {
+   "id": "Freno_tras_Puente_1",
+   "nombre": "Freno tras Puente",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_tras_Puente_1.stl",
+   "pdf": "planos/Freno_tras_Puente.pdf",
+   "caja": [
+    16.2,
+    18.8,
+    64.0
+   ],
+   "centro": [
+    654.6,
+    740.6,
+    229.0
+   ],
+   "triangulos": 2538,
+   "sw": "solidworks/Freno_tras_Puente.SLDPRT"
+  },
+  {
+   "id": "Freno_tras_Tornillo_1",
+   "nombre": "Freno tras Tornillo",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_tras_Tornillo_1.stl",
+   "pdf": "planos/Cazoleta_inferior_dir_y_Freno_tras_Tornillo.pdf",
+   "caja": [
+    40.0,
+    32.8,
+    10.0
+   ],
+   "centro": [
+    662.7,
+    738.0,
+    229.0
+   ],
+   "triangulos": 576,
+   "sw": "solidworks/Freno_tras_Tornillo.SLDPRT"
+  },
+  {
+   "id": "Freno_tras_Yugo_1",
+   "nombre": "Freno tras Yugo",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_tras_Yugo_1.stl",
+   "pdf": "planos/Tornillo_jaula_y_Freno_tras_Yugo.pdf",
+   "caja": [
+    13.4,
+    16.0,
+    28.0
+   ],
+   "centro": [
+    690.5,
+    798.6,
+    229.0
+   ],
+   "triangulos": 160,
+   "sw": "solidworks/Freno_tras_Yugo.SLDPRT"
+  },
+  {
+   "id": "Freno_tras_Zapata_dcha_1",
+   "nombre": "Freno tras Zapata dcha",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_tras_Zapata_dcha_1.stl",
+   "pdf": "planos/Freno_tras_Zapata_dcha_y_Freno_tras_Zapata_izq.pdf",
+   "caja": [
+    36.8,
+    30.4,
+    11.5
+   ],
+   "centro": [
+    620.7,
+    705.4,
+    245.3
+   ],
+   "triangulos": 158,
+   "sw": "solidworks/Freno_tras_Zapata_dcha.SLDPRT"
+  },
+  {
+   "id": "Freno_tras_Zapata_izq_1",
+   "nombre": "Freno tras Zapata izq",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_tras_Zapata_izq_1.stl",
+   "pdf": "planos/Freno_tras_Zapata_dcha_y_Freno_tras_Zapata_izq.pdf",
+   "caja": [
+    36.8,
+    30.4,
+    11.5
+   ],
+   "centro": [
+    620.7,
+    705.4,
+    212.8
+   ],
+   "triangulos": 158,
+   "sw": "solidworks/Freno_tras_Zapata_izq.SLDPRT"
+  },
+  {
+   "id": "Puente_tirantes_1",
+   "nombre": "Puente tirantes",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Puente_tirantes_1.stl",
+   "pdf": "planos/Puente_tirantes_y_Pinon_Z13.pdf",
+   "caja": [
+    22.8,
+    22.0,
+    54.0
+   ],
+   "centro": [
+    666.5,
+    734.8,
+    229.0
+   ],
+   "triangulos": 764,
+   "sw": "solidworks/Puente_tirantes.SLDPRT"
+  },
+  {
+   "id": "Sillin_1",
+   "nombre": "Sillin",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Sillin_1.stl",
+   "pdf": "planos/Sillin.pdf",
+   "caja": [
+    265.0,
+    25.9,
+    139.8
+   ],
+   "centro": [
+    690.9,
+    1048.8,
+    229.0
+   ],
+   "triangulos": 8952,
+   "sw": "solidworks/Sillin.SLDPRT"
+  },
+  {
+   "id": "Tija_1",
+   "nombre": "Tija",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Tija_1.stl",
+   "pdf": "planos/Tija.pdf",
+   "caja": [
+    107.5,
+    280.7,
+    50.0
+   ],
+   "centro": [
+    727.5,
+    903.4,
+    229.0
+   ],
+   "triangulos": 402,
+   "sw": "solidworks/Tija.SLDPRT"
+  },
+  {
+   "id": "Arandela_dir_1",
+   "nombre": "Arandela dir",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "direccion",
+   "stl": "modelo/Arandela_dir_1.stl",
+   "pdf": "planos/Arandela_dir_y_Contratuerca_dir.pdf",
+   "caja": [
+    34.0,
+    12.4,
+    35.0
+   ],
+   "centro": [
+    1246.4,
+    931.0,
+    229.0
+   ],
+   "triangulos": 472,
+   "sw": "solidworks/Arandela_dir.SLDPRT"
+  },
+  {
+   "id": "Cazoleta_inferior_dir_1",
+   "nombre": "Cazoleta inferior dir",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Cazoleta_inferior_dir_1.stl",
+   "pdf": "planos/Cazoleta_inferior_dir_y_Freno_tras_Tornillo.pdf",
+   "caja": [
+    39.8,
+    25.4,
+    40.0
+   ],
+   "centro": [
+    1293.3,
+    786.1,
+    229.0
+   ],
+   "triangulos": 668,
+   "sw": "solidworks/Cazoleta_inferior_dir.SLDPRT"
+  },
+  {
+   "id": "Cazoleta_superior_dir_1",
+   "nombre": "Cazoleta superior dir",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Cazoleta_superior_dir_1.stl",
+   "pdf": "planos/Cazoleta_superior_dir_y_Freno_del_Tornillo.pdf",
+   "caja": [
+    42.8,
+    24.2,
+    41.0
+   ],
+   "centro": [
+    1248.5,
+    924.1,
+    229.0
+   ],
+   "triangulos": 664,
+   "sw": "solidworks/Cazoleta_superior_dir.SLDPRT"
+  },
+  {
+   "id": "Cono_inferior_dir_1",
+   "nombre": "Cono inferior dir",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "direccion",
+   "stl": "modelo/Cono_inferior_dir_1.stl",
+   "pdf": "planos/Cuerpo_superior_y_Cono_inferior_dir.pdf",
+   "caja": [
+    36.8,
+    13.7,
+    38.0
+   ],
+   "centro": [
+    1296.0,
+    773.8,
+    229.0
+   ],
+   "triangulos": 588,
+   "sw": "solidworks/Cono_inferior_dir.SLDPRT"
+  },
+  {
+   "id": "Cono_superior_dir_1",
+   "nombre": "Cono superior dir",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Cono_superior_dir_1.stl",
+   "pdf": "planos/Freno_del_Zapata_izq_y_Cono_superior_dir.pdf",
+   "caja": [
+    39.5,
+    25.0,
+    40.0
+   ],
+   "centro": [
+    1251.2,
+    911.7,
+    229.0
+   ],
+   "triangulos": 788,
+   "sw": "solidworks/Cono_superior_dir.SLDPRT"
+  },
+  {
+   "id": "Contratuerca_dir_1",
+   "nombre": "Contratuerca dir",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "direccion",
+   "stl": "modelo/Contratuerca_dir_1.stl",
+   "pdf": "planos/Arandela_dir_y_Contratuerca_dir.pdf",
+   "caja": [
+    36.4,
+    18.2,
+    36.0
+   ],
+   "centro": [
+    1244.9,
+    935.8,
+    229.0
+   ],
+   "triangulos": 696,
+   "sw": "solidworks/Contratuerca_dir.SLDPRT"
+  },
+  {
+   "id": "Freno_del_Brazo_dcho_1",
+   "nombre": "Freno del Brazo dcho",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "stl": "modelo/Freno_del_Brazo_dcho_1.stl",
+   "pdf": "planos/Freno_del_Brazo_dcho.pdf",
+   "caja": [
+    39.0,
+    76.5,
+    20.5
+   ],
+   "centro": [
+    1327.5,
+    757.1,
+    256.3
+   ],
+   "triangulos": 2156,
+   "sw": "solidworks/Freno_del_Brazo_dcho.SLDPRT"
+  },
+  {
+   "id": "Freno_del_Brazo_izq_1",
+   "nombre": "Freno del Brazo izq",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "stl": "modelo/Freno_del_Brazo_izq_1.stl",
+   "pdf": "planos/Freno_del_Brazo_izq.pdf",
+   "caja": [
+    39.0,
+    76.5,
+    20.5
+   ],
+   "centro": [
+    1327.5,
+    757.1,
+    201.8
+   ],
+   "triangulos": 2152,
+   "sw": "solidworks/Freno_del_Brazo_izq.SLDPRT"
+  },
+  {
+   "id": "Freno_del_Cable_1",
+   "nombre": "Freno del Cable",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "stl": "modelo/Freno_del_Cable_1.stl",
+   "pdf": "planos/Freno_del_Cable.pdf",
+   "caja": [
+    25.1,
+    91.3,
+    67.4
+   ],
+   "centro": [
+    1300.0,
+    836.2,
+    229.0
+   ],
+   "triangulos": 616,
+   "sw": "solidworks/Freno_del_Cable.SLDPRT"
+  },
+  {
+   "id": "Freno_del_Muelles_1",
+   "nombre": "Freno del Muelles",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "stl": "modelo/Freno_del_Muelles_1.stl",
+   "pdf": "planos/Pinon_Z15_y_Freno_del_Muelles.pdf",
+   "caja": [
+    16.4,
+    19.1,
+    68.6
+   ],
+   "centro": [
+    1321.4,
+    764.3,
+    229.0
+   ],
+   "triangulos": 39360,
+   "sw": "solidworks/Freno_del_Muelles.SLDPRT"
+  },
+  {
+   "id": "Freno_del_Puente_1",
+   "nombre": "Freno del Puente",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "stl": "modelo/Freno_del_Puente_1.stl",
+   "pdf": "planos/Freno_del_Puente.pdf",
+   "caja": [
+    13.4,
+    19.7,
+    64.0
+   ],
+   "centro": [
+    1316.4,
+    766.1,
+    229.0
+   ],
+   "triangulos": 2522,
+   "sw": "solidworks/Freno_del_Puente.SLDPRT"
+  },
+  {
+   "id": "Freno_del_Tornillo_1",
+   "nombre": "Freno del Tornillo",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "stl": "modelo/Freno_del_Tornillo_1.stl",
+   "pdf": "planos/Cazoleta_superior_dir_y_Freno_del_Tornillo.pdf",
+   "caja": [
+    47.8,
+    28.4,
+    10.0
+   ],
+   "centro": [
+    1305.3,
+    764.2,
+    229.0
+   ],
+   "triangulos": 576,
+   "sw": "solidworks/Freno_del_Tornillo.SLDPRT"
+  },
+  {
+   "id": "Freno_del_Yugo_2",
+   "nombre": "Freno del Yugo",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "stl": "modelo/Freno_del_Yugo_2.stl",
+   "pdf": "planos/Freno_tras_Muelles_y_Freno_del_Yugo.pdf",
+   "caja": [
+    10.8,
+    17.1,
+    28.0
+   ],
+   "centro": [
+    1308.6,
+    837.5,
+    229.0
+   ],
+   "triangulos": 160,
+   "sw": "solidworks/Freno_del_Yugo.SLDPRT"
+  },
+  {
+   "id": "Freno_del_Zapata_dcha_1",
+   "nombre": "Freno del Zapata dcha",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "stl": "modelo/Freno_del_Zapata_dcha_1.stl",
+   "pdf": "planos/Rodamiento_inf_dir_y_Freno_del_Zapata_dcha.pdf",
+   "caja": [
+    39.7,
+    24.1,
+    11.5
+   ],
+   "centro": [
+    1342.2,
+    724.7,
+    245.3
+   ],
+   "triangulos": 230,
+   "sw": "solidworks/Freno_del_Zapata_dcha.SLDPRT"
+  },
+  {
+   "id": "Freno_del_Zapata_izq_1",
+   "nombre": "Freno del Zapata izq",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "stl": "modelo/Freno_del_Zapata_izq_1.stl",
+   "pdf": "planos/Freno_del_Zapata_izq_y_Cono_superior_dir.pdf",
+   "caja": [
+    39.7,
+    24.1,
+    11.5
+   ],
+   "centro": [
+    1342.2,
+    724.7,
+    212.8
+   ],
+   "triangulos": 234,
+   "sw": "solidworks/Freno_del_Zapata_izq.SLDPRT"
+  },
+  {
+   "id": "Horquilla_1",
+   "nombre": "Horquilla",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "direccion",
+   "stl": "modelo/Horquilla_1.stl",
+   "pdf": "planos/Horquilla.pdf",
+   "caja": [
+    238.1,
+    538.3,
+    127.1
+   ],
+   "centro": [
+    1340.9,
+    700.5,
+    229.0
+   ],
+   "triangulos": 6330,
+   "sw": "solidworks/Horquilla.SLDPRT"
+  },
+  {
+   "id": "Manillar_2",
+   "nombre": "Manillar",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "direccion",
+   "stl": "modelo/Manillar_2.stl",
+   "pdf": "planos/Manillar.pdf",
+   "caja": [
+    198.3,
+    177.0,
+    444.0
+   ],
+   "centro": [
+    1375.6,
+    952.9,
+    229.0
+   ],
+   "triangulos": 16460,
+   "sw": "solidworks/Manillar.SLDPRT"
+  },
+  {
+   "id": "Potencia_2",
+   "nombre": "Potencia",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "direccion",
+   "stl": "modelo/Potencia_2.stl",
+   "pdf": "planos/Potencia.pdf",
+   "caja": [
+    101.8,
+    78.3,
+    50.0
+   ],
+   "centro": [
+    1264.6,
+    981.1,
+    229.0
+   ],
+   "triangulos": 9184,
+   "sw": "solidworks/Potencia.SLDPRT"
+  },
+  {
+   "id": "Rodamiento_inf_dir_1",
+   "nombre": "Rodamiento inf dir",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Rodamiento_inf_dir_1.stl",
+   "pdf": "planos/Rodamiento_inf_dir_y_Freno_del_Zapata_dcha.pdf",
+   "caja": [
+    37.8,
+    15.4,
+    39.0
+   ],
+   "centro": [
+    1294.8,
+    777.5,
+    229.0
+   ],
+   "triangulos": 3562,
+   "sw": "solidworks/Rodamiento_inf_dir.SLDPRT"
+  },
+  {
+   "id": "Rodamiento_sup_dir_1",
+   "nombre": "Rodamiento sup dir",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Rodamiento_sup_dir_1.stl",
+   "pdf": "planos/Eje_HG_y_Rodamiento_sup_dir.pdf",
+   "caja": [
+    37.8,
+    15.4,
+    39.0
+   ],
+   "centro": [
+    1249.7,
+    920.5,
+    229.0
+   ],
+   "triangulos": 3562,
+   "sw": "solidworks/Rodamiento_sup_dir.SLDPRT"
+  },
+  {
+   "id": "Bielas_platos_1",
+   "nombre": "Bielas platos",
+   "conjunto": "Transmisión",
+   "subconjunto": "",
+   "grupo": "pedalier",
+   "stl": "modelo/Bielas_platos_1.stl",
+   "pdf": "planos/Bielas_platos.pdf",
+   "caja": [
+    369.0,
+    207.7,
+    128.0
+   ],
+   "centro": [
+    883.9,
+    388.9,
+    229.0
+   ],
+   "triangulos": 15644,
+   "sw": "solidworks/Bielas_platos.SLDPRT"
+  },
+  {
+   "id": "Cadena_1",
+   "nombre": "Cadena",
+   "conjunto": "Transmisión",
+   "subconjunto": "",
+   "grupo": "cadena",
+   "stl": "modelo/Cadena_1.stl",
+   "pdf": "planos/Cadena.pdf",
+   "caja": [
+    581.3,
+    225.3,
+    5.8
+   ],
+   "centro": [
+    706.0,
+    388.9,
+    272.5
+   ],
+   "triangulos": 24854,
+   "sw": "solidworks/Cadena.SLDPRT"
+  },
+  {
+   "id": "Biela_exterior_1",
+   "nombre": "Biela exterior",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Biela_exterior_1.stl",
+   "pdf": "planos/Biela_exterior_y_Biela_interior.pdf",
+   "caja": [
+    30.0,
+    18.0,
+    2.5
+   ],
+   "centro": [
+    428.8,
+    421.9,
+    338.9
+   ],
+   "triangulos": 460,
+   "sw": "solidworks/Biela_exterior.SLDPRT"
+  },
+  {
+   "id": "Biela_interior_1",
+   "nombre": "Biela interior",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Biela_interior_1.stl",
+   "pdf": "planos/Biela_exterior_y_Biela_interior.pdf",
+   "caja": [
+    30.0,
+    18.0,
+    2.5
+   ],
+   "centro": [
+    424.8,
+    407.9,
+    324.4
+   ],
+   "triangulos": 460,
+   "sw": "solidworks/Biela_interior.SLDPRT"
+  },
+  {
+   "id": "Casquillo_1",
+   "nombre": "Casquillo",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Casquillo_1.stl",
+   "pdf": "planos/Casquillo_y_Tensor_cable.pdf",
+   "caja": [
+    9.0,
+    9.0,
+    7.8
+   ],
+   "centro": [
+    422.8,
+    391.9,
+    281.4
+   ],
+   "triangulos": 424,
+   "sw": "solidworks/Casquillo.SLDPRT"
+  },
+  {
+   "id": "Cuerpo_inferior_1",
+   "nombre": "Cuerpo inferior",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Cuerpo_inferior_1.stl",
+   "pdf": "planos/Roldana_11T_y_Cuerpo_inferior.pdf",
+   "caja": [
+    23.0,
+    40.9,
+    52.4
+   ],
+   "centro": [
+    420.3,
+    403.4,
+    311.5
+   ],
+   "triangulos": 684,
+   "sw": "solidworks/Cuerpo_inferior.SLDPRT"
+  },
+  {
+   "id": "Cuerpo_superior_1",
+   "nombre": "Cuerpo superior",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Cuerpo_superior_1.stl",
+   "pdf": "planos/Cuerpo_superior_y_Cono_inferior_dir.pdf",
+   "caja": [
+    38.0,
+    37.0,
+    12.0
+   ],
+   "centro": [
+    445.8,
+    424.4,
+    331.7
+   ],
+   "triangulos": 800,
+   "sw": "solidworks/Cuerpo_superior.SLDPRT"
+  },
+  {
+   "id": "Muelle_B_1",
+   "nombre": "Muelle B",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Muelle_B_1.stl",
+   "pdf": "planos/Muelle_B_y_Pasador.pdf",
+   "caja": [
+    16.2,
+    16.2,
+    8.0
+   ],
+   "centro": [
+    452.8,
+    427.9,
+    329.7
+   ],
+   "triangulos": 26960,
+   "sw": "solidworks/Muelle_B.SLDPRT"
+  },
+  {
+   "id": "Muelle_jaula_1",
+   "nombre": "Muelle jaula",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Muelle_jaula_1.stl",
+   "pdf": "planos/Tornillo_roldana_y_Muelle_jaula.pdf",
+   "caja": [
+    15.2,
+    15.2,
+    7.8
+   ],
+   "centro": [
+    422.8,
+    391.9,
+    281.4
+   ],
+   "triangulos": 27200,
+   "sw": "solidworks/Muelle_jaula.SLDPRT"
+  },
+  {
+   "id": "Pasador_1",
+   "nombre": "Pasador",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Pasador_1.stl",
+   "pdf": "planos/Muelle_B_y_Pasador.pdf",
+   "caja": [
+    6.0,
+    6.0,
+    17.8
+   ],
+   "centro": [
+    438.8,
+    425.9,
+    332.1
+   ],
+   "triangulos": 312,
+   "sw": "solidworks/Pasador.SLDPRT"
+  },
+  {
+   "id": "Pasador_2",
+   "nombre": "Pasador",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Pasador_2.stl",
+   "pdf": "planos/Muelle_B_y_Pasador.pdf",
+   "caja": [
+    6.0,
+    6.0,
+    17.8
+   ],
+   "centro": [
+    434.8,
+    411.9,
+    332.1
+   ],
+   "triangulos": 312,
+   "sw": "solidworks/Pasador.SLDPRT"
+  },
+  {
+   "id": "Pasador_3",
+   "nombre": "Pasador",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Pasador_3.stl",
+   "pdf": "planos/Muelle_B_y_Pasador.pdf",
+   "caja": [
+    6.0,
+    6.0,
+    17.8
+   ],
+   "centro": [
+    418.8,
+    417.9,
+    332.1
+   ],
+   "triangulos": 312,
+   "sw": "solidworks/Pasador.SLDPRT"
+  },
+  {
+   "id": "Pasador_4",
+   "nombre": "Pasador",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Pasador_4.stl",
+   "pdf": "planos/Muelle_B_y_Pasador.pdf",
+   "caja": [
+    6.0,
+    6.0,
+    17.8
+   ],
+   "centro": [
+    414.8,
+    403.9,
+    332.1
+   ],
+   "triangulos": 312,
+   "sw": "solidworks/Pasador.SLDPRT"
+  },
+  {
+   "id": "Patilla_1",
+   "nombre": "Patilla",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Patilla_1.stl",
+   "pdf": "planos/Patilla_y_Pinon_Z11.pdf",
+   "caja": [
+    28.0,
+    48.0,
+    8.0
+   ],
+   "centro": [
+    456.8,
+    441.9,
+    319.7
+   ],
+   "triangulos": 488,
+   "sw": "solidworks/Patilla.SLDPRT"
+  },
+  {
+   "id": "Placa_jaula_exterior_1",
+   "nombre": "Placa jaula exterior",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Placa_jaula_exterior_1.stl",
+   "pdf": "planos/Placa_jaula_exterior.pdf",
+   "caja": [
+    43.3,
+    92.6,
+    2.0
+   ],
+   "centro": [
+    436.4,
+    353.5,
+    276.5
+   ],
+   "triangulos": 604,
+   "sw": "solidworks/Placa_jaula_exterior.SLDPRT"
+  },
+  {
+   "id": "Placa_jaula_interior_1",
+   "nombre": "Placa jaula interior",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Placa_jaula_interior_1.stl",
+   "pdf": "planos/Placa_jaula_interior.pdf",
+   "caja": [
+    30.3,
+    87.7,
+    2.0
+   ],
+   "centro": [
+    442.9,
+    351.0,
+    267.9
+   ],
+   "triangulos": 448,
+   "sw": "solidworks/Placa_jaula_interior.SLDPRT"
+  },
+  {
+   "id": "Placa_tope_1",
+   "nombre": "Placa tope",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Placa_tope_1.stl",
+   "pdf": "planos/Placa_tope_y_Tapa_dcha.pdf",
+   "caja": [
+    24.0,
+    24.0,
+    2.0
+   ],
+   "centro": [
+    453.8,
+    426.9,
+    324.7
+   ],
+   "triangulos": 684,
+   "sw": "solidworks/Placa_tope.SLDPRT"
+  },
+  {
+   "id": "Roldana_11T_1",
+   "nombre": "Roldana 11T",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Roldana_11T_1.stl",
+   "pdf": "planos/Roldana_11T_y_Cuerpo_inferior.pdf",
+   "caja": [
+    50.7,
+    50.3,
+    2.6
+   ],
+   "centro": [
+    436.8,
+    385.6,
+    272.2
+   ],
+   "triangulos": 1156,
+   "sw": "solidworks/Roldana_11T.SLDPRT"
+  },
+  {
+   "id": "Roldana_11T_2",
+   "nombre": "Roldana 11T",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Roldana_11T_2.stl",
+   "pdf": "planos/Roldana_11T_y_Cuerpo_inferior.pdf",
+   "caja": [
+    50.3,
+    50.7,
+    2.6
+   ],
+   "centro": [
+    449.3,
+    316.2,
+    272.2
+   ],
+   "triangulos": 1156,
+   "sw": "solidworks/Roldana_11T.SLDPRT"
+  },
+  {
+   "id": "Tensor_cable_1",
+   "nombre": "Tensor cable",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Tensor_cable_1.stl",
+   "pdf": "planos/Casquillo_y_Tensor_cable.pdf",
+   "caja": [
+    12.0,
+    10.4,
+    9.0
+   ],
+   "centro": [
+    420.8,
+    437.9,
+    331.7
+   ],
+   "triangulos": 536,
+   "sw": "solidworks/Tensor_cable.SLDPRT"
+  },
+  {
+   "id": "Tornillo_B_1",
+   "nombre": "Tornillo B",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Tornillo_B_1.stl",
+   "pdf": "planos/Rodamiento_izq_y_Tornillo_B.pdf",
+   "caja": [
+    15.0,
+    15.0,
+    27.0
+   ],
+   "centro": [
+    452.8,
+    427.9,
+    329.2
+   ],
+   "triangulos": 7090,
+   "sw": "solidworks/Tornillo_B.SLDPRT"
+  },
+  {
+   "id": "Tornillo_jaula_1",
+   "nombre": "Tornillo jaula",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Tornillo_jaula_1.stl",
+   "pdf": "planos/Tornillo_jaula_y_Freno_tras_Yugo.pdf",
+   "caja": [
+    11.0,
+    11.0,
+    65.7
+   ],
+   "centro": [
+    422.8,
+    391.9,
+    308.3
+   ],
+   "triangulos": 3036,
+   "sw": "solidworks/Tornillo_jaula.SLDPRT"
+  },
+  {
+   "id": "Tornillo_roldana_1",
+   "nombre": "Tornillo roldana",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "stl": "modelo/Tornillo_roldana_1.stl",
+   "pdf": "planos/Tornillo_roldana_y_Muelle_jaula.pdf",
+   "caja": [
+    8.5,
+    8.5,
+    13.6
+   ],
+   "centro": [
+    436.8,
+    385.9,
+    273.7
+   ],
+   "triangulos": 3408,
+   "sw": "solidworks/Tornillo_roldana.SLDPRT"
+  },
+  {
+   "id": "Desviador_1",
+   "nombre": "Desviador",
+   "conjunto": "Transmisión",
+   "subconjunto": "",
+   "grupo": "fijo",
+   "stl": "modelo/Desviador_1.stl",
+   "pdf": "planos/Desviador.pdf",
+   "caja": [
+    85.4,
+    77.0,
+    73.4
+   ],
+   "centro": [
+    851.4,
+    542.4,
+    246.7
+   ],
+   "triangulos": 1062,
+   "sw": "solidworks/Desviador.SLDPRT"
+  },
+  {
+   "id": "Eje_pedal_Campagnolo_dcho_1",
+   "nombre": "Eje pedal Campagnolo dcho",
+   "conjunto": "Transmisión",
+   "subconjunto": "Pedal dcho conjunto",
+   "grupo": "pedalier",
+   "stl": "modelo/Eje_pedal_Campagnolo_dcho_1.stl",
+   "pdf": "planos/Eje_pedal_Campagnolo_dcho.pdf",
+   "caja": [
+    18.0,
+    18.0,
+    79.4
+   ],
+   "centro": [
+    1056.4,
+    388.9,
+    321.3
+   ],
+   "triangulos": 6908,
+   "sw": "solidworks/Eje_pedal_Campagnolo_dcho.SLDPRT"
+  },
+  {
+   "id": "Pedal_Campagnolo_dcho_1",
+   "nombre": "Pedal Campagnolo dcho",
+   "conjunto": "Transmisión",
+   "subconjunto": "Pedal dcho conjunto",
+   "grupo": "pedalier",
+   "stl": "modelo/Pedal_Campagnolo_dcho_1.stl",
+   "pdf": "planos/Pedal_Campagnolo_dcho.pdf",
+   "caja": [
+    67.0,
+    36.0,
+    72.0
+   ],
+   "centro": [
+    1056.4,
+    384.9,
+    334.5
+   ],
+   "triangulos": 3028,
+   "sw": "solidworks/Pedal_Campagnolo_dcho.SLDPRT"
+  },
+  {
+   "id": "Rodamientos_pedal_dcho_1",
+   "nombre": "Rodamientos pedal dcho",
+   "conjunto": "Transmisión",
+   "subconjunto": "Pedal dcho conjunto",
+   "grupo": "pedalier",
+   "stl": "modelo/Rodamientos_pedal_dcho_1.stl",
+   "pdf": "planos/Rodamientos_pedal_dcho_y_Rodamientos_pedal_izq.pdf",
+   "caja": [
+    22.0,
+    22.0,
+    62.0
+   ],
+   "centro": [
+    1056.4,
+    388.9,
+    330.0
+   ],
+   "triangulos": 9664,
+   "sw": "solidworks/Rodamientos_pedal_dcho.SLDPRT"
+  },
+  {
+   "id": "Eje_pedal_Campagnolo_izq_1",
+   "nombre": "Eje pedal Campagnolo izq",
+   "conjunto": "Transmisión",
+   "subconjunto": "Pedal izq conjunto",
+   "grupo": "pedalier",
+   "stl": "modelo/Eje_pedal_Campagnolo_izq_1.stl",
+   "pdf": "planos/Pinon_Z17_y_Eje_pedal_Campagnolo_izq.pdf",
+   "caja": [
+    18.0,
+    18.0,
+    79.4
+   ],
+   "centro": [
+    711.4,
+    388.9,
+    136.7
+   ],
+   "triangulos": 6506,
+   "sw": "solidworks/Eje_pedal_Campagnolo_izq.SLDPRT"
+  },
+  {
+   "id": "Pedal_Campagnolo_izq_1",
+   "nombre": "Pedal Campagnolo izq",
+   "conjunto": "Transmisión",
+   "subconjunto": "Pedal izq conjunto",
+   "grupo": "pedalier",
+   "stl": "modelo/Pedal_Campagnolo_izq_1.stl",
+   "pdf": "planos/Pedal_Campagnolo_izq.pdf",
+   "caja": [
+    67.0,
+    36.0,
+    72.0
+   ],
+   "centro": [
+    711.4,
+    384.9,
+    123.5
+   ],
+   "triangulos": 3092,
+   "sw": "solidworks/Pedal_Campagnolo_izq.SLDPRT"
+  },
+  {
+   "id": "Rodamientos_pedal_izq_1",
+   "nombre": "Rodamientos pedal izq",
+   "conjunto": "Transmisión",
+   "subconjunto": "Pedal izq conjunto",
+   "grupo": "pedalier",
+   "stl": "modelo/Rodamientos_pedal_izq_1.stl",
+   "pdf": "planos/Rodamientos_pedal_dcho_y_Rodamientos_pedal_izq.pdf",
+   "caja": [
+    22.0,
+    22.0,
+    62.0
+   ],
+   "centro": [
+    711.4,
+    388.9,
+    128.0
+   ],
+   "triangulos": 9664,
+   "sw": "solidworks/Rodamientos_pedal_izq.SLDPRT"
+  }
+ ],
+ "descargas": [
+  [
+   "Bici_STL_completa.zip",
+   "Bici completa en un solo STL"
+  ],
+  [
+   "Bici_STL_movil.zip",
+   "6 grupos STL + JSON de ejes"
+  ],
+  [
+   "Bici_STL_piezas.zip",
+   "80 piezas en STL"
+  ],
+  [
+   "Bici_SolidWorks.zip",
+   "Piezas y ensamblajes de SolidWorks 2020"
+  ],
+  [
+   "Bici_PDF_planos.zip",
+   "53 planos A4 en PDF"
+  ]
+ ]
+}
