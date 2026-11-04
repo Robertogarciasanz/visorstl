@@ -361,3 +361,28 @@ renderer.setAnimationLoop((t) => {
 pintaLista(); pintaCesta();
 const h = /pieza=([\w]+)/.exec(location.hash); if (h && malla[h[1]]) elegir(h[1], true);
 window.__bici = { elegir, vista, malla, pivotes };
+
+
+// ---------- subir archivos (para el autor y para cualquier visitante) ----------
+$('#subirBtn').onclick = () => { $('#subir').hidden = false; $('#sbEstado').textContent = ''; };
+$('#sbNo').onclick = () => { $('#subir').hidden = true; };
+$('#sbOk').onclick = () => {
+  const f = $('#sbFile').files[0], est = $('#sbEstado');
+  if (!f) { est.textContent = 'Elige un archivo.'; return; }
+  if (!$('#sbLic').checked) { est.textContent = 'Marca la casilla de licencia libre para poder subirlo.'; return; }
+  if (f.size > 24 * 1024 * 1024) { est.textContent = 'El archivo pesa más de 24 MB.'; return; }
+  const x = new XMLHttpRequest();
+  x.open('POST', '/api/subir');
+  x.setRequestHeader('X-Nombre', encodeURIComponent(f.name)); x.setRequestHeader('X-Nota', encodeURIComponent($('#sbNota').value)); x.setRequestHeader('X-Autor', encodeURIComponent($('#sbAutor').value));
+  x.upload.onprogress = (e) => { if (e.lengthComputable) est.textContent = 'Subiendo… ' + Math.round(e.loaded / e.total * 100) + ' %'; };
+  x.onload = () => { let r = {}; try { r = JSON.parse(x.responseText); } catch {} est.textContent = x.status === 200 ? '✓ ' + r.mensaje : 'No se pudo subir: ' + (r.error || 'error ' + x.status); if (x.status === 200) $('#sbFile').value = ''; };
+  x.onerror = () => { est.textContent = 'No se pudo conectar. Inténtalo más tarde.'; };
+  est.textContent = 'Subiendo…'; x.send(f);
+};
+fetch('/api/mejoras').then((r) => (r.ok ? r.json() : [])).then((lista) => {
+  if (!Array.isArray(lista) || !lista.length) return;
+  const c = $('#comunidad'); c.hidden = false;
+  const esc = (t) => String(t || '').replace(/[&<>"]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
+  c.innerHTML = '<b>Archivos de la comunidad</b> <small>(revisados por el autor; ábrelos con precaución)</small><br>' +
+    lista.map((a) => `<a href="/api/archivo/${a.id}" download="${esc(a.nombre)}">${esc(a.nombre)}</a> <small>${(a.tam / 1048576).toFixed(1)} MB${a.autor ? ' · ' + esc(a.autor) : ''}${a.nota ? ' · ' + esc(a.nota) : ''}</small>`).join('<br>');
+}).catch(() => {});
