@@ -63,6 +63,22 @@ function crear(nombre, padre) {
 }
 crear('fijo'); crear('pedalier'); crear('rueda_trasera'); crear('cadena'); crear('direccion'); crear('rueda_delantera', 'direccion');
 
+// sub-pivotes: cada pedal gira sobre su eje (para quedar horizontal) y las roldanas del cambio sobre el suyo
+const centroDe = (id) => datos.piezas.find((p) => p.id === id)?.centro;
+const SUB = {                                       // pivote -> [pieza que da el eje, padre, piezas que lleva]
+  pedal_dcho: ['Eje_pedal_Campagnolo_dcho_1', 'pedalier', ['Eje_pedal_Campagnolo_dcho_1', 'Pedal_Campagnolo_dcho_1', 'Rodamientos_pedal_dcho_1']],
+  pedal_izq: ['Eje_pedal_Campagnolo_izq_1', 'pedalier', ['Eje_pedal_Campagnolo_izq_1', 'Pedal_Campagnolo_izq_1', 'Rodamientos_pedal_izq_1']],
+  roldana_1: ['Roldana_11T_1', 'fijo', ['Roldana_11T_1']],
+  roldana_2: ['Roldana_11T_2', 'fijo', ['Roldana_11T_2']],
+};
+const PIV = {};                                     // id de pieza -> pivote propio
+for (const [n, [ref, padre, ids]] of Object.entries(SUB)) {
+  const c = centroDe(ref); if (!c) continue;
+  G[n] = { eje: { punto: c, direccion: [0, 0, 1] } };
+  crear(n, padre); ids.forEach((id) => (PIV[id] = n));
+}
+const pivDe = (p) => pivotes[PIV[p.id] || p.grupo];
+
 // ---------- volumen, material y corte ----------
 function volumen(geo) {                                // suma de volumenes con signo (malla cerrada), mm3 -> cm3
   const a = geo.attributes.position.array; let v = 0;
@@ -90,7 +106,7 @@ async function cargar(p) {
   p.vol = volumen(geo);                                // cm3
   mat.clippingPlanes = [plano];
   m.userData = { p, base: mat.color.clone() };
-  const pv = pivotes[p.grupo];
+  const pv = pivDe(p);
   m.position.copy(pv.mundo).multiplyScalar(-1);
   pv.obj.add(m);
   malla[p.id] = m;
@@ -143,7 +159,7 @@ function elegir(id, enfocar) {
   history.replaceState(null, '', id ? '#pieza=' + id : location.pathname + location.search);
   document.querySelectorAll('.it').forEach((e) => e.classList.toggle('sel', e.dataset.id === id));
   const ficha = $('#ficha');
-  if (!id) { ficha.innerHTML = '<div class="m">Pulsa una pieza de la lista, o en la bici, para ver sus medidas y descargarla: STL para imprimir, plano PDF y archivo de SolidWorks para modificarla.</div>'; return; }
+  if (!id) { ficha.innerHTML = '<div class="m">Pulsa una pieza de la lista, o en la bici, para ver sus medidas y descargarla: STL para imprimir, plano PDF y archivo de SolidWorks para modificarla. Arrastra una biela o un pedal para mover la bici.</div>'; return; }
   const p = piezas.find((x) => x.id === id);
   const d = p.caja.map((v) => v / escala);
   const cabe = d.every((v) => v <= CAMA);
@@ -245,18 +261,72 @@ const ray = new THREE.Raycaster(), pt = new THREE.Vector2();
 let down = null;
 canvas.addEventListener('pointerdown', (e) => { down = [e.clientX, e.clientY]; });
 canvas.addEventListener('pointerup', (e) => {
-  if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 4) return;
+  if (arrastre || !down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 4) return;
   const r = canvas.getBoundingClientRect();
   pt.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
   ray.setFromCamera(pt, camera);
   const visibles = Object.values(malla).filter((m) => m.material.opacity > 0.5 || !sel);
   const h = ray.intersectObjects(visibles, false)[0];
+  if (modoPlanos) { if (h) bajaPlano(h.object.userData.p); return; }
   if (medir) {
     if (!h) return;
     if (puntos.length >= 2) { puntos = []; marcas.clear(); }
     anotaPunto(puntoCercano(h)); return;
   }
   elegir(h ? h.object.userData.p.id : null, false);
+  if (h) menuPieza(h.object.userData.p, e.clientX, e.clientY); else cierraMenu();
+});
+
+// ---------- menú al tocar una pieza en la bici ----------
+const menu = document.createElement('div'); menu.id = 'menuPieza'; menu.hidden = true;
+$('#vista').append(menu);
+function cierraMenu() { menu.hidden = true; }
+function menuPieza(p, x, y) {
+  const r = $('#vista').getBoundingClientRect();
+  menu.innerHTML = `<div class="t"></div><div class="s"></div>
+    <a class="btn p" data-a="pdf">📄 Plano PDF</a>
+    <a class="btn" data-a="sw">🛠 SolidWorks (.SLDPRT)</a>
+    <a class="btn" data-a="stl">⬇ STL para imprimir</a>
+    <button class="x" title="Cerrar">✕</button>`;
+  menu.querySelector('.t').textContent = p.nombre;
+  menu.querySelector('.s').textContent = `${p.conjunto}${p.subconjunto ? ' › ' + p.subconjunto : ''} · ${mm(p.caja[0])} × ${mm(p.caja[1])} × ${mm(p.caja[2])} mm`;
+  const [aPdf, aSw, aStl] = menu.querySelectorAll('a');
+  if (p.pdf) Object.assign(aPdf, { href: p.pdf, target: '_blank', rel: 'noopener' }); else { aPdf.classList.add('off'); aPdf.textContent = '📄 Sin plano PDF'; }
+  if (p.sw) Object.assign(aSw, { href: p.sw, download: '' }); else aSw.classList.add('off');
+  aStl.href = '#'; aStl.onclick = (ev) => { ev.preventDefault(); conAviso(() => descargaSTL(p, 1)); };
+  menu.querySelector('.x').onclick = cierraMenu;
+  menu.hidden = false;
+  const w = menu.offsetWidth, h = menu.offsetHeight;
+  menu.style.left = Math.max(8, Math.min(x - r.left + 12, r.width - w - 8)) + 'px';
+  menu.style.top = Math.max(8, Math.min(y - r.top + 12, r.height - h - 8)) + 'px';
+}
+addEventListener('keydown', (e) => { if (e.key === 'Escape') cierraMenu(); });
+controls.addEventListener('start', cierraMenu);          // al girar la cámara se cierra
+
+// ---------- modo "Descargar planos": se pulsa el botón y luego la pieza en la bici ----------
+let modoPlanos = false, ultHover = 0;
+const avisoPl = $('#avisoPlanos');
+$('#planosBtn').onclick = (e) => {
+  if (medir) $('#medir').click();
+  modoPlanos = !modoPlanos; cierraMenu();
+  e.currentTarget.classList.toggle('on', modoPlanos);
+  e.currentTarget.textContent = modoPlanos ? '✕ Salir de planos' : '📄 Descargar planos';
+  avisoPl.hidden = !modoPlanos;
+  avisoPl.textContent = 'Toca en la bici la pieza de la que quieres el plano.';
+  canvas.style.cursor = modoPlanos ? 'pointer' : '';
+  if (!modoPlanos) aplica(sel, null);
+};
+function bajaPlano(p) {
+  if (!p.pdf) { avisoPl.textContent = `«${p.nombre}» no tiene plano (pieza comercial o de serie). Prueba con otra.`; return; }
+  avisoPl.textContent = `Descargando el plano de «${p.nombre}». Toca otra pieza o pulsa «Salir de planos».`;
+  conAviso(() => { const a = Object.assign(document.createElement('a'), { href: p.pdf, download: p.pdf.split('/').pop() }); document.body.append(a); a.click(); a.remove(); });
+}
+canvas.addEventListener('pointermove', (e) => {          // resalta la pieza que hay debajo del dedo o ratón
+  if (!modoPlanos || e.buttons || performance.now() - ultHover < 50) return;
+  ultHover = performance.now();
+  rayoDe(e);
+  const h = ray.intersectObjects(Object.values(malla), false)[0];
+  aplica(sel, h ? h.object.userData.p.id : null);
 });
 
 // ---------- despiece, dirección, pedaleo ----------
@@ -264,26 +334,100 @@ let explo = 0;
 $('#explo').oninput = (e) => { explo = e.target.value / 100; reposiciona(); };
 function reposiciona() {
   for (const m of Object.values(malla)) {
-    const p = m.userData.p, pv = pivotes[p.grupo];
+    const p = m.userData.p, pv = pivDe(p);
     const d = V(p.centro).sub(centro).multiplyScalar(explo * 0.9);
     d.y += explo * 160 * Math.sign(d.y || 1) * 0.2; d.z *= 1.6;
     m.position.copy(pv.mundo).multiplyScalar(-1).add(d);
   }
 }
-let dirAng = 0, pedAng = 0, anima = false;
+// Pedaleo. La rueda trasera gira 52/19 veces por vuelta de pedal y tiene rueda libre:
+// pedalear hacia atrás no la frena. La delantera gira igual (mismo diámetro, sin patinar).
+const PLATO = 52, PINON = 19, ROLDANA = 11;
+const D_RUEDA = (datos.piezas.find((p) => p.id === 'Rueda_delantera_1')?.caja[0] || 667.8) / 1000;   // m
+let dirAng = 0, pedAng = 0, ruedaAng = 0, ruedaVel = 0;
+const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let anima = !quieto;                                 // pedalea sola al abrir la página
+const rpm = () => +$('#cad').value;
+const kmh = (vueltasPedalPorSeg) => vueltasPedalPorSeg * PLATO / PINON * Math.PI * D_RUEDA * 3.6;
+function pintaVel() {
+  const v = anima ? rpm() / 60 : ruedaVel / (2 * Math.PI) / (PLATO / PINON);
+  $('#vel').textContent = (anima ? rpm() + ' rpm · ' : '') + kmh(Math.max(0, v)).toFixed(1).replace('.', ',') + ' km/h';
+}
+function botonPedal() { const b = $('#pedal'); b.textContent = anima ? '❚❚ Parar' : '▶ Pedalear'; b.classList.toggle('on', anima); pintaVel(); }
 $('#dir').oninput = (e) => { dirAng = e.target.value * Math.PI / 180; mueve(); };
-$('#pedal').onclick = (e) => { anima = !anima; e.target.textContent = anima ? '❚❚ Parar' : '▶ Pedalear'; e.target.classList.toggle('on', anima); };
-const q = new THREE.Quaternion();
-const gira = (n, a) => pivotes[n].obj.quaternion.setFromAxisAngle(pivotes[n].eje, a);
+$('#pedal').onclick = () => { anima = !anima; if (!anima) ruedaVel = rpm() / 60 * 2 * Math.PI * PLATO / PINON; botonPedal(); };
+$('#cad').oninput = pintaVel;
+function avanza(d) {                                 // d: giro de los pedales en radianes (+ = hacia delante)
+  pedAng += d;
+  if (d > 0) ruedaAng += d * PLATO / PINON;          // rueda libre: hacia atrás no arrastra la rueda
+}
+const gira = (n, a) => pivotes[n] && pivotes[n].obj.quaternion.setFromAxisAngle(pivotes[n].eje, a);
 function mueve() {
   gira('direccion', dirAng);
   gira('pedalier', -pedAng);
-  const rueda = -pedAng * 52 / 19;                 // 52 dientes del plato / 19 del piñón
-  gira('rueda_trasera', rueda);
-  // la rueda delantera rueda sobre su eje, que además gira con la dirección
-  pivotes.rueda_delantera.obj.quaternion.setFromAxisAngle(pivotes.rueda_delantera.eje, rueda);
+  gira('pedal_dcho', pedAng); gira('pedal_izq', pedAng);          // los pedales se quedan horizontales
+  const cadena = -pedAng * PLATO;                                  // dientes recorridos por la cadena
+  gira('roldana_1', cadena / ROLDANA); gira('roldana_2', cadena / ROLDANA);
+  gira('rueda_trasera', -ruedaAng);
+  gira('rueda_delantera', -ruedaAng);                // gira sobre su eje, que además gira con la dirección
 }
 mueve();
+
+// ---------- arrastrar los pedales con el ratón o el dedo ----------
+const esPedalier = (m) => m.userData.p.grupo === 'pedalier';
+const planoBiela = new THREE.Plane(), tocado = new THREE.Vector3();
+let arrastre = null;                                  // {ang, t, x, y, movido, id}
+function rayoDe(e) {
+  const r = canvas.getBoundingClientRect();
+  pt.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  ray.setFromCamera(pt, camera);
+}
+function anguloBiela(e) {                             // ángulo del puntero alrededor del eje del pedalier
+  rayoDe(e);
+  const pv = pivotes.pedalier;
+  planoBiela.setFromNormalAndCoplanarPoint(pv.eje, pv.mundo);
+  if (!ray.ray.intersectPlane(planoBiela, tocado)) return null;
+  const d = tocado.sub(pv.mundo);
+  return Math.atan2(d.y, d.x);
+}
+canvas.parentElement.addEventListener('pointerdown', (e) => {   // fase de captura: antes que la cámara
+  if (e.target !== canvas || medir || modoPlanos || e.button > 0) return;
+  rayoDe(e);
+  const visibles = Object.values(malla).filter((m) => m.material.opacity > 0.5 || !sel);
+  const h = ray.intersectObjects(visibles, false)[0];
+  if (!h || !esPedalier(h.object)) return;
+  const a = anguloBiela(e); if (a === null) return;
+  e.stopPropagation();
+  canvas.setPointerCapture(e.pointerId);
+  arrastre = { ang: a, t: performance.now(), x: e.clientX, y: e.clientY, movido: false, id: h.object.userData.p.id };
+  if (anima) { anima = false; botonPedal(); }
+  ruedaVel = 0; canvas.style.cursor = 'grabbing';
+}, true);
+canvas.addEventListener('pointermove', (e) => {
+  if (!arrastre) {                                      // mano encima de bielas y pedales
+    if (medir || modoPlanos || e.buttons) return;
+    rayoDe(e);
+    const h = ray.intersectObjects(Object.values(malla).filter(esPedalier), false)[0];
+    canvas.style.cursor = h ? 'grab' : '';
+    return;
+  }
+  if (Math.hypot(e.clientX - arrastre.x, e.clientY - arrastre.y) > 4) arrastre.movido = true;
+  const a = anguloBiela(e); if (a === null) return;
+  let d = a - arrastre.ang; d = Math.atan2(Math.sin(d), Math.cos(d));
+  const t = performance.now(), dt = Math.max((t - arrastre.t) / 1000, 1e-3);
+  avanza(-d);                                           // sentido horario visto desde el lado de la cadena = adelante
+  ruedaVel = 0.7 * ruedaVel + 0.3 * Math.max(0, -d) * PLATO / PINON / dt;
+  arrastre.ang = a; arrastre.t = t;
+  mueve(); pintaVel();
+});
+function sueltaPedal(e) {
+  if (!arrastre) return;
+  if (!arrastre.movido) { elegir(arrastre.id, false); menuPieza(malla[arrastre.id].userData.p, e.clientX, e.clientY); }   // un clic sin mover: menú de la pieza
+  if (performance.now() - arrastre.t > 120) ruedaVel = 0;
+  arrastre = null; canvas.style.cursor = 'grab'; down = null;
+}
+canvas.addEventListener('pointerup', sueltaPedal);
+canvas.addEventListener('pointercancel', sueltaPedal);
 
 // ---------- datos generales de la bici ----------
 function pintaDatos() {
@@ -325,6 +469,7 @@ let medir = false, puntos = [];
 const marcas = new THREE.Group(); scene.add(marcas);
 const readout = $('#medida');
 $('#medir').onclick = (e) => {
+  if (modoPlanos) $('#planosBtn').click();
   medir = !medir; e.currentTarget.classList.toggle('on', medir); puntos = []; marcas.clear();
   readout.hidden = !medir; readout.textContent = 'Pulsa dos puntos de la bici para medir la distancia.';
 };
@@ -379,9 +524,12 @@ addEventListener('resize', ajusta); ajusta();
 let t0 = performance.now();
 renderer.setAnimationLoop((t) => {
   const dt = Math.min((t - t0) / 1000, 0.1); t0 = t;
-  if (anima) { pedAng += dt * 2.4; mueve(); }
+  if (anima) { avanza(dt * rpm() / 60 * 2 * Math.PI); mueve(); }
+  else if (!arrastre && ruedaVel > 0.05) {               // la bici sigue rodando y se va frenando
+    ruedaAng += ruedaVel * dt; ruedaVel *= Math.exp(-dt / 2.5); mueve(); pintaVel();
+  } else if (!arrastre && ruedaVel) { ruedaVel = 0; pintaVel(); }
   controls.update(); renderer.render(scene, camera);
 });
-pintaLista(); pintaCesta();
+pintaLista(); pintaCesta(); botonPedal();
 const h = /pieza=([\w]+)/.exec(location.hash); if (h && malla[h[1]]) elegir(h[1], true);
-window.__bici = { elegir, vista, malla, pivotes };
+window.__bici = { elegir, vista, malla, pivotes, camera, estado: () => ({ pedAng, ruedaAng, anima }) };

@@ -4,7 +4,8 @@ Visor y simulador de archivos 3D (Elegoo Centuri Carbon), publicado en [cenital.
 
 ## Qué contiene
 
-- **Visor 3D** en la raíz del sitio (`index.html`, código en `src/`). Hecho con React, Vite y three.js.
+- **Portada** (`index.html`): redirige a la bicicleta en 3D, `/bici/` (`public/bici/`).
+- **Otras piezas y visor de STL** en `/visor/` (`visor/index.html`, código en `src/`). Hecho con React, Vite y three.js.
 - **Documentación DNS** de cenital.org en `docs/dns-cenital.org.txt`.
 
 ## Desarrollo

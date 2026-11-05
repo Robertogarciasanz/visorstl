@@ -441,7 +441,7 @@ export const STLViewer3D: React.FC<STLViewer3DProps> = ({
 
         // Fit camera to see entire bounds
         if (cameraRef.current && controlsRef.current) {
-          const distance = maxDim * scaleFactor * 1.8;
+          const distance = maxDim * scaleFactor * 1.25;
           cameraRef.current.position.set(distance, distance, distance * 1.2);
           cameraRef.current.lookAt(0, 0, 0);
           controlsRef.current.target.set(0, 0, 0);

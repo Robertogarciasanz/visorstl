@@ -189,6 +189,12 @@ async function ghDeleteModel(token: string, d: MyDesign): Promise<void> {
 
 const PRESETS: PresetModel[] = [
   {
+    id: 'bici',
+    name: 'Bicicleta completa',
+    description: 'Bicicleta de carretera con sus 80 piezas, modelada en SolidWorks. Piezas, planos y SolidWorks en la página de la bici.',
+    category: 'Bici'
+  },
+  {
     id: 'rueda_giratoria',
     name: 'Rueda Giratoria con Rodamiento',
     description: 'Rueda de soporte giratorio con horquilla, tornillo, tuerca y rodamiento de bolas, hecha a partir del plano acotado.',
@@ -249,8 +255,8 @@ const COLOR_PRESETS = [
 export default function App() {
   // Current loaded model data as ArrayBuffer
   const [modelBuffer, setModelBuffer] = useState<ArrayBuffer | null>(null);
-  const [activePreset, setActivePreset] = useState<string>('rueda_giratoria');
-  const [modelName, setModelName] = useState<string>('RuedaGiratoria.stl');
+  const [activePreset, setActivePreset] = useState<string>('bici');
+  const [modelName, setModelName] = useState<string>('Bici_completa.stl');
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const [isLoadingDesign, setIsLoadingDesign] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -392,9 +398,9 @@ export default function App() {
   // Custom sidebar active tab
   const [activeTab, setActiveTab] = useState<'material' | 'helpers' | 'slicer' | 'elegoo'>('material');
 
-  // Load the caster wheel assembly as default initial geometry on mounting
+  // Al abrir el visor se carga la bicicleta completa
   useEffect(() => {
-    loadPreset('rueda_giratoria');
+    loadPreset('bici');
     getAllFilesFromDB().then(files => setSavedFiles(files)).catch(() => {});
     refreshDesigns();
   }, []);
@@ -417,11 +423,32 @@ export default function App() {
     }
   }, [stats, layerHeight, modelScale]);
 
-  const loadPreset = (presetId: string) => {
+  const loadPreset = async (presetId: string) => {
     let buffer: ArrayBuffer;
     let name = '';
-    
-    if (presetId === 'cube') {
+
+    if (presetId === 'bici') {
+      setIsLoadingDesign(true);
+      setActivePreset(presetId);
+      try {
+        const res = await fetch(import.meta.env.BASE_URL + 'models/Bici_completa.stl');
+        if (!res.ok) throw new Error();
+        buffer = await res.arrayBuffer();
+      } catch {
+        setIsLoadingDesign(false);
+        alert('No se pudo cargar la bicicleta.');
+        return;
+      }
+      setIsLoadingDesign(false);
+      name = 'Bici_completa.stl';
+      // Gris grafito, como en la página de la bici
+      setSettings(prev => ({
+        ...prev,
+        color: '#3b4250',
+        roughness: 0.45,
+        metalness: 0.35
+      }));
+    } else if (presetId === 'cube') {
       buffer = generateCalibrationCube();
       name = 'CalibrationCube_20mm.stl';
       // Adjust color & material to a cool slate matte engineering PLA
@@ -635,6 +662,12 @@ export default function App() {
             </h1>
             <span className="text-[7.5px] tracking-[0.2em] font-mono font-bold text-muted uppercase leading-none mt-0.5 hidden xs:block">Roberto Garcia Sanz</span>
           </div>
+          <a
+            href={import.meta.env.BASE_URL + 'bici/'}
+            className="ml-1 sm:ml-4 flex items-center gap-1 sm:gap-1.5 px-2 py-1.5 sm:px-4 sm:py-2 bg-text hover:bg-orange text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-colors no-underline shrink-0"
+          >
+            <span aria-hidden="true">🚲</span><span className="hidden sm:inline">Bicicleta 3D</span><span className="sm:hidden">Bici</span>
+          </a>
         </div>
 
         <div className="flex items-center gap-1.5 font-mono">
@@ -668,6 +701,28 @@ export default function App() {
       {/* 2. Main content grids */}
       <main className="flex-grow p-3 sm:p-4 lg:p-6 lg:max-w-[1600px] lg:mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 relative z-10">
         
+        {/* Bloque destacado: la bicicleta en 3D */}
+        <a
+          href={import.meta.env.BASE_URL + 'bici/'}
+          className="lg:col-span-12 group grid grid-cols-1 md:grid-cols-2 items-center gap-4 md:gap-8 p-4 sm:p-6 border-2 border-orange bg-surface hover:bg-orange/5 transition-colors no-underline"
+        >
+          <div className="order-2 md:order-1">
+            <span className="inline-block bg-orange text-white text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-0.5">Nuevo · licencia libre</span>
+            <h2 className="mt-3 text-2xl sm:text-4xl font-black tracking-tight text-text leading-tight">Una bicicleta completa en 3D, pieza a pieza</h2>
+            <p className="mt-2 text-sm sm:text-base text-muted">Gírala, despiézala, mide y corta. Descarga el STL, el plano acotado en PDF o el archivo de SolidWorks de cada una de sus 80 piezas.</p>
+            <span className="mt-4 inline-flex items-center gap-2 px-5 py-3 bg-orange group-hover:bg-orange2 text-white text-sm sm:text-base font-bold uppercase tracking-wider transition-colors">
+              Abrir la bici en 3D <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </span>
+          </div>
+          <img
+            src={import.meta.env.BASE_URL + 'bici-portada.webp'}
+            alt="Bicicleta de carretera modelada en SolidWorks"
+            width={850}
+            height={555}
+            className="order-1 md:order-2 w-full h-auto max-h-[300px] object-contain group-hover:scale-[1.02] transition-transform"
+          />
+        </a>
+
         {/* LEFT SECTION: 3D model viewport + Dropzone + Built-in Presets */}
         <div className="lg:col-span-8 flex flex-col gap-4 sm:gap-5">
           
@@ -695,6 +750,11 @@ export default function App() {
               onModelLoaded={(loadedStats) => setStats(loadedStats)} 
               modelScale={modelScale}
             />
+            {isLoadingDesign && activePreset === 'bici' && (
+              <div className="absolute inset-0 z-20 flex items-center justify-center bg-surface/80 text-xs font-mono font-bold uppercase tracking-wider text-muted pointer-events-none">
+                Cargando la bicicleta…
+              </div>
+            )}
           </div>
 
           {/* B. Drag and Drop CTA and File Name Info */}
@@ -727,7 +787,7 @@ export default function App() {
               </h2>
               <span className="text-[8px] font-mono text-muted uppercase bg-surface2 px-1.5 py-0.5 border border-border/40">PRESETS.CONF</span>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3.5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5">
               {PRESETS.map((p) => (
                 <button
                   key={p.id}

@@ -5,8 +5,19 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: './',
+    // Rutas absolutas: la web vive en la raiz de cenital.org y el visor esta en /visor/
+    base: '/',
     plugins: [react(), tailwindcss()],
+    build: {
+      rollupOptions: {
+        input: {
+          // Portada: redirige a /bici/
+          main: path.resolve(__dirname, 'index.html'),
+          // Otras piezas y visor de STL
+          visor: path.resolve(__dirname, 'visor/index.html'),
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
