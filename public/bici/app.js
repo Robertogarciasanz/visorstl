@@ -205,7 +205,7 @@ function conAviso(accion) {                      // muestra el aviso una vez por
 }
 $('#avOk').onclick = () => { sessionStorage.setItem('avisado', '1'); $('#aviso').hidden = true; const a = avisoCont; avisoCont = null; a && a(); };
 $('#avNo').onclick = () => { $('#aviso').hidden = true; avisoCont = null; };
-$('#avMejora').onclick = () => { sessionStorage.setItem('avisado', '1'); };
+$('#avMejora').onclick = () => { sessionStorage.setItem('avisado', '1'); $('#aviso').hidden = true; avisoCont = null; $('#subirBtn').click(); };
 document.addEventListener('click', (e) => {         // enlaces de descarga (zip, SolidWorks, bici completa)
   const a = e.target.closest('a[download], a.dl, a[href$=".zip"], a[href$=".SLDPRT"]');
   if (!a || sessionStorage.getItem('avisado')) return;
