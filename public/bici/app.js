@@ -504,7 +504,7 @@ vista('iso');
 
 // ---------- pie ----------
 $('#pie').innerHTML = `<b>Descargas:</b> <a href="#" id="csv">Lista de piezas (CSV)</a> · ` + datos.descargas.map(([f, t]) => `<a href="../descargas/bici/${f}" title="${t}">${f}</a>`).join(' · ') +
-  `<span style="flex:1"></span><span>© 2026 ${datos.autor} · <a href="https://${datos.web}">${datos.web}</a> · Licencia libre: úsalo y modifícalo manteniendo el autor</span>`;
+  `<span style="flex:1"></span><span>© 2026 ${datos.autor} · <a href="mailto:Excavacionesart@gmail.com">Excavacionesart@gmail.com</a> · <a href="https://${datos.web}">${datos.web}</a> · Licencia libre: úsalo y modifícalo manteniendo el autor</span>`;
 
 // ---------- lista de piezas (CSV) ----------
 $('#csv').onclick = () => {
