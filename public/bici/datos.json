@@ -264,7 +264,7 @@
    "subconjunto": "Cassette 11-28",
    "grupo": "rueda_trasera",
    "stl": "modelo/Cassette_unico_1.stl",
-   "pdf": null,
+   "pdf": "planos/Cassette_unico.pdf",
    "caja": [
     117.7,
     117.7,
@@ -1663,7 +1663,7 @@
   ],
   [
    "Bici_PDF_planos.zip",
-   "53 planos A4 en PDF"
+   "54 planos A4 en PDF"
   ]
  ]
 }
