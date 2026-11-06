@@ -139,6 +139,7 @@
   <h1>Bicicleta en 3D</h1><span class="sub">Descarga, imprime y modifica las 72 piezas · STL, planos PDF y archivos de SolidWorks · licencia libre</span>
   <span class="sp"></span>
   <a class="btn p dl" href="../descargas/bici/Bici_SolidWorks.zip" download>⬇ Descargar la bici completa (SolidWorks)</a>
+  <button id="colaborarBtn">💡 Cómo colaborar</button>
   <button id="subirBtn">⬆ Subir tu archivo</button>
   <a href="../visor/">Otras piezas</a>
 </header>
@@ -206,6 +207,29 @@ puedes usarlas, imprimirlas y modificarlas manteniendo el nombre del autor y su 
   <p><label><input type="checkbox" id="sbLic"> Acepto que mi archivo se publique con <b>licencia libre</b> (cualquiera podrá descargarlo, usarlo y modificarlo) y que tengo derecho a compartirlo.</label></p>
   <div class="bt"><button class="btn p" id="sbOk">Subir</button><button id="sbNo">Cerrar</button></div>
   <div id="sbEstado" class="peq" style="margin-top:8px"></div>
+</div></div>
+<div id="colaborar" hidden><div class="caja">
+  <h2>💡 Cómo colaborar</h2>
+  <p>Este proyecto es <b>de código abierto</b>. Si quieres mejorarlo, ¡adelante!</p>
+  <h3 style="font-size:14px;margin:12px 0 6px;color:#1d2430">Qué puedes contribuir:</h3>
+  <ul style="margin:0 0 12px;padding-left:20px;font-size:13px;color:#667085">
+    <li><b>Piezas mejoradas</b> — versiones optimizadas de componentes existentes</li>
+    <li><b>Piezas nuevas</b> — accesorios que falten (luces, guardabarros, portabidones, etc.)</li>
+    <li><b>Variantes</b> — la misma bici en otros tamaños o estilos</li>
+    <li><b>Planos acotados</b> — vistas detalladas en PDF para impresoras</li>
+    <li><b>Archivos SolidWorks</b> — .SLDPRT, .SLDASM, .SLDDRW originales</li>
+    <li><b>Modelos STL o STEP</b> — para impresión 3D o CAM</li>
+  </ul>
+  <h3 style="font-size:14px;margin:12px 0 6px;color:#1d2430">Proceso:</h3>
+  <ol style="margin:0 0 12px;padding-left:20px;font-size:13px;color:#667085">
+    <li>Descarga las piezas o el proyecto completo</li>
+    <li>Mejora o crea lo que quieras</li>
+    <li>Haz clic en <b>"⬆ Subir tu archivo"</b> (arriba)</li>
+    <li>El autor revisará tu contribución</li>
+    <li>Si está bien, ¡se publica con tu nombre!</li>
+  </ol>
+  <p class="peq" style="background:#d4edda;padding:8px;border-radius:6px;color:#155724"><b>Licencia libre:</b> Todas las contribuciones se publican bajo licencia libre. Cualquiera podrá usarlas, modificarlas y redistribuirlas, manteniendo tu nombre como autor.</p>
+  <div class="bt"><button class="btn p" id="cbSubir">⬆ Subir mi mejora</button><button id="cbNo">Cerrar</button></div>
 </div></div>
 <script type="importmap">{"imports":{"three":"./lib/three.module.js"}}</script>
 <script type="module" src="app.js"></script>

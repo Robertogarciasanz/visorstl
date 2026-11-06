@@ -7,6 +7,11 @@ const datos = await (await fetch('datos.json')).json();
 const G = datos.grupos;
 const COLOR = { fijo: 0x3f8f52, direccion: 0x8a94a1, rueda_delantera: 0x2b2f36, rueda_trasera: 0x2b2f36, pedalier: 0xaab0b8, cadena: 0x6c727a };
 
+// ---------- cómo colaborar ----------
+$('#colaborarBtn').onclick = () => { $('#colaborar').hidden = false; };
+$('#cbNo').onclick = () => { $('#colaborar').hidden = true; };
+$('#cbSubir').onclick = () => { $('#colaborar').hidden = true; $('#subir').hidden = false; $('#sbEstado').textContent = ''; };
+
 // ---------- subir archivos (para el autor y para cualquier visitante) ----------
 $('#subirBtn').onclick = () => { $('#subir').hidden = false; $('#sbEstado').textContent = ''; };
 $('#sbNo').onclick = () => { $('#subir').hidden = true; };
