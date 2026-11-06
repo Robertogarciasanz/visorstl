@@ -174,195 +174,6 @@
    "sw": "solidworks/Buje_cuerpo.SLDPRT"
   },
   {
-   "id": "Eje_HG_1",
-   "nombre": "Eje HG",
-   "conjunto": "Rueda trasera",
-   "subconjunto": "Cassette 8v",
-   "grupo": "rueda_trasera",
-   "stl": "modelo/Eje_HG_1.stl",
-   "pdf": "planos/Eje_HG_y_Rodamiento_sup_dir.pdf",
-   "caja": [
-    34.8,
-    34.8,
-    38.8
-   ],
-   "centro": [
-    458.8,
-    453.8,
-    273.9
-   ],
-   "triangulos": 512,
-   "sw": "solidworks/Eje_HG.SLDPRT"
-  },
-  {
-   "id": "Pinon_Z11_1",
-   "nombre": "Pinon Z11",
-   "conjunto": "Rueda trasera",
-   "subconjunto": "Cassette 8v",
-   "grupo": "rueda_trasera",
-   "stl": "modelo/Pinon_Z11_1.stl",
-   "pdf": "planos/Patilla_y_Pinon_Z11.pdf",
-   "caja": [
-    50.6,
-    50.5,
-    1.8
-   ],
-   "centro": [
-    458.9,
-    454.1,
-    291.7
-   ],
-   "triangulos": 1332,
-   "sw": "solidworks/Pinon_Z11.SLDPRT"
-  },
-  {
-   "id": "Pinon_Z13_1",
-   "nombre": "Pinon Z13",
-   "conjunto": "Rueda trasera",
-   "subconjunto": "Cassette 8v",
-   "grupo": "rueda_trasera",
-   "stl": "modelo/Pinon_Z13_1.stl",
-   "pdf": "planos/Puente_tirantes_y_Pinon_Z13.pdf",
-   "caja": [
-    58.6,
-    59.0,
-    1.8
-   ],
-   "centro": [
-    459.0,
-    453.9,
-    286.9
-   ],
-   "triangulos": 1540,
-   "sw": "solidworks/Pinon_Z13.SLDPRT"
-  },
-  {
-   "id": "Pinon_Z15_1",
-   "nombre": "Pinon Z15",
-   "conjunto": "Rueda trasera",
-   "subconjunto": "Cassette 8v",
-   "grupo": "rueda_trasera",
-   "stl": "modelo/Pinon_Z15_1.stl",
-   "pdf": "planos/Pinon_Z15_y_Freno_del_Muelles.pdf",
-   "caja": [
-    67.2,
-    67.1,
-    1.8
-   ],
-   "centro": [
-    458.9,
-    453.8,
-    282.1
-   ],
-   "triangulos": 1672,
-   "sw": "solidworks/Pinon_Z15.SLDPRT"
-  },
-  {
-   "id": "Pinon_Z17_1",
-   "nombre": "Pinon Z17",
-   "conjunto": "Rueda trasera",
-   "subconjunto": "Cassette 8v",
-   "grupo": "rueda_trasera",
-   "stl": "modelo/Pinon_Z17_1.stl",
-   "pdf": "planos/Pinon_Z17_y_Eje_pedal_Campagnolo_izq.pdf",
-   "caja": [
-    75.4,
-    75.2,
-    1.8
-   ],
-   "centro": [
-    458.7,
-    454.0,
-    277.3
-   ],
-   "triangulos": 1848,
-   "sw": "solidworks/Pinon_Z17.SLDPRT"
-  },
-  {
-   "id": "Pinon_Z19_1",
-   "nombre": "Pinon Z19",
-   "conjunto": "Rueda trasera",
-   "subconjunto": "Cassette 8v",
-   "grupo": "rueda_trasera",
-   "stl": "modelo/Pinon_Z19_1.stl",
-   "pdf": "planos/Pinon_Z19.pdf",
-   "caja": [
-    83.5,
-    83.6,
-    1.8
-   ],
-   "centro": [
-    458.6,
-    453.8,
-    272.5
-   ],
-   "triangulos": 2104,
-   "sw": "solidworks/Pinon_Z19.SLDPRT"
-  },
-  {
-   "id": "Pinon_Z21_1",
-   "nombre": "Pinon Z21",
-   "conjunto": "Rueda trasera",
-   "subconjunto": "Cassette 8v",
-   "grupo": "rueda_trasera",
-   "stl": "modelo/Pinon_Z21_1.stl",
-   "pdf": "planos/Pinon_Z21.pdf",
-   "caja": [
-    91.7,
-    91.8,
-    1.8
-   ],
-   "centro": [
-    458.7,
-    453.8,
-    267.7
-   ],
-   "triangulos": 2268,
-   "sw": "solidworks/Pinon_Z21.SLDPRT"
-  },
-  {
-   "id": "Pinon_Z24_1",
-   "nombre": "Pinon Z24",
-   "conjunto": "Rueda trasera",
-   "subconjunto": "Cassette 8v",
-   "grupo": "rueda_trasera",
-   "stl": "modelo/Pinon_Z24_1.stl",
-   "pdf": "planos/Pinon_Z24.pdf",
-   "caja": [
-    103.9,
-    103.9,
-    1.8
-   ],
-   "centro": [
-    458.8,
-    453.9,
-    262.9
-   ],
-   "triangulos": 2556,
-   "sw": "solidworks/Pinon_Z24.SLDPRT"
-  },
-  {
-   "id": "Pinon_Z28_1",
-   "nombre": "Pinon Z28",
-   "conjunto": "Rueda trasera",
-   "subconjunto": "Cassette 8v",
-   "grupo": "rueda_trasera",
-   "stl": "modelo/Pinon_Z28_1.stl",
-   "pdf": "planos/Pinon_Z28.pdf",
-   "caja": [
-    120.1,
-    120.1,
-    1.8
-   ],
-   "centro": [
-    458.8,
-    453.9,
-    258.1
-   ],
-   "triangulos": 2940,
-   "sw": "solidworks/Pinon_Z28.SLDPRT"
-  },
-  {
    "id": "Eje_trasero_1",
    "nombre": "Eje trasero",
    "conjunto": "Rueda trasera",
@@ -447,6 +258,27 @@
    "sw": "solidworks/Rueda_trasera.SLDPRT"
   },
   {
+   "id": "Cassette_unico_1",
+   "nombre": "Cassette unico",
+   "conjunto": "Rueda trasera",
+   "subconjunto": "Cassette 11-28",
+   "grupo": "rueda_trasera",
+   "stl": "modelo/Cassette_unico_1.stl",
+   "pdf": null,
+   "caja": [
+    117.7,
+    117.7,
+    35.4
+   ],
+   "centro": [
+    458.7,
+    453.9,
+    273.1
+   ],
+   "triangulos": 14060,
+   "sw": "solidworks/Cassette_unico.SLDPRT"
+  },
+  {
    "id": "Tapa_dcha_1",
    "nombre": "Tapa dcha",
    "conjunto": "Rueda trasera",
@@ -506,7 +338,7 @@
     644.9,
     229.0
    ],
-   "triangulos": 21964,
+   "triangulos": 24744,
    "sw": "solidworks/Cuadro.SLDPRT"
   },
   {
@@ -758,7 +590,7 @@
     903.4,
     229.0
    ],
-   "triangulos": 402,
+   "triangulos": 560,
    "sw": "solidworks/Tija.SLDPRT"
   },
   {
@@ -1115,7 +947,7 @@
     952.9,
     229.0
    ],
-   "triangulos": 16460,
+   "triangulos": 22698,
    "sw": "solidworks/Manillar.SLDPRT"
   },
   {
@@ -1823,7 +1655,7 @@
   ],
   [
    "Bici_STL_piezas.zip",
-   "80 piezas en STL"
+   "72 piezas en STL"
   ],
   [
    "Bici_SolidWorks.zip",

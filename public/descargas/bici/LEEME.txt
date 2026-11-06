@@ -5,6 +5,6 @@ con la condicion de mantener el nombre del autor y su web.
 
 Bici_STL_completa.zip   bici completa en un solo STL
 Bici_STL_movil.zip      6 grupos STL + bici_movil.json (ejes de giro)
-Bici_STL_piezas.zip     una pieza por STL (80)
+Bici_STL_piezas.zip     una pieza por STL (72)
 Bici_SolidWorks.zip     piezas y ensamblajes de SolidWorks 2020
 Bici_PDF_planos.zip     planos A4 de las piezas (53 hojas), con el autor en cada hoja
