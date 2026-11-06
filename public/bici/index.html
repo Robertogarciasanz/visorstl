@@ -198,24 +198,13 @@ puedes usarlas, imprimirlas y modificarlas manteniendo el nombre del autor y su 
   <p class="peq">Las mejoras se suben aquí mismo, sin cuentas ni registros: se publican cuando el autor las revisa.</p>
 </div></div>
 <div id="subir" hidden><div class="caja">
-  <h2>🚀 Colabora mejorando la bicicleta</h2>
-  <p><b>¿Quieres ayudar?</b> Si tienes una mejora, una pieza nueva o una variante, súbela aquí. El autor la revisará y si está bien, la integrará en el proyecto.</p>
-
-  <h3 style="font-size:14px;margin:12px 0 6px;color:#1d2430">Qué puedes subir:</h3>
-  <ul style="margin:0 0 12px;padding-left:20px;font-size:13px;color:#667085">
-    <li><b>Piezas mejoradas:</b> versiones optimizadas de piezas existentes</li>
-    <li><b>Piezas nuevas:</b> componentes que faltan (accesorios, luces, etc.)</li>
-    <li><b>Variantes:</b> la misma bici en otros tamaños o configuraciones</li>
-    <li><b>Planos:</b> vistas acotadas de tus mejoras</li>
-    <li><b>Archivos SolidWorks:</b> .SLDPRT, .SLDASM, .SLDDRW</li>
-    <li><b>STL o STEP:</b> para impresoras 3D</li>
-  </ul>
-
+  <h2>Sube tu archivo</h2>
+  <p>¿Has mejorado una pieza, o tienes un <b>.SLDPRT</b>, STL, STEP o plano que quieras compartir? Súbelo aquí. Se publicará en esta página cuando el autor lo revise.</p>
   <p><input type="file" id="sbFile" accept=".sldprt,.sldasm,.slddrw,.stl,.step,.stp,.pdf,.zip"><br><span class="peq">Admitidos: SLDPRT, SLDASM, SLDDRW, STL, STEP, PDF y ZIP. Máximo 24 MB y 6 archivos al día.</span></p>
-  <p><input id="sbAutor" type="text" placeholder="Tu nombre (aparecerá como colaborador)" maxlength="60" style="width:100%"></p>
-  <p><input id="sbNota" type="text" placeholder="Ejemplo: Pieza mejorada / Variante de 65cm / Soporte para luz delantera" maxlength="300" style="width:100%"></p>
+  <p><input id="sbAutor" type="text" placeholder="Tu nombre (opcional, aparecerá junto al archivo)" maxlength="60" style="width:100%"></p>
+  <p><input id="sbNota" type="text" placeholder="Qué has mejorado o qué es (opcional)" maxlength="300" style="width:100%"></p>
   <p><label><input type="checkbox" id="sbLic"> Acepto que mi archivo se publique con <b>licencia libre</b> (cualquiera podrá descargarlo, usarlo y modificarlo) y que tengo derecho a compartirlo.</label></p>
-  <div class="bt"><button class="btn p" id="sbOk">Subir colaboración</button><button id="sbNo">Cerrar</button></div>
+  <div class="bt"><button class="btn p" id="sbOk">Subir</button><button id="sbNo">Cerrar</button></div>
   <div id="sbEstado" class="peq" style="margin-top:8px"></div>
 </div></div>
 <script type="importmap">{"imports":{"three":"./lib/three.module.js"}}</script>
