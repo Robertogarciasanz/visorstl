@@ -104,23 +104,39 @@ const loader = new STLLoader();
 const piezas = datos.piezas;
 const malla = {};                          // id -> Mesh
 let hechas = 0;
-async function cargar(p) {
-  const geo = await new Promise((ok, ko) => loader.load(p.stl, ok, undefined, ko));
-  const mat = new THREE.MeshStandardMaterial({ color: COLOR[p.grupo] ?? 0x888888, metalness: 0.25, roughness: 0.55, side: THREE.DoubleSide });
-  const m = new THREE.Mesh(geo, mat);
-  p.vol = volumen(geo);                                // cm3
-  mat.clippingPlanes = [plano];
-  m.userData = { p, base: mat.color.clone() };
-  const pv = pivDe(p);
-  m.position.copy(pv.mundo).multiplyScalar(-1);
-  pv.obj.add(m);
-  malla[p.id] = m;
-  $('#prog').style.width = (++hechas / piezas.length * 100) + '%';
-  $('#cargaTxt').textContent = hechas + ' / ' + piezas.length;
+const prom = {};                           // id -> promesa de carga (una sola descarga por pieza)
+function cargar(p) {
+  return (prom[p.id] ||= (async () => {
+    const geo = await new Promise((ok, ko) => loader.load(p.stl, ok, undefined, ko));
+    const mat = new THREE.MeshStandardMaterial({ color: COLOR[p.grupo] ?? 0x888888, metalness: 0.25, roughness: 0.55, side: THREE.DoubleSide });
+    const m = new THREE.Mesh(geo, mat);
+    if (p.vol == null) p.vol = volumen(geo);             // cm3 (normalmente ya viene en datos.json)
+    mat.clippingPlanes = [plano];
+    m.userData = { p, base: mat.color.clone() };
+    const pv = pivDe(p);
+    m.position.copy(pv.mundo).multiplyScalar(-1);
+    pv.obj.add(m);
+    malla[p.id] = m;
+    if (typeof sel !== 'undefined' && sel) aplica(sel, null);
+    if (typeof explo !== 'undefined' && explo) reposiciona();
+    const it = document.querySelector('.it[data-id="' + p.id + '"]'); if (it) it.classList.remove('espera');
+    $('#prog').style.width = (++hechas / piezas.length * 100) + '%';
+    $('#cargaTxt').textContent = 'Cargando la bici en 3D: ' + hechas + ' / ' + piezas.length;
+    if (hechas === piezas.length) $('#carga').remove();
+  })());
 }
-const cola = [...piezas];
-await Promise.all(Array.from({ length: 6 }, async () => { while (cola.length) await cargar(cola.shift()); }));
-$('#carga').remove();
+// La lista se pinta enseguida; las mallas llegan en segundo plano (2-3 a la vez), las grandes primero.
+const volCaja = (p) => p.caja[0] * p.caja[1] * p.caja[2];
+const cola = [...piezas].sort((a, b) => volCaja(b) - volCaja(a));
+const enMovil = matchMedia('(max-width:860px)').matches;
+function arranca() {
+  const sig = async () => { while (cola.length) { const p = cola.shift(); try { await cargar(p); } catch (e) { console.warn('No se pudo cargar', p.id); } } };
+  Array.from({ length: enMovil ? 2 : 3 }, sig);
+}
+function prioridad(p) {                    // al elegir una pieza se carga ya, sin esperar su turno
+  const i = cola.indexOf(p); if (i >= 0) cola.splice(i, 1);
+  return cargar(p);
+}
 
 // ---------- lista ----------
 const lista = $('#lista');
@@ -135,7 +151,7 @@ function pintaLista(filtro = '') {
     const g = document.createElement('details'); g.className = 'g'; if (f || ps.some((p) => p.id === sel)) g.open = true;
     const s = document.createElement('summary'); s.textContent = c + ' (' + ps.length + ')'; g.append(s);
     ps.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es')).forEach((p) => {
-      const d = document.createElement('div'); d.className = 'it' + (sel === p.id ? ' sel' : ''); d.dataset.id = p.id;
+      const d = document.createElement('div'); d.className = 'it' + (sel === p.id ? ' sel' : '') + (malla[p.id] ? '' : ' espera'); d.dataset.id = p.id;
       d.innerHTML = '<span></span><small></small>'; d.firstChild.textContent = p.nombre; d.lastChild.textContent = p.subconjunto;
       d.onclick = () => { elegir(p.id, true); if (matchMedia('(max-width:860px),(max-height:520px)').matches) ponTab('bici'); };
       d.onmouseenter = () => resalta(p.id, true); d.onmouseleave = () => resalta(null);
@@ -188,6 +204,7 @@ function elegir(id, enfocar) {
   const b4 = Object.assign(document.createElement('button'), { textContent: cesta.has(id) ? '✓ En mi descarga' : '+ A mi descarga' });
   b4.onclick = () => { cesta.has(id) ? cesta.delete(id) : cesta.add(id); pintaCesta(); elegir(id, false); };
   bt.append(btnSTL, a2, a3, b4);
+  if (enfocar && !malla[id]) { prioridad(p).then(() => { if (sel === id) elegir(id, true); }); return; }
   if (enfocar) {
     const m = malla[id]; m.updateWorldMatrix(true, false);
     const c = new THREE.Box3().setFromObject(m).getCenter(new THREE.Vector3());
@@ -588,5 +605,6 @@ renderer.setAnimationLoop((t) => {
   controls.update(); renderer.render(scene, camera);
 });
 pintaLista(); pintaCesta(); botonPedal();
-const h = /pieza=([\w]+)/.exec(location.hash); if (h && malla[h[1]]) elegir(h[1], true);
+arranca();
+const h = /pieza=([\w]+)/.exec(location.hash); if (h && piezas.some((p) => p.id === h[1])) elegir(h[1], true);
 window.__bici = { elegir, vista, malla, pivotes, camera, estado: () => ({ pedAng, ruedaAng, anima }) };

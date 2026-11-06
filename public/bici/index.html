@@ -7,6 +7,8 @@
 <meta name="description" content="Bicicleta de carretera completa en 3D con sus 72 piezas: cuadro, horquilla, ruedas, cambio, frenos, bielas y pedales. Descarga gratis los STL para imprimir, los planos acotados en PDF y los archivos de SolidWorks. Licencia libre.">
 <!-- SEO (generado por genera_seo_bici.py) -->
 <link rel="canonical" href="https://cenital.org/bici/">
+<link rel="preload" href="datos.json" as="fetch" crossorigin>
+<link rel="modulepreload" href="lib/three.module.js">
 <meta name="author" content="Roberto Garcia Sanz">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website">
@@ -71,8 +73,9 @@
   #aviso .caja{background:#fff;border-radius:14px;padding:20px 22px;max-width:480px;margin:16px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
   #aviso h2{margin:0 0 8px;font-size:19px}#aviso p{margin:8px 0}#aviso .peq{font-size:12px;color:var(--mut)}
   #aviso .bt{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-  #carga{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--bg);z-index:5;color:var(--mut)}
-  #carga .b{width:260px;height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+  #carga{position:absolute;left:12px;bottom:12px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;z-index:5;color:var(--mut);pointer-events:none;font-size:12px}
+  .it.espera span::after{content:' ·';color:var(--mut)}
+  #carga .b{width:200px;height:6px;background:var(--line);border-radius:6px;overflow:hidden}
   #carga .b i{display:block;height:100%;width:0;background:var(--acc)}
   #avisoPlanos{position:absolute;top:12px;left:50%;transform:translateX(-50%);background:var(--acc);color:#fff;border-radius:10px;padding:8px 14px;font-size:14px;z-index:3;max-width:90%;text-align:center}
   #avisoPlanos[hidden]{display:none}
@@ -146,7 +149,7 @@
 <nav id="tabs"><button data-t="bici" class="on">🚲 Bici</button><button data-t="piezas">🔩 Piezas</button><button data-t="descargas">⬇ Descargas</button></nav>
 <main>
   <section id="vista">
-    <div id="carga"><div>Cargando piezas…</div><div class="b"><i id="prog"></i></div><div id="cargaTxt" style="font-size:12px"></div></div>
+    <div id="carga"><div id="cargaTxt">Cargando la bici en 3D…</div><div class="b"><i id="prog"></i></div></div>
     <canvas id="lienzo"></canvas>
     <div id="medida" hidden></div>
     <div id="avisoPlanos" hidden></div>
