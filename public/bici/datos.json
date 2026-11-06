@@ -151,7 +151,9 @@
    ],
    "triangulos": 16276,
    "sw": "solidworks/Rueda_delantera.SLDPRT",
-   "vol": 1799.18
+   "vol": 1799.18,
+   "codigo": "4-A-01",
+   "clasificacion": "propia"
   },
   {
    "id": "Buje_cuerpo_1",
@@ -173,7 +175,9 @@
    ],
    "triangulos": 1020,
    "sw": "solidworks/Buje_cuerpo.SLDPRT",
-   "vol": 51.17
+   "vol": 51.17,
+   "codigo": "5-B-01",
+   "clasificacion": "propia"
   },
   {
    "id": "Eje_trasero_1",
@@ -195,7 +199,9 @@
    ],
    "triangulos": 432,
    "sw": "solidworks/Eje_trasero.SLDPRT",
-   "vol": 11.64
+   "vol": 11.64,
+   "codigo": "5-B-02",
+   "clasificacion": "propia"
   },
   {
    "id": "Rodamiento_dcho_1",
@@ -217,7 +223,10 @@
    ],
    "triangulos": 396,
    "sw": "solidworks/Rodamiento_dcho.SLDPRT",
-   "vol": 3.61
+   "vol": 3.61,
+   "codigo": "N-3-02",
+   "clasificacion": "normalizada",
+   "norma": "rodamiento rígido de bolas ISO 15"
   },
   {
    "id": "Rodamiento_izq_1",
@@ -239,7 +248,10 @@
    ],
    "triangulos": 396,
    "sw": "solidworks/Rodamiento_izq.SLDPRT",
-   "vol": 3.61
+   "vol": 3.61,
+   "codigo": "N-3-01",
+   "clasificacion": "normalizada",
+   "norma": "rodamiento rígido de bolas ISO 15"
   },
   {
    "id": "Rueda_trasera_1",
@@ -261,7 +273,9 @@
    ],
    "triangulos": 23988,
    "sw": "solidworks/Rueda_trasera.SLDPRT",
-   "vol": 1758.8
+   "vol": 1758.8,
+   "codigo": "5-A-01",
+   "clasificacion": "propia"
   },
   {
    "id": "Cassette_unico_1",
@@ -283,7 +297,9 @@
    ],
    "triangulos": 14060,
    "sw": "solidworks/Cassette_unico.SLDPRT",
-   "vol": 55.01
+   "vol": 55.01,
+   "codigo": "3-C-02",
+   "clasificacion": "propia"
   },
   {
    "id": "Tapa_dcha_1",
@@ -305,7 +321,9 @@
    ],
    "triangulos": 408,
    "sw": "solidworks/Tapa_dcha.SLDPRT",
-   "vol": 0.75
+   "vol": 0.75,
+   "codigo": "5-B-03",
+   "clasificacion": "propia"
   },
   {
    "id": "Tapa_izq_1",
@@ -327,7 +345,9 @@
    ],
    "triangulos": 408,
    "sw": "solidworks/Tapa_izq.SLDPRT",
-   "vol": 1.49
+   "vol": 1.49,
+   "codigo": "5-B-04",
+   "clasificacion": "propia"
   },
   {
    "id": "Cuadro_1",
@@ -349,7 +369,9 @@
    ],
    "triangulos": 24744,
    "sw": "solidworks/Cuadro.SLDPRT",
-   "vol": 311.51
+   "vol": 311.51,
+   "codigo": "1-A-01",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_tras_Brazo_dcho_1",
@@ -371,7 +393,9 @@
    ],
    "triangulos": 2144,
    "sw": "solidworks/Freno_tras_Brazo_dcho.SLDPRT",
-   "vol": 3.68
+   "vol": 3.68,
+   "codigo": "1-B-01",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_tras_Brazo_izq_1",
@@ -393,7 +417,9 @@
    ],
    "triangulos": 2140,
    "sw": "solidworks/Freno_tras_Brazo_izq.SLDPRT",
-   "vol": 3.68
+   "vol": 3.68,
+   "codigo": "1-B-02",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_tras_Cable_1",
@@ -415,7 +441,9 @@
    ],
    "triangulos": 576,
    "sw": "solidworks/Freno_tras_Cable.SLDPRT",
-   "vol": 0.29
+   "vol": 0.29,
+   "codigo": "1-B-03",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_tras_Muelles_2",
@@ -437,7 +465,10 @@
    ],
    "triangulos": 38880,
    "sw": "solidworks/Freno_tras_Muelles.SLDPRT",
-   "vol": 0.57
+   "vol": 0.57,
+   "codigo": "1-B-05",
+   "clasificacion": "confirmar",
+   "norma": "muelle propio o estándar"
   },
   {
    "id": "Freno_tras_Puente_1",
@@ -459,7 +490,9 @@
    ],
    "triangulos": 2538,
    "sw": "solidworks/Freno_tras_Puente.SLDPRT",
-   "vol": 3.6
+   "vol": 3.6,
+   "codigo": "1-B-04",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_tras_Tornillo_1",
@@ -481,7 +514,10 @@
    ],
    "triangulos": 576,
    "sw": "solidworks/Freno_tras_Tornillo.SLDPRT",
-   "vol": 1.74
+   "vol": 1.74,
+   "codigo": "1-B-06",
+   "clasificacion": "normalizada",
+   "norma": "ISO 4762 o ISO 4017"
   },
   {
    "id": "Freno_tras_Yugo_1",
@@ -503,7 +539,9 @@
    ],
    "triangulos": 160,
    "sw": "solidworks/Freno_tras_Yugo.SLDPRT",
-   "vol": 1.31
+   "vol": 1.31,
+   "codigo": "1-B-07",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_tras_Zapata_dcha_1",
@@ -525,7 +563,9 @@
    ],
    "triangulos": 158,
    "sw": "solidworks/Freno_tras_Zapata_dcha.SLDPRT",
-   "vol": 1.64
+   "vol": 1.64,
+   "codigo": "1-B-08",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_tras_Zapata_izq_1",
@@ -547,7 +587,9 @@
    ],
    "triangulos": 158,
    "sw": "solidworks/Freno_tras_Zapata_izq.SLDPRT",
-   "vol": 1.64
+   "vol": 1.64,
+   "codigo": "1-B-09",
+   "clasificacion": "propia"
   },
   {
    "id": "Puente_tirantes_1",
@@ -569,7 +611,9 @@
    ],
    "triangulos": 764,
    "sw": "solidworks/Puente_tirantes.SLDPRT",
-   "vol": 6.93
+   "vol": 6.93,
+   "codigo": "3-B-09",
+   "clasificacion": "propia"
   },
   {
    "id": "Sillin_1",
@@ -591,7 +635,9 @@
    ],
    "triangulos": 8952,
    "sw": "solidworks/Sillin.SLDPRT",
-   "vol": 233.6
+   "vol": 233.6,
+   "codigo": "6-A-01",
+   "clasificacion": "propia"
   },
   {
    "id": "Tija_1",
@@ -613,7 +659,9 @@
    ],
    "triangulos": 560,
    "sw": "solidworks/Tija.SLDPRT",
-   "vol": 55.77
+   "vol": 55.77,
+   "codigo": "6-A-02",
+   "clasificacion": "propia"
   },
   {
    "id": "Arandela_dir_1",
@@ -635,7 +683,10 @@
    ],
    "triangulos": 472,
    "sw": "solidworks/Arandela_dir.SLDPRT",
-   "vol": 0.64
+   "vol": 0.64,
+   "codigo": "N-4-01",
+   "clasificacion": "normalizada",
+   "norma": "ISO 7089 o similar"
   },
   {
    "id": "Cazoleta_inferior_dir_1",
@@ -657,7 +708,9 @@
    ],
    "triangulos": 668,
    "sw": "solidworks/Cazoleta_inferior_dir.SLDPRT",
-   "vol": 3.19
+   "vol": 3.19,
+   "codigo": "2-A-07",
+   "clasificacion": "propia"
   },
   {
    "id": "Cazoleta_superior_dir_1",
@@ -679,7 +732,9 @@
    ],
    "triangulos": 664,
    "sw": "solidworks/Cazoleta_superior_dir.SLDPRT",
-   "vol": 5.93
+   "vol": 5.93,
+   "codigo": "2-A-06",
+   "clasificacion": "propia"
   },
   {
    "id": "Cono_inferior_dir_1",
@@ -701,7 +756,9 @@
    ],
    "triangulos": 588,
    "sw": "solidworks/Cono_inferior_dir.SLDPRT",
-   "vol": 1.36
+   "vol": 1.36,
+   "codigo": "2-A-05",
+   "clasificacion": "propia"
   },
   {
    "id": "Cono_superior_dir_1",
@@ -723,7 +780,9 @@
    ],
    "triangulos": 788,
    "sw": "solidworks/Cono_superior_dir.SLDPRT",
-   "vol": 3.54
+   "vol": 3.54,
+   "codigo": "2-A-09",
+   "clasificacion": "propia"
   },
   {
    "id": "Contratuerca_dir_1",
@@ -745,7 +804,10 @@
    ],
    "triangulos": 696,
    "sw": "solidworks/Contratuerca_dir.SLDPRT",
-   "vol": 2.97
+   "vol": 2.97,
+   "codigo": "N-4-02",
+   "clasificacion": "normalizada",
+   "norma": "ISO 4035 o similar"
   },
   {
    "id": "Freno_del_Brazo_dcho_1",
@@ -767,7 +829,9 @@
    ],
    "triangulos": 2156,
    "sw": "solidworks/Freno_del_Brazo_dcho.SLDPRT",
-   "vol": 3.68
+   "vol": 3.68,
+   "codigo": "2-B-01",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_del_Brazo_izq_1",
@@ -789,7 +853,9 @@
    ],
    "triangulos": 2152,
    "sw": "solidworks/Freno_del_Brazo_izq.SLDPRT",
-   "vol": 3.68
+   "vol": 3.68,
+   "codigo": "2-B-02",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_del_Cable_1",
@@ -811,7 +877,9 @@
    ],
    "triangulos": 616,
    "sw": "solidworks/Freno_del_Cable.SLDPRT",
-   "vol": 0.32
+   "vol": 0.32,
+   "codigo": "2-B-03",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_del_Muelles_1",
@@ -833,7 +901,10 @@
    ],
    "triangulos": 39360,
    "sw": "solidworks/Freno_del_Muelles.SLDPRT",
-   "vol": 0.57
+   "vol": 0.57,
+   "codigo": "2-B-10",
+   "clasificacion": "confirmar",
+   "norma": "muelle propio o estándar"
   },
   {
    "id": "Freno_del_Puente_1",
@@ -855,7 +926,9 @@
    ],
    "triangulos": 2522,
    "sw": "solidworks/Freno_del_Puente.SLDPRT",
-   "vol": 3.6
+   "vol": 3.6,
+   "codigo": "2-B-04",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_del_Tornillo_1",
@@ -877,7 +950,10 @@
    ],
    "triangulos": 576,
    "sw": "solidworks/Freno_del_Tornillo.SLDPRT",
-   "vol": 1.88
+   "vol": 1.88,
+   "codigo": "2-B-09",
+   "clasificacion": "normalizada",
+   "norma": "ISO 4762 o ISO 4017"
   },
   {
    "id": "Freno_del_Yugo_2",
@@ -899,7 +975,9 @@
    ],
    "triangulos": 160,
    "sw": "solidworks/Freno_del_Yugo.SLDPRT",
-   "vol": 1.31
+   "vol": 1.31,
+   "codigo": "2-B-11",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_del_Zapata_dcha_1",
@@ -921,7 +999,9 @@
    ],
    "triangulos": 230,
    "sw": "solidworks/Freno_del_Zapata_dcha.SLDPRT",
-   "vol": 1.48
+   "vol": 1.48,
+   "codigo": "2-B-06",
+   "clasificacion": "propia"
   },
   {
    "id": "Freno_del_Zapata_izq_1",
@@ -943,7 +1023,9 @@
    ],
    "triangulos": 234,
    "sw": "solidworks/Freno_del_Zapata_izq.SLDPRT",
-   "vol": 1.57
+   "vol": 1.57,
+   "codigo": "2-B-05",
+   "clasificacion": "propia"
   },
   {
    "id": "Horquilla_1",
@@ -965,7 +1047,9 @@
    ],
    "triangulos": 6330,
    "sw": "solidworks/Horquilla.SLDPRT",
-   "vol": 418.64
+   "vol": 418.64,
+   "codigo": "2-A-01",
+   "clasificacion": "propia"
   },
   {
    "id": "Manillar_2",
@@ -987,7 +1071,9 @@
    ],
    "triangulos": 22698,
    "sw": "solidworks/Manillar.SLDPRT",
-   "vol": 749.66
+   "vol": 749.66,
+   "codigo": "2-A-02",
+   "clasificacion": "propia"
   },
   {
    "id": "Potencia_2",
@@ -1009,7 +1095,9 @@
    ],
    "triangulos": 9184,
    "sw": "solidworks/Potencia.SLDPRT",
-   "vol": 56.11
+   "vol": 56.11,
+   "codigo": "2-A-03",
+   "clasificacion": "propia"
   },
   {
    "id": "Rodamiento_inf_dir_1",
@@ -1031,7 +1119,10 @@
    ],
    "triangulos": 3562,
    "sw": "solidworks/Rodamiento_inf_dir.SLDPRT",
-   "vol": 1.59
+   "vol": 1.59,
+   "codigo": "N-3-03",
+   "clasificacion": "normalizada",
+   "norma": "rodamiento rígido de bolas ISO 15"
   },
   {
    "id": "Rodamiento_sup_dir_1",
@@ -1053,7 +1144,10 @@
    ],
    "triangulos": 3562,
    "sw": "solidworks/Rodamiento_sup_dir.SLDPRT",
-   "vol": 1.59
+   "vol": 1.59,
+   "codigo": "N-3-04",
+   "clasificacion": "normalizada",
+   "norma": "rodamiento rígido de bolas ISO 15"
   },
   {
    "id": "Bielas_platos_1",
@@ -1075,7 +1169,9 @@
    ],
    "triangulos": 15644,
    "sw": "solidworks/Bielas_platos.SLDPRT",
-   "vol": 246.15
+   "vol": 246.15,
+   "codigo": "3-A-03",
+   "clasificacion": "propia"
   },
   {
    "id": "Cadena_1",
@@ -1097,7 +1193,10 @@
    ],
    "triangulos": 24854,
    "sw": "solidworks/Cadena.SLDPRT",
-   "vol": 42.12
+   "vol": 42.12,
+   "codigo": "3-C-01",
+   "clasificacion": "normalizada",
+   "norma": "ISO 9633"
   },
   {
    "id": "Biela_exterior_1",
@@ -1119,7 +1218,9 @@
    ],
    "triangulos": 460,
    "sw": "solidworks/Biela_exterior.SLDPRT",
-   "vol": 0.67
+   "vol": 0.67,
+   "codigo": "3-A-01",
+   "clasificacion": "propia"
   },
   {
    "id": "Biela_interior_1",
@@ -1141,7 +1242,9 @@
    ],
    "triangulos": 460,
    "sw": "solidworks/Biela_interior.SLDPRT",
-   "vol": 0.67
+   "vol": 0.67,
+   "codigo": "3-A-02",
+   "clasificacion": "propia"
   },
   {
    "id": "Casquillo_1",
@@ -1163,7 +1266,10 @@
    ],
    "triangulos": 424,
    "sw": "solidworks/Casquillo.SLDPRT",
-   "vol": 0.26
+   "vol": 0.26,
+   "codigo": "2-B-08",
+   "clasificacion": "confirmar",
+   "norma": "casquillo normalizado o propio"
   },
   {
    "id": "Cuerpo_inferior_1",
@@ -1185,7 +1291,9 @@
    ],
    "triangulos": 684,
    "sw": "solidworks/Cuerpo_inferior.SLDPRT",
-   "vol": 16.13
+   "vol": 16.13,
+   "codigo": "3-B-12",
+   "clasificacion": "propia"
   },
   {
    "id": "Cuerpo_superior_1",
@@ -1207,7 +1315,9 @@
    ],
    "triangulos": 800,
    "sw": "solidworks/Cuerpo_superior.SLDPRT",
-   "vol": 9.79
+   "vol": 9.79,
+   "codigo": "2-A-04",
+   "clasificacion": "propia"
   },
   {
    "id": "Muelle_B_1",
@@ -1229,7 +1339,10 @@
    ],
    "triangulos": 26960,
    "sw": "solidworks/Muelle_B.SLDPRT",
-   "vol": 0.21
+   "vol": 0.21,
+   "codigo": "N-2-01",
+   "clasificacion": "confirmar",
+   "norma": "muelle propio o estándar"
   },
   {
    "id": "Muelle_jaula_1",
@@ -1251,7 +1364,10 @@
    ],
    "triangulos": 27200,
    "sw": "solidworks/Muelle_jaula.SLDPRT",
-   "vol": 0.2
+   "vol": 0.2,
+   "codigo": "N-2-02",
+   "clasificacion": "confirmar",
+   "norma": "muelle propio o estándar"
   },
   {
    "id": "Pasador_1",
@@ -1273,7 +1389,10 @@
    ],
    "triangulos": 312,
    "sw": "solidworks/Pasador.SLDPRT",
-   "vol": 0.24
+   "vol": 0.24,
+   "codigo": "N-1-04",
+   "clasificacion": "normalizada",
+   "norma": "ISO 2338 o ISO 8752"
   },
   {
    "id": "Pasador_2",
@@ -1295,7 +1414,10 @@
    ],
    "triangulos": 312,
    "sw": "solidworks/Pasador.SLDPRT",
-   "vol": 0.24
+   "vol": 0.24,
+   "codigo": "N-1-04",
+   "clasificacion": "normalizada",
+   "norma": "ISO 2338 o ISO 8752"
   },
   {
    "id": "Pasador_3",
@@ -1317,7 +1439,10 @@
    ],
    "triangulos": 312,
    "sw": "solidworks/Pasador.SLDPRT",
-   "vol": 0.24
+   "vol": 0.24,
+   "codigo": "N-1-04",
+   "clasificacion": "normalizada",
+   "norma": "ISO 2338 o ISO 8752"
   },
   {
    "id": "Pasador_4",
@@ -1339,7 +1464,10 @@
    ],
    "triangulos": 312,
    "sw": "solidworks/Pasador.SLDPRT",
-   "vol": 0.24
+   "vol": 0.24,
+   "codigo": "N-1-04",
+   "clasificacion": "normalizada",
+   "norma": "ISO 2338 o ISO 8752"
   },
   {
    "id": "Patilla_1",
@@ -1361,7 +1489,9 @@
    ],
    "triangulos": 488,
    "sw": "solidworks/Patilla.SLDPRT",
-   "vol": 6.49
+   "vol": 6.49,
+   "codigo": "3-B-07",
+   "clasificacion": "propia"
   },
   {
    "id": "Placa_jaula_exterior_1",
@@ -1383,7 +1513,9 @@
    ],
    "triangulos": 604,
    "sw": "solidworks/Placa_jaula_exterior.SLDPRT",
-   "vol": 4.12
+   "vol": 4.12,
+   "codigo": "3-B-03",
+   "clasificacion": "propia"
   },
   {
    "id": "Placa_jaula_interior_1",
@@ -1405,7 +1537,9 @@
    ],
    "triangulos": 448,
    "sw": "solidworks/Placa_jaula_interior.SLDPRT",
-   "vol": 2.97
+   "vol": 2.97,
+   "codigo": "3-B-04",
+   "clasificacion": "propia"
   },
   {
    "id": "Placa_tope_1",
@@ -1427,7 +1561,9 @@
    ],
    "triangulos": 684,
    "sw": "solidworks/Placa_tope.SLDPRT",
-   "vol": 0.7
+   "vol": 0.7,
+   "codigo": "3-B-05",
+   "clasificacion": "propia"
   },
   {
    "id": "Roldana_11T_1",
@@ -1449,7 +1585,9 @@
    ],
    "triangulos": 1156,
    "sw": "solidworks/Roldana_11T.SLDPRT",
-   "vol": 3.74
+   "vol": 3.74,
+   "codigo": "3-B-02",
+   "clasificacion": "propia"
   },
   {
    "id": "Roldana_11T_2",
@@ -1471,7 +1609,9 @@
    ],
    "triangulos": 1156,
    "sw": "solidworks/Roldana_11T.SLDPRT",
-   "vol": 3.74
+   "vol": 3.74,
+   "codigo": "3-B-02",
+   "clasificacion": "propia"
   },
   {
    "id": "Tensor_cable_1",
@@ -1493,7 +1633,9 @@
    ],
    "triangulos": 536,
    "sw": "solidworks/Tensor_cable.SLDPRT",
-   "vol": 0.49
+   "vol": 0.49,
+   "codigo": "2-B-07",
+   "clasificacion": "confirmar"
   },
   {
    "id": "Tornillo_B_1",
@@ -1515,7 +1657,10 @@
    ],
    "triangulos": 7090,
    "sw": "solidworks/Tornillo_B.SLDPRT",
-   "vol": 2.38
+   "vol": 2.38,
+   "codigo": "N-1-01",
+   "clasificacion": "normalizada",
+   "norma": "ISO 4762 o ISO 4017"
   },
   {
    "id": "Tornillo_jaula_1",
@@ -1537,7 +1682,10 @@
    ],
    "triangulos": 3036,
    "sw": "solidworks/Tornillo_jaula.SLDPRT",
-   "vol": 1.98
+   "vol": 1.98,
+   "codigo": "N-1-02",
+   "clasificacion": "normalizada",
+   "norma": "ISO 4762 o ISO 4017"
   },
   {
    "id": "Tornillo_roldana_1",
@@ -1559,7 +1707,10 @@
    ],
    "triangulos": 3408,
    "sw": "solidworks/Tornillo_roldana.SLDPRT",
-   "vol": 0.33
+   "vol": 0.33,
+   "codigo": "N-1-03",
+   "clasificacion": "normalizada",
+   "norma": "ISO 4762 o ISO 4017"
   },
   {
    "id": "Desviador_1",
@@ -1581,7 +1732,9 @@
    ],
    "triangulos": 1062,
    "sw": "solidworks/Desviador.SLDPRT",
-   "vol": 15.64
+   "vol": 15.64,
+   "codigo": "3-B-01",
+   "clasificacion": "propia"
   },
   {
    "id": "Eje_pedal_Campagnolo_dcho_1",
@@ -1603,7 +1756,9 @@
    ],
    "triangulos": 6908,
    "sw": "solidworks/Eje_pedal_Campagnolo_dcho.SLDPRT",
-   "vol": 9.94
+   "vol": 9.94,
+   "codigo": "3-A-06",
+   "clasificacion": "propia"
   },
   {
    "id": "Pedal_Campagnolo_dcho_1",
@@ -1625,7 +1780,9 @@
    ],
    "triangulos": 3028,
    "sw": "solidworks/Pedal_Campagnolo_dcho.SLDPRT",
-   "vol": 29.08
+   "vol": 29.08,
+   "codigo": "3-A-04",
+   "clasificacion": "propia"
   },
   {
    "id": "Rodamientos_pedal_dcho_1",
@@ -1647,7 +1804,10 @@
    ],
    "triangulos": 9664,
    "sw": "solidworks/Rodamientos_pedal_dcho.SLDPRT",
-   "vol": 2.78
+   "vol": 2.78,
+   "codigo": "N-3-05",
+   "clasificacion": "normalizada",
+   "norma": "rodamiento rígido de bolas ISO 15"
   },
   {
    "id": "Eje_pedal_Campagnolo_izq_1",
@@ -1669,7 +1829,9 @@
    ],
    "triangulos": 6506,
    "sw": "solidworks/Eje_pedal_Campagnolo_izq.SLDPRT",
-   "vol": 9.94
+   "vol": 9.94,
+   "codigo": "3-A-07",
+   "clasificacion": "propia"
   },
   {
    "id": "Pedal_Campagnolo_izq_1",
@@ -1691,7 +1853,9 @@
    ],
    "triangulos": 3092,
    "sw": "solidworks/Pedal_Campagnolo_izq.SLDPRT",
-   "vol": 29.3
+   "vol": 29.3,
+   "codigo": "3-A-05",
+   "clasificacion": "propia"
   },
   {
    "id": "Rodamientos_pedal_izq_1",
@@ -1713,7 +1877,10 @@
    ],
    "triangulos": 9664,
    "sw": "solidworks/Rodamientos_pedal_izq.SLDPRT",
-   "vol": 2.78
+   "vol": 2.78,
+   "codigo": "N-3-06",
+   "clasificacion": "normalizada",
+   "norma": "rodamiento rígido de bolas ISO 15"
   }
  ],
  "descargas": [

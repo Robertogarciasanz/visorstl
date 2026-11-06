@@ -145,14 +145,14 @@ function pintaLista(filtro = '') {
   const f = filtro.trim().toLowerCase();
   lista.innerHTML = '';
   const porConj = {};
-  piezas.filter((p) => !f || (p.nombre + ' ' + p.conjunto + ' ' + p.subconjunto).toLowerCase().includes(f))
+  piezas.filter((p) => !f || (p.codigo + ' ' + p.nombre + ' ' + p.conjunto + ' ' + p.subconjunto).toLowerCase().includes(f))
     .forEach((p) => (porConj[p.conjunto] ||= []).push(p));
   Object.entries(porConj).forEach(([c, ps]) => {
     const g = document.createElement('details'); g.className = 'g'; if (f || ps.some((p) => p.id === sel)) g.open = true;
     const s = document.createElement('summary'); s.textContent = c + ' (' + ps.length + ')'; g.append(s);
-    ps.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es')).forEach((p) => {
+    ps.sort((a, b) => (a.codigo || '').localeCompare(b.codigo || '', 'es', { numeric: true }) || a.nombre.localeCompare(b.nombre, 'es')).forEach((p) => {
       const d = document.createElement('div'); d.className = 'it' + (sel === p.id ? ' sel' : '') + (malla[p.id] ? '' : ' espera'); d.dataset.id = p.id;
-      d.innerHTML = '<span></span><small></small>'; d.firstChild.textContent = p.nombre; d.lastChild.textContent = p.subconjunto;
+      d.innerHTML = '<span></span><small></small>'; d.firstChild.textContent = (p.codigo ? p.codigo + ' · ' : '') + p.nombre; d.lastChild.textContent = [p.subconjunto, p.clasificacion === 'normalizada' ? 'normalizada' : p.clasificacion === 'confirmar' ? 'por confirmar' : ''].filter(Boolean).join(' · ');
       d.onclick = () => { elegir(p.id, true); if (matchMedia('(max-width:860px),(max-height:520px)').matches) ponTab('bici'); };
       d.onmouseenter = () => resalta(p.id, true); d.onmouseleave = () => resalta(null);
       g.append(d);
@@ -193,7 +193,7 @@ function elegir(id, enfocar) {
     <div class="m" id="cabe" style="color:${cabe ? '#1a7f37' : '#b42318'}"></div>
     <div class="bt"></div>`;
   ficha.querySelector('h2').textContent = p.nombre;
-  ficha.querySelector('#fm').textContent = `${p.conjunto}${p.subconjunto ? ' › ' + p.subconjunto : ''} · ${mm(p.caja[0])} × ${mm(p.caja[1])} × ${mm(p.caja[2])} mm · ${mm(p.vol)} cm³ · ${fmtKg(kg(p))} en ${matNombre().toLowerCase()}`;
+  ficha.querySelector('#fm').textContent = `${p.codigo ? 'Código ' + p.codigo + ' · ' : ''}${p.norma ? (p.clasificacion === 'normalizada' ? 'Normalizada: ' : 'Por confirmar: ') + p.norma + ' · ' : ''}${p.conjunto}${p.subconjunto ? ' › ' + p.subconjunto : ''} · ${mm(p.caja[0])} × ${mm(p.caja[1])} × ${mm(p.caja[2])} mm · ${mm(p.vol)} cm³ · ${fmtKg(kg(p))} en ${matNombre().toLowerCase()}`;
   ficha.querySelector('#cabe').textContent = `A 1:${escala} mide ${d.map(mm).join(' × ')} mm: ` + (cabe ? `cabe en una cama de ${CAMA}×${CAMA} mm.` : `no cabe en ${CAMA} mm; usa 1:${sugerida || 50} o parte la pieza.`);
   ficha.querySelector('#esc').onchange = (e) => { escala = +e.target.value; elegir(id, false); };
   const bt = ficha.querySelector('.bt');
