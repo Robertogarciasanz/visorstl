@@ -511,7 +511,7 @@ vista('iso');
 function ponTab(t) {
   document.body.dataset.tab = t;
   document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('on', b.dataset.t === t));
-  setTimeout(ajusta, 30);
+  setTimeout(() => { ajusta(); if (t === 'bici') renderer.render(scene, camera); }, 30);
 }
 document.querySelectorAll('#tabs button').forEach((b) => { b.onclick = () => ponTab(b.dataset.t); });
 $('#ctlBtn').onclick = () => document.body.classList.toggle('ctl');
