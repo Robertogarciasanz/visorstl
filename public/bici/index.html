@@ -81,15 +81,59 @@
   #menuPieza .t{font-weight:650;padding-right:22px}#menuPieza .s{font-size:12px;color:var(--mut);margin-top:-4px}
   #menuPieza .btn{text-align:left}
   #menuPieza .x{position:absolute;top:6px;right:6px;border:0;padding:2px 7px;color:var(--mut);background:none}
-  #indice{max-width:1100px;margin:0 auto;padding:24px 18px;background:var(--card)} #indice ul{columns:2 320px;padding-left:18px} #indice small{color:var(--mut)} #indice a{color:var(--acc)}
+  #indice{max-width:1100px;margin:0 auto;padding:24px 18px;background:var(--card)} #indice ul{margin:0;padding:4px 12px 8px 30px} #indice small{color:var(--mut)} #indice a{color:var(--acc)}
   footer{padding:8px 18px;font-size:12.5px;color:var(--mut);background:var(--card);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}
   footer a{color:var(--acc)}
+  #tabs{display:flex;background:var(--card);border-bottom:1px solid var(--line);padding:0 10px}
+  #tabs button{border:0;border-radius:0;padding:10px 18px;font-weight:600;background:#fff;border-bottom:3px solid transparent}
+  #tabs button.on{color:var(--acc);border-bottom-color:var(--acc)}
+  #tabs button[data-t=piezas]{display:none}
+  body[data-tab=descargas] #vista,body[data-tab=descargas] aside{display:none}
+  body[data-tab=descargas] #descargas{display:block;grid-column:1/-1;min-height:0}
+  body[data-tab=descargas] #descargas #indice{max-width:1100px;margin:18px auto 0;padding:12px 6px}
+  .pd{display:none}
+  #indice{display:none}
+  details.g.sub{margin:6px 0 6px 10px;border:0;border-left:2px solid var(--line);border-radius:0}
+  details.g.sub>summary{padding:8px 10px;font-weight:600}
+  .arb{margin-left:8px;border-left:2px solid var(--line)}
+  #descargas{display:none;overflow:auto;padding:12px;background:var(--card)}
+  #descargas h2{font-size:16px;margin:4px 0 8px}
+  #descargas .zips{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+  #descargas .zips .btn{text-align:left}
+  details.g{border:1px solid var(--line);border-radius:10px;margin:0 6px 8px;background:#fff}
+  details.g>summary{cursor:pointer;padding:10px 12px;font-weight:650;font-size:14px;list-style:none}
+  details.g>summary::-webkit-details-marker{display:none}
+  details.g>summary::before{content:"▸  ";color:var(--acc)}
+  details.g[open]>summary::before{content:"▾  "}
+  details.g .fd{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 8px;padding:8px 12px;border-top:1px solid var(--line);font-size:14px}
+  details.g .fd span.l{display:flex;gap:12px;white-space:nowrap;margin-left:auto}
+  details.g .fd a{color:var(--acc);font-weight:600}
+  #ctlBtn{display:none}
+  @media(max-width:860px),(max-height:520px){
+    html,body{height:100%;overflow:hidden}
+    header{padding:6px 10px;gap:8px;flex-wrap:wrap}header .sub{display:none}header h1{font-size:16px}
+    header .dl{display:none}
+    #tabs{padding:0}#tabs button{flex:1;padding:11px 4px}#tabs button[data-t=piezas]{display:block}
+    main{display:block;position:relative}
+    #vista,aside,#descargas{position:absolute;inset:0}
+    aside{border:0;display:none}
+    body[data-tab=bici] #vista{display:block}
+    body:not([data-tab=bici]) #vista{visibility:hidden;pointer-events:none}
+    body[data-tab=piezas] aside{display:flex}
+    body[data-tab=descargas] #descargas{display:block}
+    #ctlBtn{display:inline-block;position:absolute;right:10px;bottom:10px;z-index:4}
+    .barra{display:none;bottom:54px;max-height:60%;overflow:auto}
+    body.ctl .barra{display:flex}
+    #comunidad{display:none}
+    footer{display:none}
+    #app{height:100%}
+  }
   #app{display:flex;flex-direction:column;height:100%}
   #app main{flex:1;height:auto;min-height:0}
   @media(max-width:860px){main{grid-template-columns:1fr;grid-template-rows:55% 45%}aside{border-left:0;border-top:1px solid var(--line)}.barra input[type=range]{width:90px}}
 </style>
 </head>
-<body>
+<body data-tab="bici">
 <div id="app">
 <header>
   <h1>Bicicleta en 3D</h1><span class="sub">Descarga, imprime y modifica las 80 piezas · STL, planos PDF y archivos de SolidWorks · licencia libre</span>
@@ -98,12 +142,14 @@
   <button id="subirBtn">⬆ Subir tu archivo</button>
   <a href="../visor/">Otras piezas</a>
 </header>
+<nav id="tabs"><button data-t="bici" class="on">🚲 Bici</button><button data-t="piezas">🔩 Piezas</button><button data-t="descargas">⬇ Descargas</button></nav>
 <main>
   <section id="vista">
     <div id="carga"><div>Cargando piezas…</div><div class="b"><i id="prog"></i></div><div id="cargaTxt" style="font-size:12px"></div></div>
     <canvas id="lienzo"></canvas>
     <div id="medida" hidden></div>
     <div id="avisoPlanos" hidden></div>
+    <button id="ctlBtn">⚙ Controles</button>
     <div class="barra">
       <button id="planosBtn" class="btn p" title="Pulsa aquí y luego toca una pieza de la bici para descargar su plano">📄 Descargar planos</button>
       <button id="medir" title="Pulsa dos puntos de la bici para medir la distancia">📏 Medir</button>
@@ -129,6 +175,7 @@
       <button class="btn p" id="cestaZip">Descargar ZIP</button><button id="cestaVaciar">Vaciar</button></div>
     <div id="ficha"><div class="m">Pulsa una pieza de la lista, o en la bici, para ver sus medidas y descargar su STL y su plano. Arrastra una biela o un pedal para mover la bici.</div></div>
   </aside>
+  <section id="descargas"></section>
 </main>
 <div id="comunidad" hidden></div>
 <footer id="pie"></footer>

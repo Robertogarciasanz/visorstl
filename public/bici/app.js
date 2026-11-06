@@ -127,14 +127,16 @@ function pintaLista(filtro = '') {
   piezas.filter((p) => !f || (p.nombre + ' ' + p.conjunto + ' ' + p.subconjunto).toLowerCase().includes(f))
     .forEach((p) => (porConj[p.conjunto] ||= []).push(p));
   Object.entries(porConj).forEach(([c, ps]) => {
-    const h = document.createElement('h3'); h.textContent = c + ' (' + ps.length + ')'; lista.append(h);
+    const g = document.createElement('details'); g.className = 'g'; if (f || ps.some((p) => p.id === sel)) g.open = true;
+    const s = document.createElement('summary'); s.textContent = c + ' (' + ps.length + ')'; g.append(s);
     ps.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es')).forEach((p) => {
       const d = document.createElement('div'); d.className = 'it' + (sel === p.id ? ' sel' : ''); d.dataset.id = p.id;
       d.innerHTML = '<span></span><small></small>'; d.firstChild.textContent = p.nombre; d.lastChild.textContent = p.subconjunto;
-      d.onclick = () => elegir(p.id, true);
+      d.onclick = () => { elegir(p.id, true); if (matchMedia('(max-width:860px),(max-height:520px)').matches) ponTab('bici'); };
       d.onmouseenter = () => resalta(p.id, true); d.onmouseleave = () => resalta(null);
-      lista.append(d);
+      g.append(d);
     });
+    lista.append(g);
   });
   if (!lista.children.length) lista.innerHTML = '<h3>Sin resultados</h3>';
 }
@@ -158,6 +160,7 @@ function elegir(id, enfocar) {
   sel = id; aplica(sel, null);
   history.replaceState(null, '', id ? '#pieza=' + id : location.pathname + location.search);
   document.querySelectorAll('.it').forEach((e) => e.classList.toggle('sel', e.dataset.id === id));
+  document.querySelector('.it.sel')?.closest('details')?.setAttribute('open', '');
   const ficha = $('#ficha');
   if (!id) { ficha.innerHTML = '<div class="m">Pulsa una pieza de la lista, o en la bici, para ver sus medidas y descargarla: STL para imprimir, plano PDF y archivo de SolidWorks para modificarla. Arrastra una biela o un pedal para mover la bici.</div>'; return; }
   const p = piezas.find((x) => x.id === id);
@@ -494,20 +497,67 @@ function anotaPunto(w) {
 }
 
 // ---------- vistas ----------
+let vistaAct = 'iso';
 function vista(v) {
-  const d = 2600, t = centro.clone();
+  vistaAct = v;
+  const d = 2600 * Math.max(1, 1.05 / (camera.aspect || 1.5)), t = centro.clone();
   const pos = { lat: [0, 0, d], fre: [d, 0, 0], pla: [0, d, 0.01], iso: [d * 0.55, d * 0.35, d * 0.85] }[v];
   controls.target.copy(t); camera.position.set(t.x + pos[0], t.y + pos[1], t.z + pos[2]);
 }
 document.querySelectorAll('[data-v]').forEach((b) => (b.onclick = () => vista(b.dataset.v)));
 vista('iso');
 
+// ---------- pestañas (móvil) y descargas desplegables ----------
+function ponTab(t) {
+  document.body.dataset.tab = t;
+  document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('on', b.dataset.t === t));
+  setTimeout(ajusta, 30);
+}
+document.querySelectorAll('#tabs button').forEach((b) => { b.onclick = () => ponTab(b.dataset.t); });
+$('#ctlBtn').onclick = () => document.body.classList.toggle('ctl');
+(() => {
+  const D = $('#descargas'), porC = {};
+  piezas.forEach((p) => (porC[p.conjunto] ||= []).push(p));
+  D.innerHTML = '<h2>Paquetes completos</h2><div class="zips">' + datos.descargas.map(([f, t]) => `<a class="btn p dl" href="../descargas/bici/${f}" download>⬇ ${t}</a>`).join('') + '<a class="btn" href="#" id="csv2">Lista de piezas (CSV)</a></div><h2>Piezas sueltas</h2>';
+  const PRINCIPAL = { 'Rueda delantera': 'Rueda delantera', 'Rueda trasera': 'Rueda trasera', 'Cuadro y frenos traseros': 'Cuadro' };
+  const fila = (p, neg) => {
+    const r = document.createElement('div'); r.className = 'fd';
+    r.innerHTML = '<span></span><span class="l"><a download>STL</a>' + (p.pdf ? '<a>Plano</a>' : '') + (p.sw ? '<a download>SolidWorks</a>' : '') + '</span>';
+    r.firstChild.textContent = p.nombre; if (neg) r.firstChild.style.fontWeight = '650';
+    const l = r.querySelectorAll('a'); l[0].href = p.stl; let k = 1; if (p.pdf) l[k++].href = p.pdf; if (p.sw) l[k].href = p.sw;
+    return r;
+  };
+  Object.entries(porC).forEach(([c, ps]) => {            // árbol: conjunto > pieza / subconjunto > piezas
+    ps.sort((x, y) => x.nombre.localeCompare(y.nombre, 'es'));
+    const g = document.createElement('details'); g.className = 'g';
+    g.innerHTML = '<summary></summary>'; g.firstChild.textContent = c + ' (' + ps.length + ')';
+    const pr = ps.find((p) => p.nombre === PRINCIPAL[c]);
+    if (pr) g.append(fila(pr, true));                          // la pieza entera, a la vista
+    const cuerpo = document.createElement('div'); cuerpo.className = 'arb'; g.append(cuerpo);
+    ps.filter((p) => p !== pr && !p.subconjunto).forEach((p) => cuerpo.append(fila(p)));
+    const subs = {}; ps.filter((p) => p.subconjunto).forEach((p) => (subs[p.subconjunto] ||= []).push(p));
+    Object.entries(subs).forEach(([s, sp]) => {
+      const d = document.createElement('details'); d.className = 'g sub';
+      d.innerHTML = '<summary></summary>'; d.firstChild.textContent = s + ' (' + sp.length + ')';
+      sp.forEach((p) => d.append(fila(p))); cuerpo.append(d);
+    });
+    D.append(g);
+  });
+})();
+
+$('#indice').querySelectorAll('h3').forEach((h3) => {          // cada grupo de la lista, desplegable
+  const ul = h3.nextElementSibling, g = document.createElement('details'), s = document.createElement('summary');
+  g.className = 'g'; s.textContent = h3.textContent; g.append(s);
+  h3.replaceWith(g); g.append(ul);
+});
+
 // ---------- pie ----------
-$('#pie').innerHTML = `<b>Descargas:</b> <a href="#" id="csv">Lista de piezas (CSV)</a> · ` + datos.descargas.map(([f, t]) => `<a href="../descargas/bici/${f}" title="${t}">${f}</a>`).join(' · ') +
+$('#pie').innerHTML = `<span class="pd"><b>Descargas:</b> <a href="#" id="csv">Lista de piezas (CSV)</a> · ` + datos.descargas.map(([f, t]) => `<a href="../descargas/bici/${f}" title="${t}">${f}</a>`).join(' · ') + '</span>' +
   `<span style="flex:1"></span><span>© 2026 ${datos.autor} · <a href="mailto:Excavacionesart@gmail.com">Excavacionesart@gmail.com</a> · <a href="https://${datos.web}">${datos.web}</a> · Licencia libre: úsalo y modifícalo manteniendo el autor</span>`;
 
 // ---------- lista de piezas (CSV) ----------
-$('#csv').onclick = () => {
+$('#csv2').onclick = $('#csv').onclick = (e) => {
+  e.preventDefault();
   const f = (v) => '"' + String(v).replace(/"/g, '""') + '"';
   const filas = [['Pieza', 'Conjunto', 'Subconjunto', 'Largo mm', 'Ancho mm', 'Alto mm', 'Volumen cm3', 'Masa g (' + matNombre() + ')', 'Plano PDF', 'STL']];
   piezas.forEach((p) => filas.push([p.nombre, p.conjunto, p.subconjunto, ...p.caja, p.vol.toFixed(2), (kg(p) * 1000).toFixed(1), p.pdf ? new URL(p.pdf, location.href).href : '', new URL(p.stl, location.href).href]));
@@ -520,7 +570,9 @@ function ajusta() {
   const r = canvas.parentElement.getBoundingClientRect();
   renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix();
 }
-addEventListener('resize', ajusta); ajusta();
+let vert = null;
+function ajusta2() { ajusta(); const v = camera.aspect < 1.2; if (v !== vert) { vert = v; vista(vistaAct); } }
+addEventListener('resize', ajusta2); ajusta2();
 let t0 = performance.now();
 renderer.setAnimationLoop((t) => {
   const dt = Math.min((t - t0) / 1000, 0.1); t0 = t;
