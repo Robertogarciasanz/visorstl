@@ -5,6 +5,7 @@ import { OrbitControls } from './lib/OrbitControls.js';
 const $ = (s) => document.querySelector(s);
 const datos = await (await fetch('datos.json')).json();
 const G = datos.grupos;
+const RUTA = {"z":272.51,"L":1452.3,"p":[[966.3,459.0],[963.0,462.7],[959.5,466.3],[955.8,469.8],[952.0,473.0],[948.1,476.1],[944.0,479.0],[939.7,481.6],[935.4,484.1],[930.9,486.4],[926.4,488.4],[921.7,490.3],[917.0,492.0],[912.2,493.4],[907.3,494.5],[902.4,495.5],[897.4,496.2],[892.5,496.7],[887.5,497.0],[882.5,497.0],[877.4,497.0],[872.4,497.0],[867.4,497.0],[862.4,496.9],[857.4,496.8],[852.4,496.6],[847.4,496.5],[842.4,496.5],[837.4,496.5],[832.4,496.5],[827.4,496.5],[822.4,496.5],[817.4,496.5],[812.4,496.5],[807.3,496.3],[802.3,496.1],[797.3,496.0],[792.3,496.0],[787.3,496.0],[782.3,496.0],[777.3,496.0],[772.3,496.0],[767.3,496.0],[762.3,496.0],[757.3,495.8],[752.3,495.6],[747.3,495.5],[742.3,495.5],[737.3,495.5],[732.2,495.5],[727.2,495.5],[722.2,495.5],[717.2,495.5],[712.2,495.5],[707.2,495.3],[702.2,495.2],[697.2,495.0],[692.2,495.0],[687.2,495.0],[682.2,495.0],[677.2,495.0],[672.2,494.9],[667.2,494.8],[662.1,494.6],[657.1,494.5],[652.1,494.5],[647.1,494.5],[642.1,494.5],[637.1,494.5],[632.1,494.5],[627.1,494.5],[622.1,494.5],[617.1,494.3],[612.1,494.1],[607.1,494.0],[602.1,494.0],[597.1,494.0],[592.0,494.0],[587.0,494.0],[582.0,494.0],[577.0,494.0],[572.0,494.0],[567.0,493.8],[562.0,493.7],[557.0,493.5],[552.0,493.5],[547.0,493.5],[542.0,493.5],[537.0,493.5],[532.0,493.5],[526.9,493.5],[521.9,493.5],[516.9,493.3],[511.9,493.2],[506.9,493.0],[501.9,493.0],[496.9,493.0],[491.9,493.0],[486.9,493.0],[481.9,492.9],[476.9,492.9],[471.9,492.9],[466.9,492.9],[461.9,492.7],[456.9,492.3],[451.9,491.7],[447.0,490.6],[442.4,488.7],[438.0,486.3],[434.0,483.3],[430.4,479.8],[427.3,475.9],[424.8,471.6],[422.7,467.0],[421.4,462.2],[420.7,457.2],[420.6,452.2],[421.2,447.3],[422.3,442.4],[424.2,437.8],[426.7,433.4],[429.6,429.4],[432.8,425.5],[436.0,421.7],[439.3,417.9],[442.6,414.1],[445.9,410.3],[449.1,406.6],[452.4,402.7],[455.3,398.7],[457.6,394.2],[459.0,389.4],[459.1,384.4],[458.1,379.5],[456.3,374.9],[454.0,370.4],[451.5,366.1],[449.0,361.7],[446.5,357.4],[444.1,353.0],[441.6,348.7],[439.1,344.3],[436.7,339.9],[434.2,335.6],[431.7,331.3],[429.5,326.8],[427.8,322.1],[427.1,317.1],[427.4,312.1],[428.8,307.3],[431.5,303.1],[434.9,299.5],[439.1,296.8],[443.8,295.0],[448.7,294.0],[453.7,293.7],[458.7,293.6],[463.7,293.5],[468.7,293.4],[473.7,293.2],[478.7,293.1],[483.7,292.9],[488.7,292.7],[493.7,292.6],[498.7,292.4],[503.8,292.2],[508.8,292.1],[513.8,292.0],[518.8,291.9],[523.8,291.8],[528.8,291.6],[533.8,291.4],[538.8,291.3],[543.8,291.1],[548.8,290.9],[553.8,290.8],[558.8,290.6],[563.8,290.5],[568.8,290.5],[573.8,290.3],[578.8,290.1],[583.8,290.0],[588.8,289.8],[593.9,289.6],[598.9,289.5],[603.9,289.3],[608.9,289.1],[613.9,289.0],[618.9,289.0],[623.9,288.8],[628.9,288.7],[633.9,288.5],[638.9,288.3],[643.9,288.2],[648.9,288.0],[653.9,287.8],[658.9,287.7],[663.9,287.5],[668.9,287.5],[673.9,287.4],[678.9,287.2],[684.0,287.0],[689.0,286.9],[694.0,286.7],[699.0,286.5],[704.0,286.4],[709.0,286.2],[714.0,286.0],[719.0,286.0],[724.0,285.9],[729.0,285.7],[734.0,285.5],[739.0,285.4],[744.0,285.2],[749.0,285.0],[754.0,284.9],[759.0,284.7],[764.0,284.6],[769.0,284.5],[774.1,284.4],[779.1,284.2],[784.1,284.1],[789.1,283.9],[794.1,283.7],[799.1,283.6],[804.1,283.4],[809.1,283.2],[814.1,283.1],[819.1,283.0],[824.1,282.9],[829.1,282.8],[834.1,282.6],[839.1,282.4],[844.1,282.3],[849.1,282.1],[854.1,281.9],[859.1,281.8],[864.1,281.6],[869.2,281.5],[874.2,281.4],[879.2,281.3],[884.2,281.3],[889.2,281.4],[894.2,281.7],[899.2,282.3],[904.1,283.1],[909.0,284.1],[913.8,285.4],[918.6,286.9],[923.3,288.6],[927.9,290.5],[932.5,292.7],[936.9,295.0],[941.2,297.6],[945.3,300.4],[949.4,303.3],[953.3,306.4],[957.1,309.7],[960.7,313.2],[964.1,316.9],[967.4,320.6],[970.5,324.6],[973.4,328.6],[976.1,332.8],[978.6,337.2],[980.9,341.6],[983.0,346.2],[984.9,350.8],[986.6,355.5],[988.0,360.3],[989.3,365.2],[990.3,370.1],[991.0,375.0],[991.6,380.0],[991.9,385.0],[992.0,390.0],[991.8,395.0],[991.3,400.0],[990.7,405.0],[989.9,409.9],[988.9,414.8],[987.6,419.7],[986.0,424.4],[984.3,429.1],[982.3,433.7],[980.2,438.3],[977.8,442.7],[975.2,446.9],[972.4,451.1],[969.4,455.1]]};   // eje de la cadena (mm, plano XY): del STL de la cadena, 114 eslabones
 const COLOR = { fijo: 0x3f8f52, direccion: 0x8a94a1, rueda_delantera: 0x2b2f36, rueda_trasera: 0x2b2f36, pedalier: 0xaab0b8, cadena: 0x6c727a };
 
 // ---------- cómo colaborar ----------
@@ -99,6 +100,47 @@ const matNombre = () => $('#mat').selectedOptions[0].textContent.split(' (')[0];
 const kg = (p) => p.vol * dens() / 1000;
 const fmtKg = (x) => x < 1 ? (x * 1000).toFixed(0) + ' g' : x.toFixed(2).replace('.', ',') + ' kg';
 
+// ---------- cadena: 114 eslabones sobre el recorrido plato - piñón - roldanas ----------
+const R_PLATO = 12.7 / Math.sin(Math.PI / 52) / 2;     // radio primitivo del plato de 52 dientes (mm)
+const N_ESL = 114;
+let cadenaObj = null, cadRod = null, cadPin = null;
+function creaCadena(mat) {
+  const hl = 6.35, r = 4.1, sh = new THREE.Shape();      // placa de eslabon: paso 12,7, ancho 8,2
+  sh.moveTo(-hl, -r); sh.lineTo(hl, -r); sh.absarc(hl, 0, r, -Math.PI / 2, Math.PI / 2, false);
+  sh.lineTo(-hl, r); sh.absarc(-hl, 0, r, Math.PI / 2, 3 * Math.PI / 2, false);
+  const g = new THREE.ExtrudeGeometry(sh, { depth: 0.9, bevelEnabled: false, curveSegments: 6 }); g.translate(0, 0, -0.45);
+  const placas = new THREE.InstancedMesh(g, mat, N_ESL * 2);
+  const rg = new THREE.CylinderGeometry(3.875, 3.875, 2.6, 14); rg.rotateX(Math.PI / 2);
+  cadRod = new THREE.InstancedMesh(rg, mat, N_ESL);
+  const pg = new THREE.CylinderGeometry(2.1, 2.1, 6.4, 12); pg.rotateX(Math.PI / 2);        // pasadores: se ven como puntos claros
+  const pmat = new THREE.MeshStandardMaterial({ color: 0xdfe3e8, metalness: 0.5, roughness: 0.4, clippingPlanes: [plano] });
+  cadPin = new THREE.InstancedMesh(pg, pmat, N_ESL);
+  placas.add(cadRod, cadPin); placas.frustumCulled = false; cadRod.frustumCulled = false; cadPin.frustumCulled = false;
+  const c = new THREE.Color();                                                              // eslabones interiores algo mas oscuros
+  for (let i = 0; i < N_ESL; i++) for (let k = 0; k < 2; k++) placas.setColorAt(i * 2 + k, c.setScalar(i % 2 ? 0.72 : 1));
+  placas.instanceColor.needsUpdate = true;
+  return placas;
+}
+const _q0 = new THREE.Quaternion(), _q = new THREE.Quaternion(), _p = new THREE.Vector3(), _e = new THREE.Vector3(1, 1, 1), _m = new THREE.Matrix4(), _z = new THREE.Vector3(0, 0, 1);
+const _pin = Array.from({ length: N_ESL }, () => new THREE.Vector2());
+function enRuta(s, out) {                               // punto de la ruta a distancia s (mm); la ruta es cerrada
+  const n = RUTA.p.length, u = (((s % RUTA.L) + RUTA.L) % RUTA.L) / RUTA.L * n, i = Math.floor(u) % n, f = u - Math.floor(u);
+  const a = RUTA.p[i], b = RUTA.p[(i + 1) % n];
+  return out.set(a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f);
+}
+function mueveCadena() {                                // el avance de la cadena es el giro del plato por su radio, en los dos sentidos
+  if (!cadenaObj) return;
+  const paso = RUTA.L / N_ESL, s0 = -pedAng * R_PLATO;        // adelante: el ramal superior va hacia el plato (sentido horario visto desde el lado de la cadena)
+  for (let i = 0; i < N_ESL; i++) enRuta(s0 + i * paso, _pin[i]);
+  for (let i = 0; i < N_ESL; i++) {
+    const a = _pin[i], b = _pin[(i + 1) % N_ESL], zz = i % 2 ? 1.6 : 2.5;   // eslabones alternos: exterior e interior
+    _q.setFromAxisAngle(_z, Math.atan2(b.y - a.y, b.x - a.x));
+    for (const sg of [-1, 1]) { _p.set((a.x + b.x) / 2, (a.y + b.y) / 2, RUTA.z + sg * zz); _m.compose(_p, _q, _e); cadenaObj.setMatrixAt(i * 2 + (sg > 0 ? 1 : 0), _m); }
+    _p.set(a.x, a.y, RUTA.z); _m.compose(_p, _q0, _e); cadRod.setMatrixAt(i, _m); cadPin.setMatrixAt(i, _m);
+  }
+  cadenaObj.instanceMatrix.needsUpdate = true; cadRod.instanceMatrix.needsUpdate = true; cadPin.instanceMatrix.needsUpdate = true;
+}
+
 // ---------- carga de piezas ----------
 const loader = new STLLoader();
 const piezas = datos.piezas;
@@ -107,9 +149,10 @@ let hechas = 0;
 const prom = {};                           // id -> promesa de carga (una sola descarga por pieza)
 function cargar(p) {
   return (prom[p.id] ||= (async () => {
-    const geo = await new Promise((ok, ko) => loader.load(p.stl, ok, undefined, ko));
+    const esCad = p.id === 'Cadena_1' && p.vol != null;      // la cadena se monta con eslabones que se mueven (no se descarga su STL)
+    const geo = esCad ? null : await new Promise((ok, ko) => loader.load(p.stl, ok, undefined, ko));
     const mat = new THREE.MeshStandardMaterial({ color: COLOR[p.grupo] ?? 0x888888, metalness: 0.25, roughness: 0.55, side: THREE.DoubleSide });
-    const m = new THREE.Mesh(geo, mat);
+    const m = esCad ? creaCadena(mat) : new THREE.Mesh(geo, mat);
     if (p.vol == null) p.vol = volumen(geo);             // cm3 (normalmente ya viene en datos.json)
     mat.clippingPlanes = [plano];
     m.userData = { p, base: mat.color.clone() };
@@ -117,6 +160,7 @@ function cargar(p) {
     m.position.copy(pv.mundo).multiplyScalar(-1);
     pv.obj.add(m);
     malla[p.id] = m;
+    if (esCad) { cadenaObj = m; mueveCadena(); }
     if (typeof sel !== 'undefined' && sel) aplica(sel, null);
     if (typeof explo !== 'undefined' && explo) reposiciona();
     const it = document.querySelector('.it[data-id="' + p.id + '"]'); if (it) it.classList.remove('espera');
@@ -392,9 +436,10 @@ function mueve() {
   gira('pedalier', -pedAng);
   gira('pedal_dcho', pedAng); gira('pedal_izq', pedAng);          // los pedales se quedan horizontales
   const cadena = -pedAng * PLATO;                                  // dientes recorridos por la cadena
-  gira('roldana_1', cadena / ROLDANA); gira('roldana_2', cadena / ROLDANA);
+  gira('roldana_1', -cadena / ROLDANA); gira('roldana_2', cadena / ROLDANA);   // la superior toca la cadena por el otro lado: gira al revés
   gira('rueda_trasera', -ruedaAng);
   gira('rueda_delantera', -ruedaAng);                // gira sobre su eje, que además gira con la dirección
+  mueveCadena();                                       // la cadena sigue el giro de los pedales (adelante y atrás)
 }
 mueve();
 
@@ -498,7 +543,8 @@ $('#medir').onclick = (e) => {
   medir = !medir; e.currentTarget.classList.toggle('on', medir); puntos = []; marcas.clear();
   readout.hidden = !medir; readout.textContent = 'Pulsa dos puntos de la bici para medir la distancia.';
 };
-function puntoCercano(h) {                         // se pega al vértice más cercano del triángulo pulsado
+function puntoCercano(h) {
+  if (h.object.isInstancedMesh) return h.point.clone();                         // se pega al vértice más cercano del triángulo pulsado
   const g = h.object.geometry.attributes.position, v = new THREE.Vector3(); let mejor = null, dm = 1e9;
   [h.face.a, h.face.b, h.face.c].forEach((i) => {
     v.fromBufferAttribute(g, i); h.object.localToWorld(v);
@@ -607,4 +653,4 @@ renderer.setAnimationLoop((t) => {
 pintaLista(); pintaCesta(); botonPedal();
 arranca();
 const h = /pieza=([\w]+)/.exec(location.hash); if (h && piezas.some((p) => p.id === h[1])) elegir(h[1], true);
-window.__bici = { elegir, vista, malla, pivotes, camera, estado: () => ({ pedAng, ruedaAng, anima }) };
+window.__bici = { elegir, vista, malla, pivotes, camera, controls, avanza, mueve, estado: () => ({ pedAng, ruedaAng, anima }) };
