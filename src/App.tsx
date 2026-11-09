@@ -666,28 +666,6 @@ export default function App() {
 
       {/* 2. Main content grids */}
       <main className="flex-grow p-3 sm:p-4 lg:p-6 lg:max-w-[1600px] lg:mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 relative z-10">
-        
-        {/* Bloque destacado: la bicicleta en 3D */}
-        <a
-          href={import.meta.env.BASE_URL + 'bici/'}
-          className="lg:col-span-12 group grid grid-cols-1 md:grid-cols-2 items-center gap-4 md:gap-8 p-4 sm:p-6 border-2 border-orange bg-surface hover:bg-orange/5 transition-colors no-underline"
-        >
-          <div className="order-2 md:order-1">
-            <span className="inline-block bg-orange text-white text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-0.5">Nuevo · licencia libre</span>
-            <h2 className="mt-3 text-2xl sm:text-4xl font-black tracking-tight text-text leading-tight">Una bicicleta completa en 3D, pieza a pieza</h2>
-            <p className="mt-2 text-sm sm:text-base text-muted">Gírala, despiézala, mide y corta. Descarga el STL, el plano acotado en PDF o el archivo de SolidWorks de cada una de sus 80 piezas.</p>
-            <span className="mt-4 inline-flex items-center gap-2 px-5 py-3 bg-orange group-hover:bg-orange2 text-white text-sm sm:text-base font-bold uppercase tracking-wider transition-colors">
-              Abrir la bici en 3D <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </span>
-          </div>
-          <img
-            src={import.meta.env.BASE_URL + 'bici-portada.webp'}
-            alt="Bicicleta de carretera modelada en SolidWorks"
-            width={850}
-            height={555}
-            className="order-1 md:order-2 w-full h-auto max-h-[300px] object-contain group-hover:scale-[1.02] transition-transform"
-          />
-        </a>
 
         {/* LEFT SECTION: 3D model viewport + Dropzone + Built-in Presets */}
         <div className="lg:col-span-8 flex flex-col gap-4 sm:gap-5">
@@ -733,16 +711,9 @@ export default function App() {
                 <p className="text-xs font-mono font-bold text-text flex items-center gap-1.5 uppercase">
                   Archivo activo: <span className="text-orange break-all select-all font-semibold italic">{modelName}</span>
                 </p>
-                <p className="text-[9px] text-muted mt-0.5 font-mono">Suelta archivos .stl en el visor o elígelos localmente.</p>
+                <p className="text-[9px] text-muted mt-0.5 font-mono">Suelta archivos .stl en el visor o elígelos con el botón Subir STL.</p>
               </div>
             </div>
-            
-            <button
-               onClick={() => fileInputRef.current?.click()}
-               className="text-[10px] sm:text-xs font-mono font-bold text-orange hover:text-orange2 flex items-center gap-1 transition-all group shrink-0 uppercase tracking-wider cursor-pointer"
-            >
-              Examinar local <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-            </button>
           </div>
 
           {/* C. Preset models triggers */}
