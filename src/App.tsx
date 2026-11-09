@@ -7,8 +7,6 @@ import {
 import { STLViewer3D } from './components/STLViewer3D';
 import { PdfTo3D } from './components/PdfTo3D';
 import { 
-  generateCalibrationCube, 
-  generateFacetedDiamond, 
   generateRuedaGiratoria 
 } from './utils/stlGenerator';
 import {
@@ -198,18 +196,6 @@ const PRESETS: PresetModel[] = [
     id: 'rueda_giratoria',
     name: 'Rueda Giratoria con Rodamiento',
     description: 'Rueda de soporte giratorio con horquilla, tornillo, tuerca y rodamiento de bolas, hecha a partir del plano acotado.',
-    category: 'Ingeniería'
-  },
-  {
-    id: 'diamond',
-    name: 'Gema Brillante Octogonal',
-    description: 'Un diamante tallado con facetas planas que reflejan la luz desde múltiples ángulos.',
-    category: 'Joyería'
-  },
-  {
-    id: 'cube',
-    name: 'Cubo de Calibración 20mm',
-    description: 'Un cubo estándar de precisión métrica utilizado para probar tolerancias de impresión.',
     category: 'Ingeniería'
   }
 ];
@@ -447,26 +433,6 @@ export default function App() {
         color: '#3b4250',
         roughness: 0.45,
         metalness: 0.35
-      }));
-    } else if (presetId === 'cube') {
-      buffer = generateCalibrationCube();
-      name = 'CalibrationCube_20mm.stl';
-      // Adjust color & material to a cool slate matte engineering PLA
-      setSettings(prev => ({
-        ...prev,
-        color: '#475569',
-        roughness: 0.65,
-        metalness: 0.05
-      }));
-    } else if (presetId === 'diamond') {
-      buffer = generateFacetedDiamond();
-      name = 'FacetedDiamond_25mm.stl';
-      // Adjust color to ruby gemstone style
-      setSettings(prev => ({
-        ...prev,
-        color: '#e11d48',
-        roughness: 0.20,
-        metalness: 0.40
       }));
     } else {
       buffer = generateRuedaGiratoria();
