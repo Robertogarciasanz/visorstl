@@ -380,7 +380,7 @@
    "subconjunto": "Freno trasero",
    "grupo": "fijo",
    "stl": "modelo/Freno_tras_Brazo_dcho_1.stl",
-   "pdf": "planos/Freno_tras_Brazo_dcho.pdf",
+   "pdf": "planos/Freno_del_Brazo_izq.pdf",
    "caja": [
     53.1,
     68.6,
@@ -404,7 +404,7 @@
    "subconjunto": "Freno trasero",
    "grupo": "fijo",
    "stl": "modelo/Freno_tras_Brazo_izq_1.stl",
-   "pdf": "planos/Freno_tras_Brazo_izq.pdf",
+   "pdf": "planos/Freno_del_Brazo_izq.pdf",
    "caja": [
     53.1,
     68.6,
@@ -816,7 +816,7 @@
    "subconjunto": "Freno delantero",
    "grupo": "direccion",
    "stl": "modelo/Freno_del_Brazo_dcho_1.stl",
-   "pdf": "planos/Freno_del_Brazo_dcho.pdf",
+   "pdf": "planos/Freno_del_Brazo_izq.pdf",
    "caja": [
     39.0,
     76.5,
@@ -1902,7 +1902,7 @@
   ],
   [
    "Bici_PDF_planos.zip",
-   "54 planos A4 en PDF"
+   "47 planos A4 en PDF"
   ]
  ]
 }
