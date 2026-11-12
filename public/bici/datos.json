@@ -1324,13 +1324,13 @@
     388.8,
     229.0
    ],
-   "triangulos": 8656,
+   "triangulos": 8752,
    "sw": "solidworks/Bielas_platos.SLDPRT",
-   "vol": 251.26,
+   "vol": 250.23,
    "codigo": "3-A-03",
    "clasificacion": "propia",
    "material": "7075-T6 (SN)",
-   "masa_g": 707.32,
+   "masa_g": 704.42,
    "norma": "",
    "designacion": ""
   },
@@ -2138,7 +2138,7 @@
   ],
   [
    "Bici_PDF_planos.zip",
-   "47 planos A4 en PDF"
+   "46 planos A4 en PDF"
   ],
   [
    "Relaciones_posicion_bici.xlsx",
