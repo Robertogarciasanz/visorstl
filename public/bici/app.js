@@ -144,6 +144,9 @@ function mueveCadena() {                                // el avance de la caden
 // ---------- carga de piezas ----------
 const loader = new STLLoader();
 const piezas = datos.piezas;
+// piezas repetidas (p. ej. el freno trasero, igual que el delantero): se ven una sola vez en las listas, con su cantidad
+const unicas = piezas.filter((p) => !p.copia_de);
+const cant = (p) => (p.cantidad > 1 ? ' ×' + p.cantidad : '');
 const malla = {};                          // id -> Mesh
 let hechas = 0;
 const prom = {};                           // id -> promesa de carga (una sola descarga por pieza)
@@ -189,14 +192,14 @@ function pintaLista(filtro = '') {
   const f = filtro.trim().toLowerCase();
   lista.innerHTML = '';
   const porConj = {};
-  piezas.filter((p) => !f || (p.codigo + ' ' + p.nombre + ' ' + p.conjunto + ' ' + p.subconjunto).toLowerCase().includes(f))
+  unicas.filter((p) => !f || (p.codigo + ' ' + p.nombre + ' ' + p.conjunto + ' ' + p.subconjunto).toLowerCase().includes(f))
     .forEach((p) => (porConj[p.conjunto] ||= []).push(p));
   Object.entries(porConj).forEach(([c, ps]) => {
     const g = document.createElement('details'); g.className = 'g'; if (f || ps.some((p) => p.id === sel)) g.open = true;
     const s = document.createElement('summary'); s.textContent = c + ' (' + ps.length + ')'; g.append(s);
     ps.sort((a, b) => (a.codigo || '').localeCompare(b.codigo || '', 'es', { numeric: true }) || a.nombre.localeCompare(b.nombre, 'es')).forEach((p) => {
       const d = document.createElement('div'); d.className = 'it' + (sel === p.id ? ' sel' : '') + (malla[p.id] ? '' : ' espera'); d.dataset.id = p.id;
-      d.innerHTML = '<span></span><small></small>'; d.firstChild.textContent = (p.codigo ? p.codigo + ' · ' : '') + p.nombre; d.lastChild.textContent = [p.subconjunto, p.clasificacion === 'normalizada' ? 'normalizada' : p.clasificacion === 'confirmar' ? 'por confirmar' : ''].filter(Boolean).join(' · ');
+      d.innerHTML = '<span></span><small></small>'; d.firstChild.textContent = (p.codigo ? p.codigo + ' · ' : '') + p.nombre + cant(p); d.lastChild.textContent = [p.subconjunto, p.clasificacion === 'normalizada' ? 'normalizada' : p.clasificacion === 'confirmar' ? 'por confirmar' : ''].filter(Boolean).join(' · ');
       d.onclick = () => { elegir(p.id, true); if (matchMedia('(max-width:860px),(max-height:520px)').matches) ponTab('bici'); };
       d.onmouseenter = () => resalta(p.id, true); d.onmouseleave = () => resalta(null);
       g.append(d);
@@ -585,13 +588,13 @@ document.querySelectorAll('#tabs button').forEach((b) => { b.onclick = () => pon
 $('#ctlBtn').onclick = () => document.body.classList.toggle('ctl');
 (() => {
   const D = $('#descargas'), porC = {};
-  piezas.forEach((p) => (porC[p.conjunto] ||= []).push(p));
+  unicas.forEach((p) => (porC[p.conjunto] ||= []).push(p));
   D.innerHTML = '<h2>Paquetes completos</h2><div class="zips">' + datos.descargas.map(([f, t]) => `<a class="btn p dl" href="../descargas/bici/${f}" download>⬇ ${t}</a>`).join('') + '<a class="btn" href="#" id="csv2">Lista de piezas (CSV)</a></div><h2>Piezas sueltas</h2>';
   const PRINCIPAL = { 'Rueda delantera': 'Rueda delantera', 'Rueda trasera': 'Rueda trasera', 'Cuadro y frenos traseros': 'Cuadro' };
   const fila = (p, neg) => {
     const r = document.createElement('div'); r.className = 'fd';
     r.innerHTML = '<span></span><span class="l"><a download>STL</a>' + (p.pdf ? '<a>Plano</a>' : '') + (p.sw ? '<a download>SolidWorks</a>' : '') + '</span>';
-    r.firstChild.textContent = p.nombre; if (neg) r.firstChild.style.fontWeight = '650';
+    r.firstChild.textContent = p.nombre + cant(p); if (neg) r.firstChild.style.fontWeight = '650';
     const l = r.querySelectorAll('a'); l[0].href = p.stl; let k = 1; if (p.pdf) l[k++].href = p.pdf; if (p.sw) l[k].href = p.sw;
     return r;
   };
@@ -627,8 +630,8 @@ $('#pie').innerHTML = `<span class="pd"><b>Descargas:</b> <a href="#" id="csv">L
 $('#csv2').onclick = $('#csv').onclick = (e) => {
   e.preventDefault();
   const f = (v) => '"' + String(v).replace(/"/g, '""') + '"';
-  const filas = [['Pieza', 'Conjunto', 'Subconjunto', 'Largo mm', 'Ancho mm', 'Alto mm', 'Volumen cm3', 'Masa g (' + matNombre() + ')', 'Plano PDF', 'STL']];
-  piezas.forEach((p) => filas.push([p.nombre, p.conjunto, p.subconjunto, ...p.caja, p.vol.toFixed(2), (kg(p) * 1000).toFixed(1), p.pdf ? new URL(p.pdf, location.href).href : '', new URL(p.stl, location.href).href]));
+  const filas = [['Pieza', 'Conjunto', 'Subconjunto', 'Largo mm', 'Ancho mm', 'Alto mm', 'Volumen cm3', 'Masa g (' + matNombre() + ')', 'Plano PDF', 'STL', 'Cantidad', 'Referencia']];
+  unicas.forEach((p) => filas.push([p.nombre, p.conjunto, p.subconjunto, ...p.caja, p.vol.toFixed(2), (kg(p) * 1000).toFixed(1), p.pdf ? new URL(p.pdf, location.href).href : '', new URL(p.stl, location.href).href, p.cantidad || 1, p.codigo || '']));
   const blob = new Blob([String.fromCharCode(0xFEFF) + filas.map((r) => r.map(f).join(';')).join(String.fromCharCode(13, 10))], { type: 'text/csv;charset=utf-8' });
   Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: 'bici_lista_de_piezas.csv' }).click();
 };
