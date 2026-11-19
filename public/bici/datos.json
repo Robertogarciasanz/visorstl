@@ -659,7 +659,7 @@
    "subconjunto": "Freno delantero",
    "grupo": "direccion",
    "stl": "modelo/Freno_del_Brazo_dcho_1.stl",
-   "pdf": "planos/Freno_del_Brazo_izq.pdf",
+   "pdf": "",
    "caja": [
     38.6,
     70.2,
@@ -687,7 +687,7 @@
    "subconjunto": "Freno delantero",
    "grupo": "direccion",
    "stl": "modelo/Freno_del_Brazo_izq_1.stl",
-   "pdf": "planos/Freno_del_Brazo_izq.pdf",
+   "pdf": "",
    "caja": [
     38.6,
     70.2,
@@ -715,7 +715,7 @@
    "subconjunto": "Freno delantero",
    "grupo": "direccion",
    "stl": "modelo/Freno_del_Cable_1.stl",
-   "pdf": "planos/Freno_del_Cable.pdf",
+   "pdf": "",
    "caja": [
     21.5,
     84.1,
@@ -743,7 +743,7 @@
    "subconjunto": "Freno delantero",
    "grupo": "direccion",
    "stl": "modelo/Freno_del_Muelles_1.stl",
-   "pdf": "planos/Pinon_Z15_y_Freno_del_Muelles.pdf",
+   "pdf": "",
    "caja": [
     16.4,
     19.1,
@@ -771,7 +771,7 @@
    "subconjunto": "Freno delantero",
    "grupo": "direccion",
    "stl": "modelo/Freno_del_Puente_1.stl",
-   "pdf": "planos/Freno_del_Puente.pdf",
+   "pdf": "",
    "caja": [
     24.8,
     25.5,
@@ -799,7 +799,7 @@
    "subconjunto": "Freno trasero",
    "grupo": "fijo",
    "stl": "modelo/Freno_del_Yugo_2.stl",
-   "pdf": "planos/Freno_tras_Muelles_y_Freno_del_Yugo.pdf",
+   "pdf": "",
    "caja": [
     20.7,
     25.2,
@@ -827,7 +827,7 @@
    "subconjunto": "Freno delantero",
    "grupo": "direccion",
    "stl": "modelo/Freno_del_Zapata_dcha_1.stl",
-   "pdf": "planos/Rodamiento_inf_dir_y_Freno_del_Zapata_dcha.pdf",
+   "pdf": "",
    "caja": [
     52.6,
     36.2,
@@ -855,7 +855,7 @@
    "subconjunto": "Freno delantero",
    "grupo": "direccion",
    "stl": "modelo/Freno_del_Zapata_izq_1.stl",
-   "pdf": "planos/Freno_del_Zapata_izq_y_Cono_superior_dir.pdf",
+   "pdf": "",
    "caja": [
     52.6,
     36.2,
@@ -2087,7 +2087,7 @@
    "subconjunto": "Freno trasero",
    "grupo": "fijo",
    "stl": "modelo/Freno_del_Brazo_dcho_2.stl",
-   "pdf": "planos/Freno_del_Brazo_izq.pdf",
+   "pdf": "",
    "caja": [
     50.5,
     63.7,
@@ -2115,7 +2115,7 @@
    "subconjunto": "Freno trasero",
    "grupo": "fijo",
    "stl": "modelo/Freno_del_Brazo_izq_2.stl",
-   "pdf": "planos/Freno_del_Brazo_izq.pdf",
+   "pdf": "",
    "caja": [
     50.5,
     63.7,
@@ -2143,7 +2143,7 @@
    "subconjunto": "Freno trasero",
    "grupo": "fijo",
    "stl": "modelo/Freno_del_Cable_2.stl",
-   "pdf": "planos/Freno_del_Cable.pdf",
+   "pdf": "",
    "caja": [
     17.7,
     84.6,
@@ -2339,7 +2339,7 @@
    "subconjunto": "Freno trasero",
    "grupo": "fijo",
    "stl": "modelo/Freno_del_Muelles_2.stl",
-   "pdf": "planos/Pinon_Z15_y_Freno_del_Muelles.pdf",
+   "pdf": "",
    "caja": [
     18.1,
     19.2,
@@ -2367,7 +2367,7 @@
    "subconjunto": "Freno trasero",
    "grupo": "fijo",
    "stl": "modelo/Freno_del_Puente_2.stl",
-   "pdf": "planos/Freno_del_Puente.pdf",
+   "pdf": "",
    "caja": [
     26.4,
     24.6,
@@ -2395,7 +2395,7 @@
    "subconjunto": "Freno delantero",
    "grupo": "direccion",
    "stl": "modelo/Freno_del_Yugo_1.stl",
-   "pdf": "planos/Freno_tras_Muelles_y_Freno_del_Yugo.pdf",
+   "pdf": "",
    "caja": [
     17.0,
     26.0,
@@ -2423,7 +2423,7 @@
    "subconjunto": "Freno trasero",
    "grupo": "fijo",
    "stl": "modelo/Freno_del_Zapata_dcha_2.stl",
-   "pdf": "planos/Rodamiento_inf_dir_y_Freno_del_Zapata_dcha.pdf",
+   "pdf": "",
    "caja": [
     49.0,
     42.5,
@@ -2451,7 +2451,7 @@
    "subconjunto": "Freno trasero",
    "grupo": "fijo",
    "stl": "modelo/Freno_del_Zapata_izq_2.stl",
-   "pdf": "planos/Freno_del_Zapata_izq_y_Cono_superior_dir.pdf",
+   "pdf": "",
    "caja": [
     49.0,
     42.5,
@@ -2591,7 +2591,7 @@
    "subconjunto": "",
    "grupo": "direccion",
    "stl": "modelo/Manillar_1.stl",
-   "pdf": "planos/Manillar.pdf",
+   "pdf": "",
    "caja": [
     62.9,
     84.9,
