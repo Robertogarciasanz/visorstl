@@ -13,15 +13,6 @@
     "Bici_completa - Conjunto_rueda_trasera-1 Tapa_dcha-1.STL",
     "Bici_completa - Conjunto_rueda_trasera-1 Tapa_izq-1.STL",
     "Bici_completa - Cuadro_conjunto-1 Cuadro-1.STL",
-    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Brazo_dcho-1.STL",
-    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Brazo_izq-1.STL",
-    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Cable-1.STL",
-    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Muelles-2.STL",
-    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Puente-1.STL",
-    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Tornillo-1.STL",
-    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Yugo-1.STL",
-    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Zapata_dcha-1.STL",
-    "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Freno_tras_Zapata_izq-1.STL",
     "Bici_completa - Cuadro_conjunto-1 Freno_trasero-1 Puente_tirantes-1.STL",
     "Bici_completa - Cuadro_conjunto-1 Sillin-1.STL",
     "Bici_completa - Cuadro_conjunto-1 Tija-1.STL",
@@ -47,7 +38,6 @@
     "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Placa_tope-1.STL",
     "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Roldana_11T-1.STL",
     "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Roldana_11T-2.STL",
-    "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Tensor_cable-1.STL",
     "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Tornillo_B-1.STL",
     "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Tornillo_jaula-1.STL",
     "Bici_completa - Transmision-1 Cambio_trasero_conjunto-1 Tornillo_roldana-1.STL"
@@ -288,7 +278,7 @@
     453.8,
     229.0
    ],
-   "triangulos": 16132,
+   "triangulos": 7418,
    "sw": "solidworks/Rueda_trasera.SLDPRT",
    "vol": 1758.8,
    "codigo": "5-A-01",
@@ -400,265 +390,13 @@
     644.8,
     229.0
    ],
-   "triangulos": 14048,
+   "triangulos": 14426,
    "sw": "solidworks/Cuadro.SLDPRT",
    "vol": 311.51,
    "codigo": "1-A-01",
    "clasificacion": "propia",
    "material": "AISI 4130 Acero recocido a 865C",
    "masa_g": 2456.47,
-   "norma": "",
-   "designacion": ""
-  },
-  {
-   "id": "Freno_tras_Brazo_dcho_1",
-   "nombre": "Freno tras Brazo dcho",
-   "conjunto": "Cuadro y frenos traseros",
-   "subconjunto": "Freno trasero",
-   "grupo": "fijo",
-   "stl": "modelo/Freno_tras_Brazo_dcho_1.stl",
-   "pdf": "planos/Freno_del_Brazo_izq.pdf",
-   "caja": [
-    53.1,
-    68.6,
-    20.5
-   ],
-   "centro": [
-    641.8,
-    733.8,
-    256.3
-   ],
-   "triangulos": 1500,
-   "sw": "solidworks/Freno_tras_Brazo_dcho.SLDPRT",
-   "vol": 3.68,
-   "codigo": "1-B-01",
-   "clasificacion": "propia",
-   "material": "6061-T6 (SS)",
-   "masa_g": 9.96,
-   "norma": "",
-   "designacion": ""
-  },
-  {
-   "id": "Freno_tras_Brazo_izq_1",
-   "nombre": "Freno tras Brazo izq",
-   "conjunto": "Cuadro y frenos traseros",
-   "subconjunto": "Freno trasero",
-   "grupo": "fijo",
-   "stl": "modelo/Freno_tras_Brazo_izq_1.stl",
-   "pdf": "planos/Freno_del_Brazo_izq.pdf",
-   "caja": [
-    53.1,
-    68.6,
-    20.5
-   ],
-   "centro": [
-    641.8,
-    733.8,
-    201.7
-   ],
-   "triangulos": 1500,
-   "sw": "solidworks/Freno_tras_Brazo_izq.SLDPRT",
-   "vol": 3.68,
-   "codigo": "1-B-02",
-   "clasificacion": "propia",
-   "material": "6061-T6 (SS)",
-   "masa_g": 9.96,
-   "norma": "",
-   "designacion": ""
-  },
-  {
-   "id": "Freno_tras_Cable_1",
-   "nombre": "Freno tras Cable",
-   "conjunto": "Cuadro y frenos traseros",
-   "subconjunto": "Freno trasero",
-   "grupo": "fijo",
-   "stl": "modelo/Freno_tras_Cable_1.stl",
-   "pdf": "planos/Freno_tras_Cable.pdf",
-   "caja": [
-    50.5,
-    66.7,
-    67.4
-   ],
-   "centro": [
-    689.0,
-    796.5,
-    229.0
-   ],
-   "triangulos": 384,
-   "sw": "solidworks/Freno_tras_Cable.SLDPRT",
-   "vol": 0.29,
-   "codigo": "1-B-03",
-   "clasificacion": "propia",
-   "material": "AISI 304",
-   "masa_g": 2.32,
-   "norma": "",
-   "designacion": ""
-  },
-  {
-   "id": "Freno_tras_Muelles_2",
-   "nombre": "Freno tras Muelles",
-   "conjunto": "Cuadro y frenos traseros",
-   "subconjunto": "Freno trasero",
-   "grupo": "fijo",
-   "stl": "modelo/Freno_tras_Muelles_2.stl",
-   "pdf": "planos/Freno_tras_Muelles_y_Freno_del_Yugo.pdf",
-   "caja": [
-    14.0,
-    16.2,
-    68.6
-   ],
-   "centro": [
-    647.3,
-    741.1,
-    229.0
-   ],
-   "triangulos": 22572,
-   "sw": "solidworks/Freno_tras_Muelles.SLDPRT",
-   "vol": 0.57,
-   "codigo": "1-B-05",
-   "clasificacion": "confirmar",
-   "norma": "muelle propio o estándar (por confirmar)",
-   "material": "Acero aleado",
-   "masa_g": 4.38,
-   "designacion": "por confirmar"
-  },
-  {
-   "id": "Freno_tras_Puente_1",
-   "nombre": "Freno tras Puente",
-   "conjunto": "Cuadro y frenos traseros",
-   "subconjunto": "Freno trasero",
-   "grupo": "fijo",
-   "stl": "modelo/Freno_tras_Puente_1.stl",
-   "pdf": "planos/Freno_tras_Puente.pdf",
-   "caja": [
-    16.2,
-    18.8,
-    64.0
-   ],
-   "centro": [
-    654.5,
-    740.6,
-    229.0
-   ],
-   "triangulos": 1800,
-   "sw": "solidworks/Freno_tras_Puente.SLDPRT",
-   "vol": 3.6,
-   "codigo": "1-B-04",
-   "clasificacion": "propia",
-   "material": "6061-T6 (SS)",
-   "masa_g": 9.75,
-   "norma": "",
-   "designacion": ""
-  },
-  {
-   "id": "Freno_tras_Tornillo_1",
-   "nombre": "Freno tras Tornillo",
-   "conjunto": "Cuadro y frenos traseros",
-   "subconjunto": "Freno trasero",
-   "grupo": "fijo",
-   "stl": "modelo/Freno_tras_Tornillo_1.stl",
-   "pdf": "planos/Cazoleta_inferior_dir_y_Freno_tras_Tornillo.pdf",
-   "caja": [
-    40.0,
-    32.8,
-    10.0
-   ],
-   "centro": [
-    662.6,
-    738.0,
-    229.0
-   ],
-   "triangulos": 416,
-   "sw": "solidworks/Freno_tras_Tornillo.SLDPRT",
-   "vol": 1.74,
-   "codigo": "1-B-06",
-   "clasificacion": "normalizada",
-   "norma": "ISO 4762 o ISO 4017 (por confirmar)",
-   "material": "AISI 304",
-   "masa_g": 13.97,
-   "designacion": "por confirmar"
-  },
-  {
-   "id": "Freno_tras_Yugo_1",
-   "nombre": "Freno tras Yugo",
-   "conjunto": "Cuadro y frenos traseros",
-   "subconjunto": "Freno trasero",
-   "grupo": "fijo",
-   "stl": "modelo/Freno_tras_Yugo_1.stl",
-   "pdf": "planos/Tornillo_jaula_y_Freno_tras_Yugo.pdf",
-   "caja": [
-    13.4,
-    16.0,
-    28.0
-   ],
-   "centro": [
-    690.5,
-    798.6,
-    229.0
-   ],
-   "triangulos": 112,
-   "sw": "solidworks/Freno_tras_Yugo.SLDPRT",
-   "vol": 1.31,
-   "codigo": "1-B-07",
-   "clasificacion": "propia",
-   "material": "6061-T6 (SS)",
-   "masa_g": 3.54,
-   "norma": "",
-   "designacion": ""
-  },
-  {
-   "id": "Freno_tras_Zapata_dcha_1",
-   "nombre": "Freno tras Zapata dcha",
-   "conjunto": "Cuadro y frenos traseros",
-   "subconjunto": "Freno trasero",
-   "grupo": "fijo",
-   "stl": "modelo/Freno_tras_Zapata_dcha_1.stl",
-   "pdf": "planos/Freno_tras_Zapata_dcha_y_Freno_tras_Zapata_izq.pdf",
-   "caja": [
-    36.8,
-    30.4,
-    11.5
-   ],
-   "centro": [
-    620.7,
-    705.3,
-    245.2
-   ],
-   "triangulos": 110,
-   "sw": "solidworks/Freno_tras_Zapata_dcha.SLDPRT",
-   "vol": 1.64,
-   "codigo": "1-B-08",
-   "clasificacion": "propia",
-   "material": "NEOPRENO",
-   "masa_g": 2.12,
-   "norma": "",
-   "designacion": ""
-  },
-  {
-   "id": "Freno_tras_Zapata_izq_1",
-   "nombre": "Freno tras Zapata izq",
-   "conjunto": "Cuadro y frenos traseros",
-   "subconjunto": "Freno trasero",
-   "grupo": "fijo",
-   "stl": "modelo/Freno_tras_Zapata_izq_1.stl",
-   "pdf": "planos/Freno_tras_Zapata_dcha_y_Freno_tras_Zapata_izq.pdf",
-   "caja": [
-    36.8,
-    30.4,
-    11.5
-   ],
-   "centro": [
-    620.7,
-    705.3,
-    212.8
-   ],
-   "triangulos": 110,
-   "sw": "solidworks/Freno_tras_Zapata_izq.SLDPRT",
-   "vol": 1.64,
-   "codigo": "1-B-09",
-   "clasificacion": "propia",
-   "material": "NEOPRENO",
-   "masa_g": 2.12,
    "norma": "",
    "designacion": ""
   },
@@ -779,7 +517,7 @@
    "nombre": "Cazoleta inferior dir",
    "conjunto": "Dirección y freno delantero",
    "subconjunto": "",
-   "grupo": "fijo",
+   "grupo": "direccion",
    "stl": "modelo/Cazoleta_inferior_dir_1.stl",
    "pdf": "planos/Cazoleta_inferior_dir_y_Freno_tras_Tornillo.pdf",
    "caja": [
@@ -807,7 +545,7 @@
    "nombre": "Cazoleta superior dir",
    "conjunto": "Dirección y freno delantero",
    "subconjunto": "",
-   "grupo": "fijo",
+   "grupo": "direccion",
    "stl": "modelo/Cazoleta_superior_dir_1.stl",
    "pdf": "planos/Cazoleta_superior_dir_y_Freno_del_Tornillo.pdf",
    "caja": [
@@ -863,7 +601,7 @@
    "nombre": "Cono superior dir",
    "conjunto": "Dirección y freno delantero",
    "subconjunto": "",
-   "grupo": "fijo",
+   "grupo": "direccion",
    "stl": "modelo/Cono_superior_dir_1.stl",
    "pdf": "planos/Freno_del_Zapata_izq_y_Cono_superior_dir.pdf",
    "caja": [
@@ -923,22 +661,22 @@
    "stl": "modelo/Freno_del_Brazo_dcho_1.stl",
    "pdf": "planos/Freno_del_Brazo_izq.pdf",
    "caja": [
-    39.0,
-    76.4,
-    20.5
+    38.6,
+    70.2,
+    35.5
    ],
    "centro": [
-    1327.4,
-    757.1,
-    256.3
+    1332.8,
+    751.4,
+    246.3
    ],
-   "triangulos": 1522,
+   "triangulos": 1106,
    "sw": "solidworks/Freno_del_Brazo_dcho.SLDPRT",
-   "vol": 3.68,
+   "vol": 5.59,
    "codigo": "2-B-01",
    "clasificacion": "propia",
    "material": "6061-T6 (SS)",
-   "masa_g": 9.96,
+   "masa_g": 15.13,
    "norma": "",
    "designacion": ""
   },
@@ -951,22 +689,22 @@
    "stl": "modelo/Freno_del_Brazo_izq_1.stl",
    "pdf": "planos/Freno_del_Brazo_izq.pdf",
    "caja": [
-    39.0,
-    76.4,
-    20.5
+    38.6,
+    70.2,
+    35.5
    ],
    "centro": [
-    1327.4,
-    757.1,
-    201.7
+    1332.8,
+    751.4,
+    211.7
    ],
-   "triangulos": 1522,
+   "triangulos": 1106,
    "sw": "solidworks/Freno_del_Brazo_izq.SLDPRT",
-   "vol": 3.68,
+   "vol": 5.59,
    "codigo": "2-B-02",
    "clasificacion": "propia",
    "material": "6061-T6 (SS)",
-   "masa_g": 9.96,
+   "masa_g": 15.13,
    "norma": "",
    "designacion": ""
   },
@@ -979,22 +717,22 @@
    "stl": "modelo/Freno_del_Cable_1.stl",
    "pdf": "planos/Freno_del_Cable.pdf",
    "caja": [
-    25.1,
-    91.3,
-    67.4
+    21.5,
+    84.1,
+    1.6
    ],
    "centro": [
-    1299.9,
-    836.1,
+    1306.2,
+    851.1,
     229.0
    ],
-   "triangulos": 416,
+   "triangulos": 2160,
    "sw": "solidworks/Freno_del_Cable.SLDPRT",
-   "vol": 0.32,
+   "vol": 0.18,
    "codigo": "2-B-03",
    "clasificacion": "propia",
    "material": "AISI 304",
-   "masa_g": 2.58,
+   "masa_g": 1.45,
    "norma": "",
    "designacion": ""
   },
@@ -1035,78 +773,50 @@
    "stl": "modelo/Freno_del_Puente_1.stl",
    "pdf": "planos/Freno_del_Puente.pdf",
    "caja": [
-    13.4,
-    19.7,
-    64.0
+    24.8,
+    25.5,
+    66.5
    ],
    "centro": [
-    1316.3,
-    766.1,
+    1318.0,
+    767.2,
     229.0
    ],
-   "triangulos": 1812,
+   "triangulos": 1426,
    "sw": "solidworks/Freno_del_Puente.SLDPRT",
-   "vol": 3.6,
+   "vol": 8.48,
    "codigo": "2-B-04",
    "clasificacion": "propia",
    "material": "6061-T6 (SS)",
-   "masa_g": 9.75,
+   "masa_g": 22.97,
    "norma": "",
    "designacion": ""
   },
   {
-   "id": "Freno_del_Tornillo_1",
-   "nombre": "Freno del Tornillo",
-   "conjunto": "Dirección y freno delantero",
-   "subconjunto": "Freno delantero",
-   "grupo": "direccion",
-   "stl": "modelo/Freno_del_Tornillo_1.stl",
-   "pdf": "planos/Cazoleta_superior_dir_y_Freno_del_Tornillo.pdf",
-   "caja": [
-    47.8,
-    28.4,
-    10.0
-   ],
-   "centro": [
-    1305.2,
-    764.2,
-    229.0
-   ],
-   "triangulos": 408,
-   "sw": "solidworks/Freno_del_Tornillo.SLDPRT",
-   "vol": 1.88,
-   "codigo": "2-B-09",
-   "clasificacion": "normalizada",
-   "norma": "ISO 4762 o ISO 4017 (por confirmar)",
-   "material": "AISI 304",
-   "masa_g": 15.1,
-   "designacion": "por confirmar"
-  },
-  {
    "id": "Freno_del_Yugo_2",
    "nombre": "Freno del Yugo",
-   "conjunto": "Dirección y freno delantero",
-   "subconjunto": "Freno delantero",
-   "grupo": "direccion",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
    "stl": "modelo/Freno_del_Yugo_2.stl",
    "pdf": "planos/Freno_tras_Muelles_y_Freno_del_Yugo.pdf",
    "caja": [
-    10.8,
-    17.1,
-    28.0
+    20.7,
+    25.2,
+    16.0
    ],
    "centro": [
-    1308.5,
-    837.5,
+    676.4,
+    782.9,
     229.0
    ],
-   "triangulos": 112,
+   "triangulos": 1036,
    "sw": "solidworks/Freno_del_Yugo.SLDPRT",
-   "vol": 1.31,
+   "vol": 1.55,
    "codigo": "2-B-11",
    "clasificacion": "propia",
    "material": "6061-T6 (SS)",
-   "masa_g": 3.54,
+   "masa_g": 4.19,
    "norma": "",
    "designacion": ""
   },
@@ -1119,22 +829,22 @@
    "stl": "modelo/Freno_del_Zapata_dcha_1.stl",
    "pdf": "planos/Rodamiento_inf_dir_y_Freno_del_Zapata_dcha.pdf",
    "caja": [
-    39.7,
-    24.1,
-    11.5
+    52.6,
+    36.2,
+    21.8
    ],
    "centro": [
     1342.1,
-    724.6,
-    245.2
+    728.6,
+    253.1
    ],
-   "triangulos": 158,
+   "triangulos": 874,
    "sw": "solidworks/Freno_del_Zapata_dcha.SLDPRT",
-   "vol": 1.48,
+   "vol": 4.12,
    "codigo": "2-B-06",
    "clasificacion": "propia",
    "material": "NEOPRENO",
-   "masa_g": 1.92,
+   "masa_g": 5.34,
    "norma": "",
    "designacion": ""
   },
@@ -1147,22 +857,22 @@
    "stl": "modelo/Freno_del_Zapata_izq_1.stl",
    "pdf": "planos/Freno_del_Zapata_izq_y_Cono_superior_dir.pdf",
    "caja": [
-    39.7,
-    24.1,
-    11.5
+    52.6,
+    36.2,
+    21.8
    ],
    "centro": [
     1342.1,
-    724.6,
-    212.8
+    728.6,
+    204.9
    ],
-   "triangulos": 162,
+   "triangulos": 874,
    "sw": "solidworks/Freno_del_Zapata_izq.SLDPRT",
-   "vol": 1.57,
+   "vol": 4.12,
    "codigo": "2-B-05",
    "clasificacion": "propia",
    "material": "NEOPRENO",
-   "masa_g": 2.03,
+   "masa_g": 5.33,
    "norma": "",
    "designacion": ""
   },
@@ -1184,7 +894,7 @@
     700.4,
     229.0
    ],
-   "triangulos": 3532,
+   "triangulos": 3960,
    "sw": "solidworks/Horquilla.SLDPRT",
    "vol": 418.64,
    "codigo": "2-A-01",
@@ -1195,67 +905,11 @@
    "designacion": ""
   },
   {
-   "id": "Manillar_2",
-   "nombre": "Manillar",
-   "conjunto": "Dirección y freno delantero",
-   "subconjunto": "",
-   "grupo": "direccion",
-   "stl": "modelo/Manillar_2.stl",
-   "pdf": "planos/Manillar.pdf",
-   "caja": [
-    198.3,
-    177.0,
-    444.0
-   ],
-   "centro": [
-    1375.5,
-    952.8,
-    229.0
-   ],
-   "triangulos": 13492,
-   "sw": "solidworks/Manillar.SLDPRT",
-   "vol": 749.66,
-   "codigo": "2-A-02",
-   "clasificacion": "propia",
-   "material": "6061-T6 (SS)",
-   "masa_g": null,
-   "norma": "",
-   "designacion": ""
-  },
-  {
-   "id": "Potencia_2",
-   "nombre": "Potencia",
-   "conjunto": "Dirección y freno delantero",
-   "subconjunto": "",
-   "grupo": "direccion",
-   "stl": "modelo/Potencia_2.stl",
-   "pdf": "planos/Potencia.pdf",
-   "caja": [
-    101.8,
-    78.3,
-    50.0
-   ],
-   "centro": [
-    1264.5,
-    981.1,
-    229.0
-   ],
-   "triangulos": 5854,
-   "sw": "solidworks/Potencia.SLDPRT",
-   "vol": 56.11,
-   "codigo": "2-A-03",
-   "clasificacion": "propia",
-   "material": "6061-T6 (SS)",
-   "masa_g": 151.76,
-   "norma": "",
-   "designacion": ""
-  },
-  {
    "id": "Rodamiento_inf_dir_1",
    "nombre": "Rodamiento inf dir",
    "conjunto": "Dirección y freno delantero",
    "subconjunto": "",
-   "grupo": "fijo",
+   "grupo": "direccion",
    "stl": "modelo/Rodamiento_inf_dir_1.stl",
    "pdf": "planos/Rodamiento_inf_dir_y_Freno_del_Zapata_dcha.pdf",
    "caja": [
@@ -1283,7 +937,7 @@
    "nombre": "Rodamiento sup dir",
    "conjunto": "Dirección y freno delantero",
    "subconjunto": "",
-   "grupo": "fijo",
+   "grupo": "direccion",
    "stl": "modelo/Rodamiento_sup_dir_1.stl",
    "pdf": "planos/Eje_HG_y_Rodamiento_sup_dir.pdf",
    "caja": [
@@ -1324,7 +978,7 @@
     388.8,
     229.0
    ],
-   "triangulos": 8752,
+   "triangulos": 18500,
    "sw": "solidworks/Bielas_platos.SLDPRT",
    "vol": 250.23,
    "codigo": "3-A-03",
@@ -1408,7 +1062,7 @@
     407.8,
     324.4
    ],
-   "triangulos": 340,
+   "triangulos": 9628,
    "sw": "solidworks/Biela_interior.SLDPRT",
    "vol": 0.67,
    "codigo": "3-A-02",
@@ -1464,7 +1118,7 @@
     403.3,
     311.5
    ],
-   "triangulos": 496,
+   "triangulos": 7432,
    "sw": "solidworks/Cuerpo_inferior.SLDPRT",
    "vol": 16.13,
    "codigo": "3-B-12",
@@ -1492,13 +1146,13 @@
     424.3,
     331.7
    ],
-   "triangulos": 616,
+   "triangulos": 6526,
    "sw": "solidworks/Cuerpo_superior.SLDPRT",
-   "vol": 9.79,
+   "vol": 9.24,
    "codigo": "2-A-04",
    "clasificacion": "propia",
    "material": "6061-T6 (SS)",
-   "masa_g": 26.42,
+   "masa_g": 24.94,
    "norma": "",
    "designacion": ""
   },
@@ -1513,14 +1167,14 @@
    "caja": [
     16.2,
     16.2,
-    8.0
+    7.9
    ],
    "centro": [
     452.7,
     427.8,
-    329.7
+    329.6
    ],
-   "triangulos": 16184,
+   "triangulos": 15958,
    "sw": "solidworks/Muelle_B.SLDPRT",
    "vol": 0.21,
    "codigo": "N-2-01",
@@ -1569,21 +1223,21 @@
    "caja": [
     6.0,
     6.0,
-    17.8
+    15.8
    ],
    "centro": [
     438.7,
     425.8,
-    332.1
+    333.1
    ],
-   "triangulos": 3804,
+   "triangulos": 6876,
    "sw": "solidworks/Pasador.SLDPRT",
-   "vol": 0.22,
+   "vol": 0.2,
    "codigo": "N-1-04",
    "clasificacion": "normalizada",
    "norma": "ISO 2338 o ISO 8752 (por confirmar)",
    "material": "AISI 304",
-   "masa_g": 1.73,
+   "masa_g": 1.57,
    "designacion": "por confirmar"
   },
   {
@@ -1597,21 +1251,21 @@
    "caja": [
     6.0,
     6.0,
-    17.8
+    15.8
    ],
    "centro": [
-    434.7,
-    411.8,
-    332.1
+    418.7,
+    417.8,
+    333.1
    ],
-   "triangulos": 3804,
+   "triangulos": 6876,
    "sw": "solidworks/Pasador.SLDPRT",
-   "vol": 0.22,
+   "vol": 0.2,
    "codigo": "N-1-04",
    "clasificacion": "normalizada",
    "norma": "ISO 2338 o ISO 8752 (por confirmar)",
    "material": "AISI 304",
-   "masa_g": 1.73,
+   "masa_g": 1.57,
    "designacion": "por confirmar"
   },
   {
@@ -1625,21 +1279,21 @@
    "caja": [
     6.0,
     6.0,
-    17.8
+    15.8
    ],
    "centro": [
-    418.7,
-    417.8,
-    332.1
+    414.7,
+    403.8,
+    331.1
    ],
-   "triangulos": 3804,
+   "triangulos": 6876,
    "sw": "solidworks/Pasador.SLDPRT",
-   "vol": 0.22,
+   "vol": 0.2,
    "codigo": "N-1-04",
    "clasificacion": "normalizada",
    "norma": "ISO 2338 o ISO 8752 (por confirmar)",
    "material": "AISI 304",
-   "masa_g": 1.73,
+   "masa_g": 1.57,
    "designacion": "por confirmar"
   },
   {
@@ -1653,21 +1307,21 @@
    "caja": [
     6.0,
     6.0,
-    17.8
+    15.8
    ],
    "centro": [
-    414.7,
-    403.8,
-    332.1
+    434.7,
+    411.8,
+    331.3
    ],
-   "triangulos": 3804,
+   "triangulos": 6876,
    "sw": "solidworks/Pasador.SLDPRT",
-   "vol": 0.22,
+   "vol": 0.2,
    "codigo": "N-1-04",
    "clasificacion": "normalizada",
    "norma": "ISO 2338 o ISO 8752 (por confirmar)",
    "material": "AISI 304",
-   "masa_g": 1.73,
+   "masa_g": 1.57,
    "designacion": "por confirmar"
   },
   {
@@ -1716,7 +1370,7 @@
     353.5,
     276.5
    ],
-   "triangulos": 416,
+   "triangulos": 2852,
    "sw": "solidworks/Placa_jaula_exterior.SLDPRT",
    "vol": 4.12,
    "codigo": "3-B-03",
@@ -1837,34 +1491,6 @@
    "masa_g": 5.21,
    "norma": "",
    "designacion": ""
-  },
-  {
-   "id": "Tensor_cable_1",
-   "nombre": "Tensor cable",
-   "conjunto": "Transmisión",
-   "subconjunto": "Cambio trasero conjunto",
-   "grupo": "fijo",
-   "stl": "modelo/Tensor_cable_1.stl",
-   "pdf": "planos/Casquillo_y_Tensor_cable.pdf",
-   "caja": [
-    14.0,
-    10.4,
-    9.0
-   ],
-   "centro": [
-    421.7,
-    437.8,
-    331.7
-   ],
-   "triangulos": 424,
-   "sw": "solidworks/Tensor_cable.SLDPRT",
-   "vol": 0.55,
-   "codigo": "2-B-07",
-   "clasificacion": "confirmar",
-   "material": "6061-T6 (SS)",
-   "masa_g": 1.47,
-   "norma": "por confirmar",
-   "designacion": "por confirmar"
   },
   {
    "id": "Tornillo_B_1",
@@ -2117,6 +1743,1546 @@
    "material": "Acero inoxidable al cromo",
    "masa_g": 21.73,
    "designacion": "por confirmar"
+  },
+  {
+   "nombre": "Arandela ISO7089 M6",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 7089",
+   "designacion": "M6",
+   "id": "Arandela_ISO7089_M6_1",
+   "stl": "modelo/Arandela_ISO7089_M6_1.stl",
+   "sw": "solidworks/Arandela_ISO7089_M6.SLDPRT",
+   "vol": 0.13,
+   "caja": [
+    6.5,
+    11.6,
+    12.0
+   ],
+   "centro": [
+    1328.5,
+    767.8,
+    255.0
+   ],
+   "triangulos": 376
+  },
+  {
+   "nombre": "Arandela ISO7089 M6",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 7089",
+   "designacion": "M6",
+   "id": "Arandela_ISO7089_M6_10",
+   "stl": "modelo/Arandela_ISO7089_M6_10.stl",
+   "sw": "solidworks/Arandela_ISO7089_M6.SLDPRT",
+   "vol": 0.13,
+   "caja": [
+    8.4,
+    10.6,
+    12.0
+   ],
+   "centro": [
+    679.7,
+    725.5,
+    229.0
+   ],
+   "triangulos": 376
+  },
+  {
+   "nombre": "Arandela ISO7089 M6",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 7089",
+   "designacion": "M6",
+   "id": "Arandela_ISO7089_M6_11",
+   "stl": "modelo/Arandela_ISO7089_M6_11.stl",
+   "sw": "solidworks/Arandela_ISO7089_M6.SLDPRT",
+   "vol": 0.13,
+   "caja": [
+    12.0,
+    12.0,
+    1.6
+   ],
+   "centro": [
+    621.2,
+    709.2,
+    200.2
+   ],
+   "triangulos": 376
+  },
+  {
+   "nombre": "Arandela ISO7089 M6",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 7089",
+   "designacion": "M6",
+   "id": "Arandela_ISO7089_M6_12",
+   "stl": "modelo/Arandela_ISO7089_M6_12.stl",
+   "sw": "solidworks/Arandela_ISO7089_M6.SLDPRT",
+   "vol": 0.13,
+   "caja": [
+    12.0,
+    12.0,
+    1.6
+   ],
+   "centro": [
+    621.2,
+    709.2,
+    257.8
+   ],
+   "triangulos": 376
+  },
+  {
+   "nombre": "Arandela ISO7089 M6",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 7089",
+   "designacion": "M6",
+   "id": "Arandela_ISO7089_M6_2",
+   "stl": "modelo/Arandela_ISO7089_M6_2.stl",
+   "sw": "solidworks/Arandela_ISO7089_M6.SLDPRT",
+   "vol": 0.13,
+   "caja": [
+    6.5,
+    11.6,
+    12.0
+   ],
+   "centro": [
+    1328.5,
+    767.8,
+    203.0
+   ],
+   "triangulos": 376
+  },
+  {
+   "nombre": "Arandela ISO7089 M6",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 7089",
+   "designacion": "M6",
+   "id": "Arandela_ISO7089_M6_3",
+   "stl": "modelo/Arandela_ISO7089_M6_3.stl",
+   "sw": "solidworks/Arandela_ISO7089_M6.SLDPRT",
+   "vol": 0.13,
+   "caja": [
+    6.5,
+    11.6,
+    12.0
+   ],
+   "centro": [
+    1321.2,
+    771.6,
+    229.0
+   ],
+   "triangulos": 376
+  },
+  {
+   "nombre": "Arandela ISO7089 M6",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 7089",
+   "designacion": "M6",
+   "id": "Arandela_ISO7089_M6_4",
+   "stl": "modelo/Arandela_ISO7089_M6_4.stl",
+   "sw": "solidworks/Arandela_ISO7089_M6.SLDPRT",
+   "vol": 0.13,
+   "caja": [
+    6.5,
+    11.6,
+    12.0
+   ],
+   "centro": [
+    1288.5,
+    756.6,
+    229.0
+   ],
+   "triangulos": 376
+  },
+  {
+   "nombre": "Arandela ISO7089 M6",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 7089",
+   "designacion": "M6",
+   "id": "Arandela_ISO7089_M6_5",
+   "stl": "modelo/Arandela_ISO7089_M6_5.stl",
+   "sw": "solidworks/Arandela_ISO7089_M6.SLDPRT",
+   "vol": 0.13,
+   "caja": [
+    12.0,
+    12.0,
+    1.6
+   ],
+   "centro": [
+    1342.4,
+    728.6,
+    257.8
+   ],
+   "triangulos": 376
+  },
+  {
+   "nombre": "Arandela ISO7089 M6",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 7089",
+   "designacion": "M6",
+   "id": "Arandela_ISO7089_M6_6",
+   "stl": "modelo/Arandela_ISO7089_M6_6.stl",
+   "sw": "solidworks/Arandela_ISO7089_M6.SLDPRT",
+   "vol": 0.13,
+   "caja": [
+    12.0,
+    12.0,
+    1.6
+   ],
+   "centro": [
+    1342.4,
+    728.6,
+    200.2
+   ],
+   "triangulos": 376
+  },
+  {
+   "nombre": "Arandela ISO7089 M6",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 7089",
+   "designacion": "M6",
+   "id": "Arandela_ISO7089_M6_7",
+   "stl": "modelo/Arandela_ISO7089_M6_7.stl",
+   "sw": "solidworks/Arandela_ISO7089_M6.SLDPRT",
+   "vol": 0.13,
+   "caja": [
+    8.4,
+    10.6,
+    12.0
+   ],
+   "centro": [
+    643.0,
+    744.8,
+    203.0
+   ],
+   "triangulos": 376
+  },
+  {
+   "nombre": "Arandela ISO7089 M6",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 7089",
+   "designacion": "M6",
+   "id": "Arandela_ISO7089_M6_8",
+   "stl": "modelo/Arandela_ISO7089_M6_8.stl",
+   "sw": "solidworks/Arandela_ISO7089_M6.SLDPRT",
+   "vol": 0.13,
+   "caja": [
+    8.4,
+    10.6,
+    12.0
+   ],
+   "centro": [
+    643.0,
+    744.8,
+    255.0
+   ],
+   "triangulos": 376
+  },
+  {
+   "nombre": "Arandela ISO7089 M6",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 7089",
+   "designacion": "M6",
+   "id": "Arandela_ISO7089_M6_9",
+   "stl": "modelo/Arandela_ISO7089_M6_9.stl",
+   "sw": "solidworks/Arandela_ISO7089_M6.SLDPRT",
+   "vol": 0.13,
+   "caja": [
+    8.4,
+    10.6,
+    12.0
+   ],
+   "centro": [
+    650.8,
+    747.0,
+    229.0
+   ],
+   "triangulos": 376
+  },
+  {
+   "id": "Freno_del_Brazo_dcho_2",
+   "nombre": "Freno del Brazo dcho",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_del_Brazo_dcho_2.stl",
+   "pdf": "planos/Freno_del_Brazo_izq.pdf",
+   "caja": [
+    50.5,
+    63.7,
+    35.5
+   ],
+   "centro": [
+    635.7,
+    729.3,
+    211.7
+   ],
+   "triangulos": 1106,
+   "sw": "solidworks/Freno_del_Brazo_dcho.SLDPRT",
+   "vol": 5.59,
+   "codigo": "2-B-01",
+   "clasificacion": "propia",
+   "material": "6061-T6 (SS)",
+   "masa_g": null,
+   "norma": "",
+   "designacion": ""
+  },
+  {
+   "id": "Freno_del_Brazo_izq_2",
+   "nombre": "Freno del Brazo izq",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_del_Brazo_izq_2.stl",
+   "pdf": "planos/Freno_del_Brazo_izq.pdf",
+   "caja": [
+    50.5,
+    63.7,
+    35.5
+   ],
+   "centro": [
+    635.7,
+    729.3,
+    246.3
+   ],
+   "triangulos": 1106,
+   "sw": "solidworks/Freno_del_Brazo_izq.SLDPRT",
+   "vol": 5.59,
+   "codigo": "2-B-02",
+   "clasificacion": "propia",
+   "material": "6061-T6 (SS)",
+   "masa_g": null,
+   "norma": "",
+   "designacion": ""
+  },
+  {
+   "id": "Freno_del_Cable_2",
+   "nombre": "Freno del Cable",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_del_Cable_2.stl",
+   "pdf": "planos/Freno_del_Cable.pdf",
+   "caja": [
+    17.7,
+    84.6,
+    1.6
+   ],
+   "centro": [
+    682.6,
+    822.4,
+    229.0
+   ],
+   "triangulos": 2160,
+   "sw": "solidworks/Freno_del_Cable.SLDPRT",
+   "vol": 0.18,
+   "codigo": "2-B-03",
+   "clasificacion": "propia",
+   "material": "AISI 304",
+   "masa_g": null,
+   "norma": "",
+   "designacion": ""
+  },
+  {
+   "nombre": "Freno del Cable transversal",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "propia",
+   "material": "",
+   "masa_g": null,
+   "norma": "",
+   "designacion": "",
+   "id": "Freno_del_Cable_transversal_1",
+   "stl": "modelo/Freno_del_Cable_transversal_1.stl",
+   "sw": "solidworks/Freno_del_Cable_transversal.SLDPRT",
+   "vol": 0.16,
+   "caja": [
+    15.7,
+    27.0,
+    10.0
+   ],
+   "centro": [
+    1314.3,
+    792.1,
+    229.0
+   ],
+   "triangulos": 4092
+  },
+  {
+   "nombre": "Freno del Cable transversal",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "propia",
+   "material": "",
+   "masa_g": null,
+   "norma": "",
+   "designacion": "",
+   "id": "Freno_del_Cable_transversal_2",
+   "stl": "modelo/Freno_del_Cable_transversal_2.stl",
+   "sw": "solidworks/Freno_del_Cable_transversal.SLDPRT",
+   "vol": 0.16,
+   "caja": [
+    20.1,
+    24.8,
+    10.0
+   ],
+   "centro": [
+    662.1,
+    764.9,
+    229.0
+   ],
+   "triangulos": 4092
+  },
+  {
+   "nombre": "Freno del Goma dcha",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "propia",
+   "material": "",
+   "masa_g": null,
+   "norma": "",
+   "designacion": "",
+   "id": "Freno_del_Goma_dcha_1",
+   "stl": "modelo/Freno_del_Goma_dcha_1.stl",
+   "sw": "solidworks/Freno_del_Goma_dcha.SLDPRT",
+   "vol": 2.08,
+   "caja": [
+    47.3,
+    28.6,
+    3.5
+   ],
+   "centro": [
+    1341.8,
+    728.1,
+    243.3
+   ],
+   "triangulos": 304
+  },
+  {
+   "nombre": "Freno del Goma dcha",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "propia",
+   "material": "",
+   "masa_g": null,
+   "norma": "",
+   "designacion": "",
+   "id": "Freno_del_Goma_dcha_2",
+   "stl": "modelo/Freno_del_Goma_dcha_2.stl",
+   "sw": "solidworks/Freno_del_Goma_dcha.SLDPRT",
+   "vol": 2.08,
+   "caja": [
+    43.1,
+    35.2,
+    3.5
+   ],
+   "centro": [
+    622.0,
+    708.5,
+    214.7
+   ],
+   "triangulos": 304
+  },
+  {
+   "nombre": "Freno del Goma izq",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "propia",
+   "material": "",
+   "masa_g": null,
+   "norma": "",
+   "designacion": "",
+   "id": "Freno_del_Goma_izq_1",
+   "stl": "modelo/Freno_del_Goma_izq_1.stl",
+   "sw": "solidworks/Freno_del_Goma_izq.SLDPRT",
+   "vol": 2.08,
+   "caja": [
+    47.3,
+    28.6,
+    3.5
+   ],
+   "centro": [
+    1341.8,
+    728.1,
+    214.7
+   ],
+   "triangulos": 304
+  },
+  {
+   "nombre": "Freno del Goma izq",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "propia",
+   "material": "",
+   "masa_g": null,
+   "norma": "",
+   "designacion": "",
+   "id": "Freno_del_Goma_izq_2",
+   "stl": "modelo/Freno_del_Goma_izq_2.stl",
+   "sw": "solidworks/Freno_del_Goma_izq.SLDPRT",
+   "vol": 2.08,
+   "caja": [
+    43.1,
+    35.2,
+    3.5
+   ],
+   "centro": [
+    622.0,
+    708.5,
+    243.3
+   ],
+   "triangulos": 304
+  },
+  {
+   "id": "Freno_del_Muelles_2",
+   "nombre": "Freno del Muelles",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_del_Muelles_2.stl",
+   "pdf": "planos/Pinon_Z15_y_Freno_del_Muelles.pdf",
+   "caja": [
+    18.1,
+    19.2,
+    68.6
+   ],
+   "centro": [
+    649.3,
+    739.6,
+    229.0
+   ],
+   "triangulos": 22788,
+   "sw": "solidworks/Freno_del_Muelles.SLDPRT",
+   "vol": 0.56,
+   "codigo": "2-B-10",
+   "clasificacion": "confirmar",
+   "norma": "muelle propio o estándar (por confirmar)",
+   "material": "Acero aleado",
+   "masa_g": null,
+   "designacion": "por confirmar"
+  },
+  {
+   "id": "Freno_del_Puente_2",
+   "nombre": "Freno del Puente",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_del_Puente_2.stl",
+   "pdf": "planos/Freno_del_Puente.pdf",
+   "caja": [
+    26.4,
+    24.6,
+    66.5
+   ],
+   "centro": [
+    653.6,
+    741.4,
+    229.0
+   ],
+   "triangulos": 1426,
+   "sw": "solidworks/Freno_del_Puente.SLDPRT",
+   "vol": 8.48,
+   "codigo": "2-B-04",
+   "clasificacion": "propia",
+   "material": "6061-T6 (SS)",
+   "masa_g": null,
+   "norma": "",
+   "designacion": ""
+  },
+  {
+   "id": "Freno_del_Yugo_1",
+   "nombre": "Freno del Yugo",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "stl": "modelo/Freno_del_Yugo_1.stl",
+   "pdf": "planos/Freno_tras_Muelles_y_Freno_del_Yugo.pdf",
+   "caja": [
+    17.0,
+    26.0,
+    16.0
+   ],
+   "centro": [
+    1303.5,
+    812.4,
+    229.0
+   ],
+   "triangulos": 1036,
+   "sw": "solidworks/Freno_del_Yugo.SLDPRT",
+   "vol": 1.55,
+   "codigo": "2-B-11",
+   "clasificacion": "propia",
+   "material": "6061-T6 (SS)",
+   "masa_g": null,
+   "norma": "",
+   "designacion": ""
+  },
+  {
+   "id": "Freno_del_Zapata_dcha_2",
+   "nombre": "Freno del Zapata dcha",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_del_Zapata_dcha_2.stl",
+   "pdf": "planos/Rodamiento_inf_dir_y_Freno_del_Zapata_dcha.pdf",
+   "caja": [
+    49.0,
+    42.5,
+    21.8
+   ],
+   "centro": [
+    621.2,
+    709.2,
+    204.9
+   ],
+   "triangulos": 874,
+   "sw": "solidworks/Freno_del_Zapata_dcha.SLDPRT",
+   "vol": 4.12,
+   "codigo": "2-B-06",
+   "clasificacion": "propia",
+   "material": "NEOPRENO",
+   "masa_g": null,
+   "norma": "",
+   "designacion": ""
+  },
+  {
+   "id": "Freno_del_Zapata_izq_2",
+   "nombre": "Freno del Zapata izq",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "stl": "modelo/Freno_del_Zapata_izq_2.stl",
+   "pdf": "planos/Freno_del_Zapata_izq_y_Cono_superior_dir.pdf",
+   "caja": [
+    49.0,
+    42.5,
+    21.8
+   ],
+   "centro": [
+    621.2,
+    709.2,
+    253.1
+   ],
+   "triangulos": 874,
+   "sw": "solidworks/Freno_del_Zapata_izq.SLDPRT",
+   "vol": 4.12,
+   "codigo": "2-B-05",
+   "clasificacion": "propia",
+   "material": "NEOPRENO",
+   "masa_g": null,
+   "norma": "",
+   "designacion": ""
+  },
+  {
+   "nombre": "Maneta cuerpo dcha",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Maneta freno dcha",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "propia",
+   "material": "",
+   "masa_g": null,
+   "norma": "",
+   "designacion": "",
+   "id": "Maneta_cuerpo_dcha_1",
+   "stl": "modelo/Maneta_cuerpo_dcha_1.stl",
+   "sw": "solidworks/Maneta_cuerpo_dcha.SLDPRT",
+   "vol": 38.76,
+   "caja": [
+    93.7,
+    85.8,
+    179.7
+   ],
+   "centro": [
+    1306.4,
+    1017.4,
+    53.5
+   ],
+   "triangulos": 3286
+  },
+  {
+   "nombre": "Maneta cuerpo izq",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Maneta freno izq",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "propia",
+   "material": "",
+   "masa_g": null,
+   "norma": "",
+   "designacion": "",
+   "id": "Maneta_cuerpo_izq_1",
+   "stl": "modelo/Maneta_cuerpo_izq_1.stl",
+   "sw": "solidworks/Maneta_cuerpo_izq.SLDPRT",
+   "vol": 38.76,
+   "caja": [
+    93.7,
+    85.8,
+    179.7
+   ],
+   "centro": [
+    1306.4,
+    1017.4,
+    404.5
+   ],
+   "triangulos": 3286
+  },
+  {
+   "nombre": "Maneta palanca dcha",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Maneta freno dcha",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "propia",
+   "material": "",
+   "masa_g": null,
+   "norma": "",
+   "designacion": "",
+   "id": "Maneta_palanca_dcha_1",
+   "stl": "modelo/Maneta_palanca_dcha_1.stl",
+   "sw": "solidworks/Maneta_palanca_dcha.SLDPRT",
+   "vol": 8.21,
+   "caja": [
+    42.5,
+    23.8,
+    114.5
+   ],
+   "centro": [
+    1324.0,
+    1033.1,
+    -69.6
+   ],
+   "triangulos": 972
+  },
+  {
+   "nombre": "Maneta palanca izq",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Maneta freno izq",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "propia",
+   "material": "",
+   "masa_g": null,
+   "norma": "",
+   "designacion": "",
+   "id": "Maneta_palanca_izq_1",
+   "stl": "modelo/Maneta_palanca_izq_1.stl",
+   "sw": "solidworks/Maneta_palanca_izq.SLDPRT",
+   "vol": 8.21,
+   "caja": [
+    42.5,
+    23.8,
+    114.5
+   ],
+   "centro": [
+    1324.0,
+    1033.1,
+    527.6
+   ],
+   "triangulos": 972
+  },
+  {
+   "id": "Manillar_1",
+   "nombre": "Manillar",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "direccion",
+   "stl": "modelo/Manillar_1.stl",
+   "pdf": "planos/Manillar.pdf",
+   "caja": [
+    62.9,
+    84.9,
+    758.6
+   ],
+   "centro": [
+    1280.8,
+    1027.9,
+    229.0
+   ],
+   "triangulos": 4030,
+   "sw": "solidworks/Manillar.SLDPRT",
+   "vol": 333.27,
+   "codigo": "2-A-02",
+   "clasificacion": "propia",
+   "material": "6061-T6 (SS)",
+   "masa_g": null,
+   "norma": "",
+   "designacion": ""
+  },
+  {
+   "id": "Potencia_1",
+   "nombre": "Potencia",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "direccion",
+   "stl": "modelo/Potencia_1.stl",
+   "pdf": "planos/Potencia.pdf",
+   "caja": [
+    101.8,
+    78.3,
+    50.0
+   ],
+   "centro": [
+    1264.5,
+    981.1,
+    229.0
+   ],
+   "triangulos": 5870,
+   "sw": "solidworks/Potencia.SLDPRT",
+   "vol": 56.05,
+   "codigo": "2-A-03",
+   "clasificacion": "propia",
+   "material": "6061-T6 (SS)",
+   "masa_g": null,
+   "norma": "",
+   "designacion": ""
+  },
+  {
+   "nombre": "Puno dcho",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "propia",
+   "material": "",
+   "masa_g": null,
+   "norma": "",
+   "designacion": "",
+   "id": "Puno_dcho_1",
+   "stl": "modelo/Puno_dcho_1.stl",
+   "sw": "solidworks/Puno_dcho.SLDPRT",
+   "vol": 56.04,
+   "caja": [
+    47.8,
+    45.5,
+    133.5
+   ],
+   "centro": [
+    1268.1,
+    1038.7,
+    -86.0
+   ],
+   "triangulos": 344
+  },
+  {
+   "nombre": "Puno izq",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "propia",
+   "material": "",
+   "masa_g": null,
+   "norma": "",
+   "designacion": "",
+   "id": "Puno_izq_1",
+   "stl": "modelo/Puno_izq_1.stl",
+   "sw": "solidworks/Puno_izq.SLDPRT",
+   "vol": 56.04,
+   "caja": [
+    47.8,
+    45.5,
+    133.5
+   ],
+   "centro": [
+    1268.1,
+    1038.7,
+    544.0
+   ],
+   "triangulos": 344
+  },
+  {
+   "nombre": "Tensor cable",
+   "conjunto": "Transmisión",
+   "subconjunto": "Cambio trasero conjunto",
+   "grupo": "fijo",
+   "pdf": "planos/Casquillo_y_Tensor_cable.pdf",
+   "codigo": "2-B-07",
+   "clasificacion": "confirmar",
+   "material": "6061-T6 (SS)",
+   "masa_g": null,
+   "norma": "por confirmar",
+   "designacion": "por confirmar",
+   "id": "Tensor_cable1_1",
+   "stl": "modelo/Tensor_cable1_1.stl",
+   "sw": "solidworks/Tensor_cable1.SLDPRT",
+   "vol": 0.44,
+   "caja": [
+    15.4,
+    11.6,
+    10.1
+   ],
+   "centro": [
+    424.5,
+    436.9,
+    331.9
+   ],
+   "triangulos": 8792
+  },
+  {
+   "nombre": "Tornillo ISO4762 M5x16",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Maneta freno dcha",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4762",
+   "designacion": "M5x16",
+   "id": "Tornillo_ISO4762_M5x16_1",
+   "stl": "modelo/Tornillo_ISO4762_M5x16_1.stl",
+   "sw": "solidworks/Tornillo_ISO4762_M5x16.SLDPRT",
+   "vol": 0.51,
+   "caja": [
+    21.7,
+    9.0,
+    8.9
+   ],
+   "centro": [
+    1274.3,
+    1027.9,
+    -10.1
+   ],
+   "triangulos": 10258
+  },
+  {
+   "nombre": "Tornillo ISO4762 M5x16",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Maneta freno izq",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4762",
+   "designacion": "M5x16",
+   "id": "Tornillo_ISO4762_M5x16_2",
+   "stl": "modelo/Tornillo_ISO4762_M5x16_2.stl",
+   "sw": "solidworks/Tornillo_ISO4762_M5x16.SLDPRT",
+   "vol": 0.51,
+   "caja": [
+    21.8,
+    9.0,
+    8.9
+   ],
+   "centro": [
+    1274.3,
+    1027.9,
+    468.1
+   ],
+   "triangulos": 10258
+  },
+  {
+   "nombre": "Tornillo ISO4762 M5x25",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Maneta freno dcha",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4762",
+   "designacion": "M5x25",
+   "id": "Tornillo_ISO4762_M5x25_1",
+   "stl": "modelo/Tornillo_ISO4762_M5x25_1.stl",
+   "sw": "solidworks/Tornillo_ISO4762_M5x25.SLDPRT",
+   "vol": 0.67,
+   "caja": [
+    9.7,
+    30.7,
+    9.7
+   ],
+   "centro": [
+    1309.5,
+    1038.9,
+    -26.1
+   ],
+   "triangulos": 12556
+  },
+  {
+   "nombre": "Tornillo ISO4762 M5x25",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Maneta freno izq",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4762",
+   "designacion": "M5x25",
+   "id": "Tornillo_ISO4762_M5x25_2",
+   "stl": "modelo/Tornillo_ISO4762_M5x25_2.stl",
+   "sw": "solidworks/Tornillo_ISO4762_M5x25.SLDPRT",
+   "vol": 0.67,
+   "caja": [
+    9.7,
+    30.6,
+    9.8
+   ],
+   "centro": [
+    1309.5,
+    1038.9,
+    484.1
+   ],
+   "triangulos": 12556
+  },
+  {
+   "nombre": "Tornillo ISO4762 M6x12",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4762",
+   "designacion": "M6x12",
+   "id": "Tornillo_ISO4762_M6x12_1",
+   "stl": "modelo/Tornillo_ISO4762_M6x12_1.stl",
+   "sw": "solidworks/Tornillo_ISO4762_M6x12.SLDPRT",
+   "vol": 0.69,
+   "caja": [
+    19.6,
+    14.8,
+    10.0
+   ],
+   "centro": [
+    1327.0,
+    767.8,
+    255.0
+   ],
+   "triangulos": 7720
+  },
+  {
+   "nombre": "Tornillo ISO4762 M6x12",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4762",
+   "designacion": "M6x12",
+   "id": "Tornillo_ISO4762_M6x12_2",
+   "stl": "modelo/Tornillo_ISO4762_M6x12_2.stl",
+   "sw": "solidworks/Tornillo_ISO4762_M6x12.SLDPRT",
+   "vol": 0.69,
+   "caja": [
+    19.6,
+    14.8,
+    10.0
+   ],
+   "centro": [
+    1327.0,
+    767.8,
+    203.0
+   ],
+   "triangulos": 7720
+  },
+  {
+   "nombre": "Tornillo ISO4762 M6x12",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4762",
+   "designacion": "M6x12",
+   "id": "Tornillo_ISO4762_M6x12_3",
+   "stl": "modelo/Tornillo_ISO4762_M6x12_3.stl",
+   "sw": "solidworks/Tornillo_ISO4762_M6x12.SLDPRT",
+   "vol": 0.69,
+   "caja": [
+    19.0,
+    17.2,
+    10.0
+   ],
+   "centro": [
+    644.0,
+    744.2,
+    203.0
+   ],
+   "triangulos": 7720
+  },
+  {
+   "nombre": "Tornillo ISO4762 M6x12",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4762",
+   "designacion": "M6x12",
+   "id": "Tornillo_ISO4762_M6x12_4",
+   "stl": "modelo/Tornillo_ISO4762_M6x12_4.stl",
+   "sw": "solidworks/Tornillo_ISO4762_M6x12.SLDPRT",
+   "vol": 0.69,
+   "caja": [
+    19.0,
+    17.2,
+    10.0
+   ],
+   "centro": [
+    644.0,
+    744.2,
+    255.0
+   ],
+   "triangulos": 7720
+  },
+  {
+   "nombre": "Tornillo ISO4762 M6x45",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4762",
+   "designacion": "M6x45",
+   "id": "Tornillo_ISO4762_M6x45_1",
+   "stl": "modelo/Tornillo_ISO4762_M6x45_1.stl",
+   "sw": "solidworks/Tornillo_ISO4762_M6x45.SLDPRT",
+   "vol": 1.55,
+   "caja": [
+    49.5,
+    28.6,
+    10.0
+   ],
+   "centro": [
+    1304.7,
+    764.7,
+    229.0
+   ],
+   "triangulos": 9684
+  },
+  {
+   "nombre": "Tornillo ISO4762 M6x45",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4762",
+   "designacion": "M6x45",
+   "id": "Tornillo_ISO4762_M6x45_2",
+   "stl": "modelo/Tornillo_ISO4762_M6x45_2.stl",
+   "sw": "solidworks/Tornillo_ISO4762_M6x45.SLDPRT",
+   "vol": 1.55,
+   "caja": [
+    45.5,
+    36.9,
+    10.0
+   ],
+   "centro": [
+    665.2,
+    736.6,
+    229.0
+   ],
+   "triangulos": 9684
+  },
+  {
+   "nombre": "Tuerca ISO4032 M5",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Maneta freno dcha",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4032",
+   "designacion": "M5",
+   "id": "Tuerca_ISO4032_M5_1",
+   "stl": "modelo/Tuerca_ISO4032_M5_1.stl",
+   "sw": "solidworks/Tuerca_ISO4032_M5.SLDPRT",
+   "vol": 0.18,
+   "caja": [
+    9.7,
+    5.9,
+    8.4
+   ],
+   "centro": [
+    1307.5,
+    1028.5,
+    -24.1
+   ],
+   "triangulos": 4716
+  },
+  {
+   "nombre": "Tuerca ISO4032 M5",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Maneta freno dcha",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4032",
+   "designacion": "M5",
+   "id": "Tuerca_ISO4032_M5_2",
+   "stl": "modelo/Tuerca_ISO4032_M5_2.stl",
+   "sw": "solidworks/Tuerca_ISO4032_M5.SLDPRT",
+   "vol": 0.18,
+   "caja": [
+    6.0,
+    8.5,
+    9.7
+   ],
+   "centro": [
+    1265.4,
+    1029.7,
+    -8.4
+   ],
+   "triangulos": 4716
+  },
+  {
+   "nombre": "Tuerca ISO4032 M5",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Maneta freno izq",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4032",
+   "designacion": "M5",
+   "id": "Tuerca_ISO4032_M5_3",
+   "stl": "modelo/Tuerca_ISO4032_M5_3.stl",
+   "sw": "solidworks/Tuerca_ISO4032_M5.SLDPRT",
+   "vol": 0.18,
+   "caja": [
+    9.7,
+    5.9,
+    8.4
+   ],
+   "centro": [
+    1307.5,
+    1028.5,
+    482.1
+   ],
+   "triangulos": 4716
+  },
+  {
+   "nombre": "Tuerca ISO4032 M5",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Maneta freno izq",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4032",
+   "designacion": "M5",
+   "id": "Tuerca_ISO4032_M5_4",
+   "stl": "modelo/Tuerca_ISO4032_M5_4.stl",
+   "sw": "solidworks/Tuerca_ISO4032_M5.SLDPRT",
+   "vol": 0.18,
+   "caja": [
+    6.0,
+    8.5,
+    9.7
+   ],
+   "centro": [
+    1265.4,
+    1029.7,
+    466.4
+   ],
+   "triangulos": 4716
+  },
+  {
+   "nombre": "Tuerca ISO4032 M6",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4032",
+   "designacion": "M6",
+   "id": "Tuerca_ISO4032_M6_1",
+   "stl": "modelo/Tuerca_ISO4032_M6_1.stl",
+   "sw": "solidworks/Tuerca_ISO4032_M6.SLDPRT",
+   "vol": 0.33,
+   "caja": [
+    8.9,
+    11.3,
+    11.5
+   ],
+   "centro": [
+    1285.5,
+    755.1,
+    229.0
+   ],
+   "triangulos": 4282
+  },
+  {
+   "nombre": "Tuerca ISO4032 M6",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4032",
+   "designacion": "M6",
+   "id": "Tuerca_ISO4032_M6_2",
+   "stl": "modelo/Tuerca_ISO4032_M6_2.stl",
+   "sw": "solidworks/Tuerca_ISO4032_M6.SLDPRT",
+   "vol": 0.33,
+   "caja": [
+    11.5,
+    10.0,
+    5.2
+   ],
+   "centro": [
+    1342.4,
+    728.6,
+    261.2
+   ],
+   "triangulos": 4282
+  },
+  {
+   "nombre": "Tuerca ISO4032 M6",
+   "conjunto": "Dirección y freno delantero",
+   "subconjunto": "Freno delantero",
+   "grupo": "direccion",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4032",
+   "designacion": "M6",
+   "id": "Tuerca_ISO4032_M6_3",
+   "stl": "modelo/Tuerca_ISO4032_M6_3.stl",
+   "sw": "solidworks/Tuerca_ISO4032_M6.SLDPRT",
+   "vol": 0.33,
+   "caja": [
+    11.5,
+    10.0,
+    5.2
+   ],
+   "centro": [
+    1342.4,
+    728.6,
+    196.8
+   ],
+   "triangulos": 4282
+  },
+  {
+   "nombre": "Tuerca ISO4032 M6",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4032",
+   "designacion": "M6",
+   "id": "Tuerca_ISO4032_M6_4",
+   "stl": "modelo/Tuerca_ISO4032_M6_4.stl",
+   "sw": "solidworks/Tuerca_ISO4032_M6.SLDPRT",
+   "vol": 0.33,
+   "caja": [
+    10.1,
+    11.1,
+    11.5
+   ],
+   "centro": [
+    682.4,
+    723.4,
+    229.0
+   ],
+   "triangulos": 4282
+  },
+  {
+   "nombre": "Tuerca ISO4032 M6",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4032",
+   "designacion": "M6",
+   "id": "Tuerca_ISO4032_M6_5",
+   "stl": "modelo/Tuerca_ISO4032_M6_5.stl",
+   "sw": "solidworks/Tuerca_ISO4032_M6.SLDPRT",
+   "vol": 0.33,
+   "caja": [
+    11.3,
+    11.0,
+    5.2
+   ],
+   "centro": [
+    621.2,
+    709.2,
+    196.8
+   ],
+   "triangulos": 4282
+  },
+  {
+   "nombre": "Tuerca ISO4032 M6",
+   "conjunto": "Cuadro y frenos traseros",
+   "subconjunto": "Freno trasero",
+   "grupo": "fijo",
+   "pdf": "",
+   "codigo": "",
+   "clasificacion": "normalizada",
+   "material": "",
+   "masa_g": null,
+   "norma": "ISO 4032",
+   "designacion": "M6",
+   "id": "Tuerca_ISO4032_M6_6",
+   "stl": "modelo/Tuerca_ISO4032_M6_6.stl",
+   "sw": "solidworks/Tuerca_ISO4032_M6.SLDPRT",
+   "vol": 0.33,
+   "caja": [
+    11.3,
+    11.0,
+    5.2
+   ],
+   "centro": [
+    621.2,
+    709.2,
+    261.2
+   ],
+   "triangulos": 4282
   }
  ],
  "descargas": [
@@ -2130,7 +3296,7 @@
   ],
   [
    "Bici_STL_piezas.zip",
-   "71 piezas en STL"
+   "113 piezas en STL"
   ],
   [
    "Bici_SolidWorks.zip",
