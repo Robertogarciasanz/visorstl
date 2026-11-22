@@ -2505,7 +2505,7 @@
    "conjunto": "Dirección y freno delantero",
    "subconjunto": "Maneta freno izq",
    "grupo": "direccion",
-   "pdf": "",
+   "pdf": "planos/Maneta_cuerpo_dcha.pdf",
    "codigo": "",
    "clasificacion": "propia",
    "material": "",
@@ -2561,7 +2561,7 @@
    "conjunto": "Dirección y freno delantero",
    "subconjunto": "Maneta freno izq",
    "grupo": "direccion",
-   "pdf": "",
+   "pdf": "planos/Maneta_palanca_dcha.pdf",
    "codigo": "",
    "clasificacion": "propia",
    "material": "",
@@ -2673,7 +2673,7 @@
    "conjunto": "Dirección y freno delantero",
    "subconjunto": "",
    "grupo": "direccion",
-   "pdf": "planos/Puno_izq.pdf",
+   "pdf": "planos/Puno_dcho.pdf",
    "codigo": "",
    "clasificacion": "propia",
    "material": "",
@@ -3304,7 +3304,7 @@
   ],
   [
    "Bici_PDF_planos.zip",
-   "46 planos A4 en PDF"
+   "45 planos A4 en PDF"
   ],
   [
    "Relaciones_posicion_bici.xlsx",
