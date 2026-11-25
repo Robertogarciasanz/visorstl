@@ -3,3 +3,6 @@ Allow: /
 Disallow: /api/
 
 Sitemap: https://cenital.org/sitemap.xml
+
+# Resumen para asistentes y agentes de IA: https://cenital.org/llms.txt
+# API de datos de las piezas (x402): https://api.cenital.org/openapi.json

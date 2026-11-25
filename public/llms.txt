@@ -1,0 +1,22 @@
+# Cenital — Bicicleta de carretera en 3D (113 piezas)
+
+> Modelo completo de una bicicleta de carretera hecho en SolidWorks 2020 por Roberto Garcia Sanz: 113 piezas, cada una con su STL para imprimir en 3D, su plano acotado en PDF y su pieza de SolidWorks (.SLDPRT). Descarga gratuita con licencia libre: se pueden usar, imprimir y modificar manteniendo el nombre del autor y su web.
+
+## Para personas
+
+- [Bicicleta en 3D](https://cenital.org/bici/): visor con despiece, medidas y descargas de cada pieza.
+- [Visor STL](https://cenital.org/visor/): abre y mide cualquier archivo STL.
+- Descargas completas: [STL de la bici completa](https://cenital.org/descargas/bici/Bici_STL_completa.zip), [STL por piezas](https://cenital.org/descargas/bici/Bici_STL_piezas.zip), [planos PDF](https://cenital.org/descargas/bici/Bici_PDF_planos.zip), [SolidWorks](https://cenital.org/descargas/bici/Bici_SolidWorks.zip).
+
+## Para agentes de IA
+
+- [Datos de todas las piezas (JSON)](https://cenital.org/bici/datos.json): id, nombre, conjunto, medidas en mm, volumen en cm³, material y rutas a STL, PDF y SolidWorks. Gratis.
+- API con pago por uso x402 (USDC en la red Base), sin registro: https://api.cenital.org
+  - `GET https://api.cenital.org/api/piezas?q=texto`: catálogo de piezas (gratis).
+  - `GET https://api.cenital.org/api/pieza?id=ID`: ficha técnica con medidas, volumen, superficie, peso en acero, aluminio, titanio, fibra de carbono y PLA, si cabe en una impresora de 256 mm y enlaces a STL, PDF y SolidWorks (0,01 USD).
+  - `GET https://api.cenital.org/api/imprimir?id=ID&material=PLA&relleno=20`: cálculo de impresión 3D (gramos y metros de filamento, horas y coste aproximados; PLA, PETG, ABS o TPU) (0,05 USD).
+- Documentación de la API: [OpenAPI](https://api.cenital.org/openapi.json) · [llms.txt de la API](https://api.cenital.org/llms.txt)
+
+## Licencia
+
+Libre: uso, impresión y modificación permitidos manteniendo el nombre del autor (Roberto Garcia Sanz) y la web (cenital.org).
