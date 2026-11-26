@@ -332,7 +332,7 @@ async function bajaCesta(b) {
     if (quiere.pdf && p.pdf) await trae(p.pdf, 'Planos/' + p.pdf.split('/').pop());
     if (quiere.sw && p.sw) await trae(p.sw, 'SolidWorks/' + p.sw.split('/').pop());
   }
-  const txt = `Piezas de la bicicleta - ${cesta.size} seleccionadas\r\nAutor: ${datos.autor} - ${datos.web}\r\nLicencia libre: puedes usar, imprimir y modificar estas piezas manteniendo el nombre del autor y su web.\r\n`;
+  const txt = `Piezas de la bicicleta - ${cesta.size} seleccionadas\r\nAutor: ${datos.autor} - ${datos.web}\r\nTodos los derechos reservados: no se permite copiar, redistribuir, modificar ni vender estos archivos sin permiso por escrito del autor.\r\n`;
   files.push({ nombre: 'LEEME.txt', datos: new TextEncoder().encode(txt) });
   guarda(zip(files), 'piezas_bici.zip');
   b.disabled = false; b.textContent = 'Descargar ZIP';
@@ -634,7 +634,7 @@ $('#indice').querySelectorAll('h3').forEach((h3) => {          // cada grupo de 
 
 // ---------- pie ----------
 $('#pie').innerHTML = `<span class="pd"><b>Descargas:</b> <a href="#" id="csv">Lista de piezas (CSV)</a> · ` + datos.descargas.map(([f, t]) => `<a href="../descargas/bici/${f}" title="${t}">${f}</a>`).join(' · ') + '</span>' +
-  `<span style="flex:1"></span><span>© 2026 ${datos.autor} · <a href="mailto:Excavacionesart@gmail.com">Excavacionesart@gmail.com</a> · <a href="https://${datos.web}">${datos.web}</a> · Licencia libre: úsalo y modifícalo manteniendo el autor</span>`;
+  `<span style="flex:1"></span><span>© 2026 ${datos.autor} · <a href="mailto:Excavacionesart@gmail.com">Excavacionesart@gmail.com</a> · <a href="https://${datos.web}">${datos.web}</a> · Todos los derechos reservados</span>`;
 
 // ---------- lista de piezas (CSV) ----------
 $('#csv2').onclick = $('#csv').onclick = (e) => {

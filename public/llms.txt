@@ -1,6 +1,6 @@
 # Cenital — Bicicleta de carretera en 3D (113 piezas)
 
-> Modelo completo de una bicicleta de carretera hecho en SolidWorks 2020 por Roberto Garcia Sanz: 113 piezas, cada una con su STL para imprimir en 3D, su plano acotado en PDF y su pieza de SolidWorks (.SLDPRT). Descarga gratuita con licencia libre: se pueden usar, imprimir y modificar manteniendo el nombre del autor y su web.
+> Modelo completo de una bicicleta de carretera hecho en SolidWorks 2020 por Roberto Garcia Sanz: 113 piezas, cada una con su STL para imprimir en 3D, su plano acotado en PDF y su pieza de SolidWorks (.SLDPRT). Descarga gratuita. Todos los derechos reservados: no se permite copiar, redistribuir, modificar ni vender estos archivos sin permiso por escrito del autor.
 
 ## Para personas
 
@@ -19,4 +19,4 @@
 
 ## Licencia
 
-Libre: uso, impresión y modificación permitidos manteniendo el nombre del autor (Roberto Garcia Sanz) y la web (cenital.org).
+© Roberto Garcia Sanz (cenital.org). Todos los derechos reservados: no se permite copiar, redistribuir, modificar ni vender estos archivos sin permiso por escrito del autor.
